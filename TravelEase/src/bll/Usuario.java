@@ -9,19 +9,22 @@ public class Usuario {
     protected int id;
     protected String nombre;
     protected String dni;
+    protected String email;
     protected String password;
     protected String rol;
-    public Usuario(int id, String nombre, String dni, String password, String rol) {
+    public Usuario(int id, String nombre, String dni, String email, String password, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.dni = dni;
+        this.email = email;
         this.password = password;
         this.rol = rol;
     }
-    public Usuario(String nombre, String dni, String password, String rol) {
+    public Usuario(String nombre, String dni, String email, String password, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.dni = dni;
+        this.email = email;
         this.password = password;
         this.rol = rol;
     }
@@ -46,6 +49,12 @@ public class Usuario {
     public void setDni(String dni) {
         this.dni = dni;
     }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail (String email) {
+        this.email = email;
+    }
     public String getPassword() {
         return password;
     }
@@ -60,19 +69,19 @@ public class Usuario {
     }
     @Override
     public String toString() {
-        return "Usuario [id=" + id + ", nombre=" + nombre + ", dni=" + dni + ", password=" + password + ", rol="
+        return "Usuario [id=" + id + ", nombre=" + nombre + ", dni=" + dni + ", email=" + email + ", password=" + password + ", rol="
                 + rol + "]";
     }
     public static Usuario Login() {
-       String mail;
-		mail = Validaciones.ValidarMail();
+       String email;
+		email = Validaciones.ValidarMail();
 		String password;
 		password = JOptionPane.showInputDialog("Ingrese password");
-		if(mail.isEmpty() || password.isEmpty()) { 
+		if(email.isEmpty() || password.isEmpty()) { 
 			JOptionPane.showMessageDialog(null, "Datos incorrectos");
 			return null;
 		}else {
-			return ControllerUsuario.login(mail, password);
+			return ControllerUsuario.login(email, password);
 		}
 		
     }

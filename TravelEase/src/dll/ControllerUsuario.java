@@ -23,7 +23,7 @@ public class ControllerUsuario {
 				String dni = rs.getString("dni");
 				String rol = rs.getString("rol");
 
-				usuario = new Usuario(id, nombre, dni, password, rol );
+				usuario = new Usuario(id, nombre, dni, mail, password, rol );
 			}
 
 		} catch (Exception e) {
