@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 03-10-2025 a las 02:25:03
+-- Tiempo de generación: 03-10-2025 a las 03:21:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `dni`, `email`, `rol`, `password`) VALUES
-(1, 'Admin', 12345678, 'admin@travelease.com', 'Admin', 'admin');
+(1, 'Admin', 12345678, 'admin@travelease.com', 'Admin', '$2a$12$HXbUOuaog3eis/K4bbJuoeMf3lhoPdXw8hQauLf/wpub5LkSN9EK2');
 
 --
 -- Índices para tablas volcadas
