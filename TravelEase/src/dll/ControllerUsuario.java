@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.swing.JOptionPane;
+
 import bll.Usuario;
 import repository.Validaciones;
 import org.mindrot.jbcrypt.BCrypt;
@@ -40,6 +42,7 @@ public class ControllerUsuario {
 
     // Método para registrar un usuario con un password seguro
     public static boolean registrarUsuario(String nombre, String email, String password) {
+        
         try {
             // Valida email y password antes de insertar
             if (!Validaciones.validarEmail(email) || !Validaciones.validarPassword(password)) {

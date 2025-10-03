@@ -26,6 +26,12 @@ public class Usuario {
         this.password = password; 
         this.rol = rol;
     }
+    // Constructor sin password para hashear 
+    public Usuario(int id, String nombre, String email) {
+    this.id = id;
+    this.nombre = nombre;
+    this.email = email;
+}
 
     // Constructor vacío
     public Usuario() {
