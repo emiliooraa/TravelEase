@@ -3,9 +3,7 @@ package dll;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.JOptionPane;
-
 import bll.Usuario;
 import repository.Validaciones;
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,6 +14,7 @@ public class ControllerUsuario {
     // Método de login usando BCrypt
     public static Usuario login(String mail, String password) {
         Usuario usuario = null;
+        
         try {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE email = ?");
             stmt.setString(1, mail);
@@ -41,24 +40,20 @@ public class ControllerUsuario {
     }
 
     // Método para registrar un usuario con un password seguro
-    public static boolean registrarUsuario(String nombre, String email, String password) {
+    public static boolean registrarUsuario(String nombre, String dni, String email, String password) {
         
         try {
-            // Valida email y password antes de insertar
-            if (!Validaciones.validarEmail(email) || !Validaciones.validarPassword(password)) {
-                return false;
-            }
-
+            
             // Genera el hash seguro del password
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-			boolean check = BCrypt.checkpw(password, hashedPassword);
 
             PreparedStatement stmt = con.prepareStatement(
-                "INSERT INTO usuario (nombre, email, password) VALUES (?, ?, ?)"
+                "INSERT INTO usuario (nombre, dni, email, password) VALUES (?, ?, ?,?)"
             );
             stmt.setString(1, nombre);
-            stmt.setString(2, email);
-            stmt.setString(3, hashedPassword);
+            stmt.setString(2, dni);
+            stmt.setString(3, email);
+            stmt.setString(4, hashedPassword);
 
             int rows = stmt.executeUpdate();
             stmt.close();
@@ -69,4 +64,26 @@ public class ControllerUsuario {
             return false;
         }
     }
+    //Metodo para editar Usuario, unicamente en Admin
+    public static void editarUsuario (Usuario usuario) {
+    System.out.println(usuario);
+		try {
+			PreparedStatement statement = con
+					.prepareStatement("UPDATE `usuario` SET nombre=?,dni=?,email=?,password=?. rol=? WHERE id=?");
+			statement.setString(1, usuario.getNombre());
+			statement.setString(2, usuario.getDni());
+			statement.setString(3, usuario.getEmail());
+			statement.setString(4, usuario.getPassword());
+			statement.setString(5, usuario.getRol());
+			statement.setInt(6, usuario.getId());
+
+			int filas = statement.executeUpdate();
+			if (filas > 0) {
+				System.out.println("Usuario editado correctamente.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    
 }
