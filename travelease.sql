@@ -41,7 +41,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `dni`, `email`, `rol`, `password`) VALUES
-(1, 'Admin', 12345678, 'admin@travelease.com', 'Admin', '$2a$12$HXbUOuaog3eis/K4bbJuoeMf3lhoPdXw8hQauLf/wpub5LkSN9EK2'); -- La contraseña es "admin"
+(1, 'Admin', 12345678, 'admin@travelease.com', 'Admin', '$2a$12$HXbUOuaog3eis/K4bbJuoeMf3lhoPdXw8hQauLf/wpub5LkSN9EK2'); -- La contraseña es "Admin1234@"
 
 
 --
