@@ -65,25 +65,55 @@ public class ControllerUsuario {
         }
     }
     //Metodo para editar Usuario, unicamente en Admin
-    public static void editarUsuario (Usuario usuario) {
+    public static void editarUsuario(Usuario usuario) {
     System.out.println(usuario);
-		try {
-			PreparedStatement statement = con
-					.prepareStatement("UPDATE `usuario` SET nombre=?,dni=?,email=?,password=?. rol=? WHERE id=?");
-			statement.setString(1, usuario.getNombre());
-			statement.setString(2, usuario.getDni());
-			statement.setString(3, usuario.getEmail());
-			statement.setString(4, usuario.getPassword());
-			statement.setString(5, usuario.getRol());
-			statement.setInt(6, usuario.getId());
+    try {
+        // Primero obtenemos el password actual del usuario
+        PreparedStatement stmtSelect = con.prepareStatement(
+            "SELECT password FROM usuario WHERE id = ?"
+        );
+        stmtSelect.setInt(1, usuario.getId());
+        ResultSet rs = stmtSelect.executeQuery();
 
-			int filas = statement.executeUpdate();
-			if (filas > 0) {
-				System.out.println("Usuario editado correctamente.");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        String currentHashedPassword = null;
+        if (rs.next()) {
+            currentHashedPassword = rs.getString("password");
+        }
+
+        rs.close();
+        stmtSelect.close();
+
+        // Si la contraseña ingresada es diferente al hash actual, la encriptamos
+        String finalPassword = usuario.getPassword();
+        if (currentHashedPassword != null && !usuario.getPassword().equals(currentHashedPassword)) {
+            // Si el usuario cambió la contraseña, generamos un nuevo hash
+            finalPassword = BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt());
+        }
+
+        // Ahora actualizamos los datos
+        PreparedStatement statement = con.prepareStatement(
+            "UPDATE usuario SET nombre=?, dni=?, email=?, password=?, rol=? WHERE id=?"
+        );
+        statement.setString(1, usuario.getNombre());
+        statement.setString(2, usuario.getDni());
+        statement.setString(3, usuario.getEmail());
+        statement.setString(4, finalPassword);
+        statement.setString(5, usuario.getRol());
+        statement.setInt(6, usuario.getId());
+
+        int filas = statement.executeUpdate();
+        statement.close();
+
+        if (filas > 0) {
+            System.out.println("✅ Usuario editado correctamente.");
+        } else {
+            System.out.println("⚠️ No se pudo editar el usuario.");
+        }
+    } catch (Exception e) {
+        System.err.println("❌ Error al editar usuario: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
     
 }
