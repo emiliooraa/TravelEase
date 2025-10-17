@@ -143,4 +143,23 @@ public class ControllerUsuario {
 
         return encontrado;
     	}
+    public static boolean eliminarUsuario(int id) {
+        String sql = "DELETE FROM usuario WHERE id = ?";
+        int filasAfectadas = 0;
+
+        try (
+            PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, id);
+            
+            filasAfectadas = stmt.executeUpdate();
+            
+        } catch (Exception e) {
+            System.err.println("Error al eliminar usuario en la base de datos: " + e.getMessage());
+            return false; 
+        }
+        
+        return filasAfectadas == 1;
+    }
+   
     }

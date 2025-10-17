@@ -60,7 +60,8 @@ public class AdminMenu {
             opciones,
             opciones[0]
         );
-
+        do {
+			
         switch (opcion) {
             case 0:
                 agregarUsuario();
@@ -74,6 +75,7 @@ public class AdminMenu {
             case 3:
             	break;
         }
+        } while (opcion != 3);
     }
 
     private static void editarUsuario() {
