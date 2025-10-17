@@ -9,10 +9,10 @@ public class AdminMenu {
         int opcion;
         do {
             String[] opciones = {
-                "1️⃣ Gestionar Usuarios",
-                "2️⃣ Ver Reportes del Sistema",
-                "3️⃣ Configuración General",
-                "4️⃣ Cerrar Sesión"
+                "Gestionar Usuarios",
+                "Ver Reportes del Sistema",
+                "Configuración General",
+                "Cerrar Sesión"
             };
 
             opcion = JOptionPane.showOptionDialog(
@@ -49,7 +49,7 @@ public class AdminMenu {
     }
 
     private static void gestionarUsuarios() {
-        String[] opciones = {"Agregar Usuario", "Eliminar Usuario", "Volver"};
+        String[] opciones = {"Agregar Usuario", "Eliminar Usuario","Editar Usuario", "Volver"};
         int opcion = JOptionPane.showOptionDialog(
             null,
             "Seleccione una acción de gestión de usuarios:",
@@ -63,18 +63,33 @@ public class AdminMenu {
 
         switch (opcion) {
             case 0:
-                JOptionPane.showMessageDialog(null, "Función: Agregar Usuario 🧑‍💻");
-                // Acá hay que conectar con ControllerUsuario.agregarUsuario
+                agregarUsuario();
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "Función: Eliminar Usuario 🗑️");
+                eliminarUsuario();
                 break;
             case 2:
+            	editarUsuario();
                 break;
+            case 3:
+            	break;
         }
     }
 
-    private static void verReportes() {
+    private static void editarUsuario() {
+		Usuario.editarUsuario();
+		
+	}
+
+	private static void eliminarUsuario() {
+    	Usuario.eliminarUsuario();
+	}
+
+	private static void agregarUsuario() {
+		Usuario.registrarUsuario();
+	}
+
+	private static void verReportes() {
         JOptionPane.showMessageDialog(null, "📊 Mostrando reportes generales del sistema...");
     }
 

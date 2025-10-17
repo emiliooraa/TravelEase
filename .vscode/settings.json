@@ -1,7 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\emila\\OneDrive\\Documentos\\mysql-connector-java-5.1.13.jar\\mysql-connector-java-5.1.13.jar",
-        "TravelEase/lib/jbcrypt-0.4.jar"
-    ]
-}

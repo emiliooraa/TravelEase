@@ -28,7 +28,7 @@ public class Main {
 
             switch (opcion) {
                 case 0: // LOGIN
-                    Usuario encontrado = Usuario.Login();
+                    Usuario encontrado = Usuario.login();
 
                     if (encontrado != null) {
                         JOptionPane.showMessageDialog(null,
