@@ -110,17 +110,20 @@ public class Usuario {
         return ControllerUsuario.login(email, password);
         
     }
-      public static Usuario registrarUsuario() {
+    public static Usuario registrarUsuario() {
         String nombre = Validaciones.validarString("Ingrese su nombre:");
+        if (nombre == null) return null;
         String email = Validaciones.validarEmail("Ingrese su email:");
-        String dni = Validaciones.validarDni("Ingrese su dni");
+        if (email == null) return null;
+        String dni = Validaciones.validarDni("Ingrese su DNI:");
+        if (dni == null) return null;
         String password = Validaciones.validarPassword("Ingrese su contraseña:");
-
+        if (password == null) return null;
+        
         boolean registrado = ControllerUsuario.registrarUsuario(nombre, dni, email, password);
-
         if (registrado) {
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente.");
-            return new Usuario( nombre, dni,email, password);
+            return new Usuario(nombre, dni, email, password);
         } else {
             JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
             return null;
@@ -145,7 +148,7 @@ public class Usuario {
 
     	        int confirmacion = JOptionPane.showConfirmDialog(
     	            null, 
-    	            "¿Está seguro de que desea eliminar el usuario con ID: " + id + "? Esta acción es irreversible.", 
+    	            "¿Está seguro de que desea eliminar el usuario con ID: " + id + "(" +")"+ "? Esta acción es irreversible.", 
     	            "Confirmar Eliminación", 
     	            JOptionPane.YES_NO_OPTION, 
     	            JOptionPane.WARNING_MESSAGE

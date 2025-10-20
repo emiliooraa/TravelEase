@@ -44,7 +44,11 @@ public class ControllerUsuario {
     public static boolean registrarUsuario(String nombre, String dni, String email, String password) {
         
         try {
-            
+        	if (existeEmail(email)) {
+                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese email.", 
+                                              "Error de Registro", JOptionPane.ERROR_MESSAGE);
+                return false;
+                }
             // Genera el hash seguro del password
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
@@ -162,4 +166,19 @@ public class ControllerUsuario {
         return filasAfectadas == 1;
     }
    
+    public static boolean existeEmail(String email) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM usuario WHERE email = ?");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // si hay algún resultado → ya existe
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     }
