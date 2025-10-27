@@ -45,13 +45,11 @@ public class ControllerUsuario {
         
         try {
         	if (existeEmail(email)) {
-                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese email.", 
-                                              "Error de Registro", 0);
+        		System.err.println("Ya existe una cuenta registrada con ese email.");
                 return false;
                 }
         	if (existeDni(dni)) {
-                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese dni.", 
-                                              "Error de Registro", 0);
+        		System.err.println("Ya existe una cuenta registrada con ese dni.");                           
                 return false;
                 }
             // Genera el hash seguro del password

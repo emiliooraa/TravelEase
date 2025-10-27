@@ -59,7 +59,7 @@ public class VentanaLogin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Email");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(67, 83, 130, 28);
+		lblNewLabel.setBounds(67, 90, 130, 28);
 		contentPane.add(lblNewLabel);
 		
 		inpEmail = new JTextField();
@@ -67,13 +67,13 @@ public class VentanaLogin extends JFrame {
 		contentPane.add(inpEmail);
 		inpEmail.setColumns(10);
 		
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel("Contraseña");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPassword.setBounds(67, 143, 130, 28);
+		lblPassword.setBounds(67, 154, 130, 28);
 		contentPane.add(lblPassword);
 		
 		inpPassword = new JPasswordField();
-		inpPassword.setBounds(67, 175, 221, 28);
+		inpPassword.setBounds(67, 179, 221, 28);
 		contentPane.add(inpPassword);
 		
 		btnLogin = new JButton("Login");
