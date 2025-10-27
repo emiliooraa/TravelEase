@@ -100,9 +100,8 @@ public class Usuario {
                 ", email=" + email + ", rol=" + rol + "]";
     }
 
-    public static Usuario login(){
-        String email;
-        String password;
+    public static Usuario login(String email, String password){
+        
 
         email = Validaciones.validarEmail("Ingrese su email:");
         password = Validaciones.validarPassword("Ingrese su contraseña:");
@@ -229,4 +228,6 @@ public class Usuario {
     	     JOptionPane.showMessageDialog(null, "La solicitud de edición se ha enviado a la base de datos.", 
     	                                   "Edición Completada", JOptionPane.INFORMATION_MESSAGE);
     	 }
+
+		
 }

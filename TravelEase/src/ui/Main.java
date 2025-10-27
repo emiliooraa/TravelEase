@@ -14,7 +14,8 @@ public class Main {
 
         String[] opciones = { "Login", "Registrar", "Salir" };
         int opcion;
-
+        String email = null;
+    	String password = null;
         do {
             opcion = JOptionPane.showOptionDialog(
                     null,
@@ -28,7 +29,9 @@ public class Main {
 
             switch (opcion) {
                 case 0: // LOGIN
-                    Usuario encontrado = Usuario.login();
+                	
+        
+                    Usuario encontrado = Usuario.login(email, password);
 
                     if (encontrado != null) {
                         JOptionPane.showMessageDialog(null,

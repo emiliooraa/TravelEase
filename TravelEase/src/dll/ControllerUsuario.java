@@ -46,7 +46,12 @@ public class ControllerUsuario {
         try {
         	if (existeEmail(email)) {
                 JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese email.", 
-                                              "Error de Registro", JOptionPane.ERROR_MESSAGE);
+                                              "Error de Registro", 0);
+                return false;
+                }
+        	if (existeDni(dni)) {
+                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese dni.", 
+                                              "Error de Registro", 0);
                 return false;
                 }
             // Genera el hash seguro del password
@@ -180,5 +185,18 @@ public class ControllerUsuario {
         }
         return false;
     }
+    public static boolean existeDni(String dni) {
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM usuario WHERE dni = ?");
+            stmt.setString(1, dni);
+            ResultSet rs = stmt.executeQuery();
 
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // si hay algún resultado → ya existe
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     }
