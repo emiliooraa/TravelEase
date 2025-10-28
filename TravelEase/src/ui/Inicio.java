@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import bll.Usuario;
+
 import javax.swing.JTabbedPane;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -14,6 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Inicio extends JFrame {
 
@@ -60,48 +65,67 @@ public class Inicio extends JFrame {
 		tabbedPane.addTab("Login", null, Login, null);
 		Login.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Iniciar Sesion");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblNewLabel_2.setBounds(116, 23, 221, 43);
-		Login.add(lblNewLabel_2);
+		JLabel lblIniciarSesion = new JLabel("Iniciar Sesion");
+		lblIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblIniciarSesion.setBounds(132, 23, 221, 43);
+		Login.add(lblIniciarSesion);
 		
-		JLabel lblNewLabel = new JLabel("Email");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(116, 84, 130, 28);
-		Login.add(lblNewLabel);
+		JLabel lblEmailLogin = new JLabel("Email");
+		lblEmailLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEmailLogin.setBounds(132, 77, 130, 28);
+		Login.add(lblEmailLogin);
 		
 		inpEmailLogin = new JTextField();
 		inpEmailLogin.setColumns(10);
-		inpEmailLogin.setBounds(116, 109, 221, 28);
+		inpEmailLogin.setBounds(132, 109, 221, 28);
 		Login.add(inpEmailLogin);
 		
 		JLabel lblPassword = new JLabel("Contraseña");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPassword.setBounds(116, 148, 130, 28);
+		lblPassword.setBounds(132, 148, 130, 28);
 		Login.add(lblPassword);
 		
 		inpContraseniaLogin = new JPasswordField();
-		inpContraseniaLogin.setBounds(116, 173, 221, 28);
+		inpContraseniaLogin.setBounds(132, 173, 221, 28);
 		Login.add(inpContraseniaLogin);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnLogin.setBounds(116, 212, 221, 37);
-		Login.add(btnLogin);
+		JLabel lblNuevaCuenta = new JLabel( "¿No estás registrado? ¡Podés registrarte acá abajo!");
+		lblNuevaCuenta.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNuevaCuenta.setBounds(96, 319, 293, 14);
+		Login.add(lblNuevaCuenta);
 		
-		JLabel lblNewUsuario = new JLabel( "¿No estás registrado? ¡Podés registrarte acá abajo!");
-		lblNewUsuario.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewUsuario.setBounds(116, 283, 254, 14);
-		Login.add(lblNewUsuario);
+		JLabel lblError1 = new JLabel("");
+		lblError1.setBounds(132, 265, 221, 28);
+		Login.add(lblError1);
 		
-		// -------------------------
-		//	Ventana REGISTRAR
-		// -------------------------
 		JButton btnVentanaRegistrar = new JButton("Registrar");
 		btnVentanaRegistrar.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnVentanaRegistrar.setBounds(116, 308, 221, 37);
+		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String errores ="";
+				
+				Usuario logueado = Usuario.login(inpEmailLogin.getText(), inpContraseniaLogin.getText());
+				if (logueado == null) {
+					lblError1.setText("No se encontró el usuario");}
+					else { 
+						 	HomeUsuario.run(logueado);
+							
+							dispose();
+						}
+					}	
+			}
+		);
+		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnLogin.setBounds(132, 212, 221, 37);
+		Login.add(btnLogin);
+		
+	
 		
 		JPanel Registrar = new JPanel();
 		tabbedPane.addTab("Registrar", null, Registrar, null);
@@ -154,7 +178,7 @@ public class Inicio extends JFrame {
 		lblError.setForeground(Color.RED);
 		Registrar.add(lblError);
 		
-		JLabel lblRegistrado = new JLabel("Ya estas registrado?");
+		JLabel lblRegistrado = new JLabel("¿Ya estás registrado?");
 		lblRegistrado.setBounds(74, 366, 341, 20);
 		lblRegistrado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistrado.setForeground(new Color(0, 128, 0));
