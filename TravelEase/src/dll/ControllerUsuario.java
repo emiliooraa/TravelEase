@@ -13,24 +13,23 @@ public class ControllerUsuario {
 
     public static Usuario login(String mail, String password) {
         Usuario usuario = null;
-        try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE email = ?");
+        try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario WHERE email = ?")) {
             stmt.setString(1, mail);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                int id = rs.getInt("id");
-                String nombre = rs.getString("nombre");
-                String email = rs.getString("email");
-                String rol = rs.getString("rol");
-                String hashedPassword = rs.getString("password");
-
-                if (BCrypt.checkpw(password, hashedPassword)) {
-                    usuario = new Usuario(id, nombre, email, rol);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String hashed = rs.getString("password");
+                    if (BCrypt.checkpw(password, hashed)) {
+                        usuario = new Usuario(
+                            rs.getInt("id"),
+                            rs.getString("nombre"),
+                            rs.getString("dni"),
+                            rs.getString("email"),
+                            null,
+                            rs.getString("rol")
+                        );
+                    }
                 }
             }
-            rs.close();
-            stmt.close();
         } catch (Exception e) {
             System.err.println("Error en login: " + e.getMessage());
         }
