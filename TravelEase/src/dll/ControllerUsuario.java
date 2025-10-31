@@ -3,9 +3,6 @@ package dll;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.swing.JOptionPane;
 import bll.Usuario;
 import repository.Validaciones;
@@ -188,30 +185,4 @@ public class ControllerUsuario {
         }
         return false;
     }
-
-	public static LinkedList<Usuario> listarUsuarios() {
-			LinkedList<Usuario> lista = new LinkedList<>();
-		    try {
-		        PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario");
-		        ResultSet rs = stmt.executeQuery();
-		        
-		        while (rs.next()) {
-		            Usuario u = new Usuario(
-		                rs.getInt("id"),
-		                rs.getString("nombre"),
-		                rs.getString("dni"),
-		                rs.getString("email"),
-		                null,
-		                rs.getString("rol")
-		            );
-		            lista.add(u);
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		    return lista;
-		}
-
-		
-	}
-
+}

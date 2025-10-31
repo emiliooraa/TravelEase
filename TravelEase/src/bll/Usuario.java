@@ -1,7 +1,5 @@
 package bll;
 
-import java.util.LinkedList;
-
 import javax.swing.JOptionPane;
 
 import dll.ControllerUsuario;
@@ -45,7 +43,7 @@ public class Usuario {
     	this.dni = dni;
     	this.email= email;
     	this.password = password;
-    	this.rol = "cliente"; //Valor default 
+    	this.rol = "Usuario"; //Valor default 
     }
     //Contructor para el login
     public Usuario(int id, String nombre, String email, String rol) {
@@ -231,32 +229,5 @@ public class Usuario {
     	                                   "Edición Completada", JOptionPane.INFORMATION_MESSAGE);
     	 }
 
-    	 public static void verListaUsuarios() {
-
-    		    LinkedList<Usuario> usuarios = ControllerUsuario.listarUsuarios();
-
-    		    if (usuarios == null || usuarios.isEmpty()) {
-    		        JOptionPane.showMessageDialog(null, "No hay usuarios registrados.",
-    		                                      "Lista de Usuarios", JOptionPane.INFORMATION_MESSAGE);
-    		        return;
-    		    }
-
-    		    String lista = " Lista de Usuarios\n";
-
-    		    for (Usuario u : usuarios) {
-    		        lista += "ID: " + u.getId()
-    		              + " | Nombre: " + u.getNombre()
-    		              + " | DNI: " + u.getDni()
-    		              + " | Email: " + u.getEmail()
-    		              + " | Rol: " + u.getRol()
-    		              + "\n";
-    		    }
-
-    		    JOptionPane.showMessageDialog(null, lista, "Usuarios Registrados", JOptionPane.INFORMATION_MESSAGE);
-    		}
-
-    	 
-    	 
-
-}	
-
+		
+}

@@ -49,7 +49,7 @@ public class AdminMenu {
     }
 
     private static void gestionarUsuarios() {
-        String[] opciones = {"Agregar Usuario", "Eliminar Usuario","Editar Usuario","Lista de Usuarios","Volver"};
+        String[] opciones = {"Agregar Usuario", "Eliminar Usuario","Editar Usuario", "Volver"};
         int opcion = JOptionPane.showOptionDialog(
             null,
             "Seleccione una acción de gestión de usuarios:",
@@ -73,18 +73,12 @@ public class AdminMenu {
             	editarUsuario();
                 break;
             case 3:
-            	verListaUsuarios();
             	break;
         }
       
     }
 
-    private static void verListaUsuarios() {
-		Usuario.verListaUsuarios();
-		
-	}
-
-	private static void editarUsuario() {
+    private static void editarUsuario() {
 		Usuario.editarUsuario();
 		
 	}
