@@ -13,6 +13,7 @@ public class AdminMenu {
                 "Ver Reportes del Sistema",
                 "Configuración General",
                 "Cerrar Sesión"
+                
             };
 
             opcion = JOptionPane.showOptionDialog(
@@ -38,8 +39,9 @@ public class AdminMenu {
                     configuracionGeneral();
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Sesión cerrada correctamente. 👋");
-                    break;
+                	JOptionPane.showMessageDialog(null, "Sesión cerrada correctamente. 👋");
+                	break;
+
                 default:
                     JOptionPane.showMessageDialog(null, "Opción no válida.");
                     break;
@@ -48,8 +50,8 @@ public class AdminMenu {
         } while (opcion != 3 && opcion != JOptionPane.CLOSED_OPTION);
     }
 
-    private static void gestionarUsuarios() {
-        String[] opciones = {"Agregar Usuario", "Eliminar Usuario","Editar Usuario", "Volver"};
+	private static void gestionarUsuarios() {
+        String[] opciones = {"Agregar Usuario", "Eliminar Usuario","Editar Usuario", "Ver lista de usuarios","Volver"};
         int opcion = JOptionPane.showOptionDialog(
             null,
             "Seleccione una acción de gestión de usuarios:",
@@ -73,6 +75,9 @@ public class AdminMenu {
             	editarUsuario();
                 break;
             case 3:
+            	verListaUsuarios();
+            	break;
+            case 4:
             	break;
         }
       
@@ -98,4 +103,8 @@ public class AdminMenu {
     private static void configuracionGeneral() {
         JOptionPane.showMessageDialog(null, "⚙️ Accediendo a configuración del sistema...");
     }
+    private static void verListaUsuarios() {
+		Usuario.verListaUsuarios();
+		
+	}
 }
