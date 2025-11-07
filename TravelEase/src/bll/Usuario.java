@@ -14,6 +14,7 @@ public class Usuario {
     protected String email;
     protected String password; // Acá debería guardar el HASH, no texto plano
     protected String rol;
+    protected byte[] fotoPerfil;
 
     // Constructor con id
     public Usuario(int id, String nombre, String dni, String email, String password, String rol) {
@@ -24,8 +25,19 @@ public class Usuario {
         this.password = password; 
         this.rol = rol;
     }
+    
+    public Usuario(int id, String nombre, String dni, String email, String password, String rol, byte[] fotoPerfil) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.email = email;
+		this.password = password;
+		this.rol = rol;
+		this.fotoPerfil = fotoPerfil;
+	}
 
-    // Constructor sin id 
+	// Constructor sin id 
     public Usuario(String nombre, String dni, String email, String password, String rol) {
         this.nombre = nombre;
         this.dni = dni;
@@ -45,7 +57,7 @@ public class Usuario {
     	this.dni = dni;
     	this.email= email;
     	this.password = password;
-    	this.rol = "Usuario"; //Valor default 
+    	this.rol = "USUARIO"; //Valor default 
     }
     //Contructor para el login
     public Usuario(int id, String nombre, String email, String rol) {
@@ -95,8 +107,16 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
+    
+    public byte[] getFotoPerfil() {
+		return fotoPerfil;
+	}
 
-    @Override
+	public void setFotoPerfil(byte[] fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
+	}
+
+	@Override
     public String toString() {
         return "Usuario [id=" + id + ", nombre=" + nombre + ", dni=" + dni +
                 ", email=" + email + ", rol=" + rol + "]";

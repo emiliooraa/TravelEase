@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
-
 import bll.Usuario;
 import repository.Validaciones;
 
@@ -64,11 +63,12 @@ public class ControllerUsuario {
             }
 
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO usuario (nombre, dni, email, password) VALUES (?, ?, ?, ?)");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO usuario (nombre, dni, email, password ) VALUES (?, ?, ?, ?)");
             stmt.setString(1, nombre);
             stmt.setString(2, dni);
             stmt.setString(3, email);
             stmt.setString(4, hashedPassword);
+           
 
             int rows = stmt.executeUpdate();
             stmt.close();

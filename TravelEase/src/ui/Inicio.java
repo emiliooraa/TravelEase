@@ -117,6 +117,7 @@ public class Inicio extends JFrame {
 				if (logueado == null) {
 					lblError1.setText("Usuario o contraseña inválidos.");
 				} else {
+					
 					HomeUsuario.run(logueado);
 					dispose();
 				}

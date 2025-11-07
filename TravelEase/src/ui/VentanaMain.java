@@ -55,7 +55,7 @@ public class VentanaMain extends JFrame {
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaLogin login = new VentanaLogin();
+				Inicio login = new Inicio();
 				login.setVisible(true);
 				dispose();
 				
@@ -70,6 +70,9 @@ public class VentanaMain extends JFrame {
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Inicio login = new Inicio();
+				login.setVisible(true);
+				dispose();
 			}
 		});
 		btnRegistrar.setBounds(142, 170, 150, 46);

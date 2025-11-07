@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import bll.Usuario;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HomeUsuario extends JFrame {
 
@@ -31,21 +34,34 @@ public class HomeUsuario extends JFrame {
 		setTitle("Home - TravelEase");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 260);
-		setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
 
 		JLabel lbl = new JLabel("Hola, " + usuario.getNombre() + " (" + usuario.getRol() + ")");
+		lbl.setBounds(0, 0, 504, 188);
 		lbl.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lbl, BorderLayout.CENTER);
+		getContentPane().add(lbl);
 
 		JPanel bottom = new JPanel();
+		bottom.setBounds(0, 174, 504, 47);
 		JButton btnLogout = new JButton("Cerrar sesión");
+		btnLogout.setForeground(Color.RED);
+		btnLogout.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnLogout.addActionListener(e -> {
 			dispose();
 			Inicio.main(new String[]{});
 		});
+		
+		JButton btnMenu = new JButton("Menu");
+		btnMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnMenu.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		bottom.add(btnMenu);
 		bottom.add(btnLogout);
-		add(bottom, BorderLayout.SOUTH);
+		getContentPane().add(bottom);
 	}
 }
 
