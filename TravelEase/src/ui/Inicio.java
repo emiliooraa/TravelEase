@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 
 import bll.Usuario;
 import dll.ControllerUsuario;
+import javax.swing.UIManager;
 
 public class Inicio extends JFrame {
 
@@ -53,7 +54,7 @@ public class Inicio extends JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 11, 491, 470);
-		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tabbedPane.setFont(new Font("Gadugi", Font.PLAIN, 20));
 		tabbedPane.setToolTipText("Login");
 		contentPane.add(tabbedPane);
 
@@ -63,12 +64,12 @@ public class Inicio extends JFrame {
 
 		JLabel lblIniciarSesion = new JLabel("Iniciar Sesion");
 		lblIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblIniciarSesion.setFont(new Font("Gadugi", Font.PLAIN, 19));
 		lblIniciarSesion.setBounds(132, 23, 221, 43);
 		Login.add(lblIniciarSesion);
 
 		JLabel lblEmailLogin = new JLabel("Email");
-		lblEmailLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEmailLogin.setFont(new Font("Gadugi", Font.BOLD, 14));
 		lblEmailLogin.setBounds(132, 77, 130, 28);
 		Login.add(lblEmailLogin);
 
@@ -78,7 +79,7 @@ public class Inicio extends JFrame {
 		Login.add(inpEmailLogin);
 
 		JLabel lblPassword = new JLabel("Contraseña");
-		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPassword.setFont(new Font("Gadugi", Font.BOLD, 14));
 		lblPassword.setBounds(132, 148, 130, 28);
 		Login.add(lblPassword);
 
@@ -87,8 +88,8 @@ public class Inicio extends JFrame {
 		Login.add(inpContraseniaLogin);
 
 		JLabel lblNuevaCuenta = new JLabel("¿No estás registrado? ¡Podés registrarte acá abajo!");
-		lblNuevaCuenta.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNuevaCuenta.setBounds(96, 319, 293, 14);
+		lblNuevaCuenta.setFont(new Font("Gadugi", Font.PLAIN, 13));
+		lblNuevaCuenta.setBounds(83, 319, 319, 14);
 		lblNuevaCuenta.setHorizontalAlignment(SwingConstants.CENTER);
 		Login.add(lblNuevaCuenta);
 
@@ -99,12 +100,13 @@ public class Inicio extends JFrame {
 		Login.add(lblError1);
 
 		JButton btnVentanaRegistrar = new JButton("Registrar");
-		btnVentanaRegistrar.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnVentanaRegistrar.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
 
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnLogin.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnLogin.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnLogin.setBounds(132, 212, 221, 37);
 		Login.add(btnLogin);
 
@@ -115,13 +117,29 @@ public class Inicio extends JFrame {
 				String password = new String(inpContraseniaLogin.getPassword());
 				Usuario logueado = ControllerUsuario.login(email, password);
 				if (logueado == null) {
-					lblError1.setText("Usuario o contraseña inválidos.");
+				    lblError1.setText("Usuario o contraseña inválidos.");
 				} else {
-					
-					HomeUsuario.run(logueado);
-					dispose();
+				    switch (logueado.getRol().toLowerCase()) {
+				     	case "admin":
+				     		new AdminInterfaz(logueado).setVisible(true);
+				    	 break;
+				     	case "usuario":
+				     		new UsuarioInterfaz(logueado).setVisible(true);
+				     	break;
+				     	case "operario":
+				     		new OperarioInterfaz(logueado).setVisible(true);
+				     	break;
+				     	case "gerente":
+				     		new GerenteInterfaz(logueado).setVisible(true);
+				     	break;
+				     	default:
+				             JOptionPane.showMessageDialog(null, "Rol no reconocido: " + logueado.getRol());
+				             return;
+				    }
+				    dispose(); // cerrar ventana de login
 				}
-			}
+				}
+			
 		});
 
 		btnVentanaRegistrar.addActionListener(new ActionListener() {
@@ -135,67 +153,68 @@ public class Inicio extends JFrame {
 		Registrar.setLayout(null);
 
 		JFormattedTextField inpNombreRegistro = new JFormattedTextField();
-		inpNombreRegistro.setBounds(157, 82, 165, 29);
+		inpNombreRegistro.setBounds(141, 82, 203, 29);
 		Registrar.add(inpNombreRegistro);
 
 		JFormattedTextField inpEmailRegistro = new JFormattedTextField();
-		inpEmailRegistro.setBounds(157, 134, 165, 29);
+		inpEmailRegistro.setBounds(141, 145, 203, 29);
 		Registrar.add(inpEmailRegistro);
 
 		JFormattedTextField inpDniRegistro = new JFormattedTextField();
-		inpDniRegistro.setBounds(157, 194, 165, 29);
+		inpDniRegistro.setBounds(141, 208, 203, 29);
 		Registrar.add(inpDniRegistro);
 
 		inpContraseniaRegistro = new JPasswordField();
-		inpContraseniaRegistro.setBounds(157, 255, 165, 29);
+		inpContraseniaRegistro.setBounds(141, 271, 203, 29);
 		Registrar.add(inpContraseniaRegistro);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(157, 57, 63, 14);
-		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNombre.setBounds(141, 57, 63, 14);
+		lblNombre.setFont(new Font("Gadugi", Font.BOLD, 14));
 		Registrar.add(lblNombre);
 
 		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(157, 117, 46, 14);
-		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEmail.setBounds(141, 120, 46, 14);
+		lblEmail.setFont(new Font("Gadugi", Font.BOLD, 14));
 		Registrar.add(lblEmail);
 
 		JLabel lblDni = new JLabel("Documento");
-		lblDni.setBounds(157, 177, 80, 14);
-		lblDni.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDni.setBounds(141, 183, 80, 14);
+		lblDni.setFont(new Font("Gadugi", Font.BOLD, 14));
 		Registrar.add(lblDni);
 
 		JLabel lblContrasena = new JLabel("Contraseña");
-		lblContrasena.setBounds(157, 238, 80, 14);
-		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblContrasena.setBounds(141, 246, 80, 14);
+		lblContrasena.setFont(new Font("Gadugi", Font.BOLD, 14));
 		Registrar.add(lblContrasena);
 
 		JButton btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setBounds(165, 313, 150, 30);
+		btnRegistrarse.setBounds(168, 313, 150, 30);
 		btnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 17));
 		Registrar.add(btnRegistrarse);
 
 		JLabel lblError = new JLabel("");
-		lblError.setBounds(74, 292, 341, 20);
+		lblError.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblError.setBounds(65, 346, 355, 20);
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setForeground(Color.RED);
 		Registrar.add(lblError);
 
 		JLabel lblRegistrado = new JLabel("¿Ya estás registrado?");
-		lblRegistrado.setBounds(74, 366, 341, 20);
+		lblRegistrado.setBounds(72, 366, 341, 20);
 		lblRegistrado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegistrado.setForeground(new Color(0, 128, 0));
-		lblRegistrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblRegistrado.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		Registrar.add(lblRegistrado);
 
 		JButton btnIniciarSesion = new JButton("Inicia Sesion");
 		btnIniciarSesion.setBounds(169, 389, 147, 29);
-		btnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnIniciarSesion.setFont(new Font("Gadugi", Font.BOLD, 17));
 		Registrar.add(btnIniciarSesion);
 
 		JLabel lblRegistrar = new JLabel("Registrar");
 		lblRegistrar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblRegistrar.setFont(new Font("Gadugi", Font.PLAIN, 19));
 		lblRegistrar.setBounds(157, 0, 165, 29);
 		Registrar.add(lblRegistrar);
 
