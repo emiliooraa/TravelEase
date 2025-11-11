@@ -1,73 +1,92 @@
 package repository;
 
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
-public interface Validaciones {
+public class Validaciones {
 
-	static String validarString(String mensaje) {
-	    String dato;
-	    do {
-	        dato = JOptionPane.showInputDialog(mensaje);
-	        if (dato == null) {
-	            return null;
-	        }
-	        if (dato.trim().isEmpty()) {
-	            JOptionPane.showMessageDialog(null, "Error al ingresar dato, vuelva a intentarlo");
-	        }
-	    } while (dato.trim().isEmpty());
-	    return dato.trim();
-	}
+    //VALIDAR STRING
+    public static String validarString(String mensaje) {
+        String valor;
+        do {
+            valor = JOptionPane.showInputDialog(null, mensaje);
+            if (valor == null) return null; 
+            valor = valor.trim();
+            if (valor.isEmpty()) {
+                JOptionPane.showMessageDialog(null, " Este campo no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (valor.isEmpty());
+        return valor;
+    }
 
-    // --- Validación de Email ---
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    //VALIDAR DNI
+    public static String validarDni(String mensaje) {
+        String dni;
+        do {
+            dni = JOptionPane.showInputDialog(null, mensaje);
+            if (dni == null) return null; //
+            dni = dni.trim();
 
-    static String validarEmail(String mensaje) {
+            if (!dni.matches("\\d{8}")) {
+                JOptionPane.showMessageDialog(null, " El DNI debe tener exactamente 8 dígitos numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+                dni = "";
+            }
+        } while (dni.isEmpty());
+        return dni;
+    }
+
+    //VALIDAR EMAIL
+    public static String validarEmail(String mensaje) {
         String email;
         do {
-            email = JOptionPane.showInputDialog(mensaje);
-            if (email == null) return null; // Si cancela
-            if (!VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()) {
-                JOptionPane.showMessageDialog(null, "Email inválido. Intente nuevamente.");
-                email = null;
+            email = JOptionPane.showInputDialog(null, mensaje);
+            if (email == null) return null;
+            email = email.trim();
+
+            if (!esEmailValido(email)) {
+                JOptionPane.showMessageDialog(null, "⚠️ El formato del email no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                email = "";
             }
-        } while (email == null);
+        } while (email.isEmpty());
         return email;
     }
 
-    // Validación de password: mínimo 8 caracteres, una mayúscula, un número y un caracter especial
-    static String validarPassword(String mensaje) {
-        String password;
-        String regex = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-
+    // VALIDAR CONTRASEÑA 
+    public static String validarPassword(String mensaje) {
+        String pass;
         do {
-            password = JOptionPane.showInputDialog(mensaje);
-            if (password == null) 
-            return null; // Si cancela
-            if (!password.matches(regex)) {
-                JOptionPane.showMessageDialog(null,
-                    "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial.");
-                password = null;
-            }
-        } while (password == null);
+            pass = JOptionPane.showInputDialog(null, mensaje);
+            if (pass == null) return null;
 
-        return password;
+            if (!esPasswordValida(pass)) {
+                JOptionPane.showMessageDialog(
+                    null,
+                    "La contraseña debe cumplir los siguientes requisitos:\n" +
+                    "• Tener al menos 6 caracteres.\n" +
+                    "• Incluir una letra mayúscula.\n" +
+                    "• Incluir un número.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                pass = "";
+            }
+        } while (pass.isEmpty());
+        return pass;
     }
-    static String validarDni(String mensaje) {
-        String dni;
-        do {
-            dni = JOptionPane.showInputDialog(mensaje);
-            
-           if (dni == null) 
-           return null; // Si cancela
-            if (!dni.matches("\\d{8}")) { // Valida que tenga exactamente 8 dígitos
-                JOptionPane.showMessageDialog(null,
-                    "El DNI debe tener exactamente 8 dígitos.");
-                dni = null; 
-            }
-        } while (dni == null);
 
-        return dni;
+
+    // MÉTODOS AUXILIARES 
+    public static boolean esEmailValido(String email) {
+        if (email == null) return false;
+        String regex = "^[\\w._%+-]+@[\\w.-]+\\.[A-Za-z]{2,}$";
+        return email.matches(regex);
+    }
+
+    public static boolean esPasswordValida(String password) {
+        if (password == null) return false;
+        // Mínimo 6 caracteres, al menos una mayúscula y un número
+        String regex = "^(?=.*[A-Z])(?=.*\\d).{6,}$";
+        return password.matches(regex);
     }
 }
