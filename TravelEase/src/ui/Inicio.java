@@ -63,7 +63,7 @@ public class Inicio extends JFrame {
 		tabbedPane.addTab("Login", null, Login, null);
 		Login.setLayout(null);
 
-		JLabel lblIniciarSesion = new JLabel("Iniciar Sesion");
+		JLabel lblIniciarSesion = new JLabel("Iniciar Sesión");
 		lblIniciarSesion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIniciarSesion.setFont(new Font("Gadugi", Font.PLAIN, 19));
 		lblIniciarSesion.setBounds(132, 23, 221, 43);
@@ -101,13 +101,14 @@ public class Inicio extends JFrame {
 		Login.add(lblError1);
 
 		JButton btnVentanaRegistrar = new JButton("Registrar");
-		btnVentanaRegistrar.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnVentanaRegistrar.setForeground(new Color(255, 255, 255));
+		btnVentanaRegistrar.setBackground(new Color(135, 206, 235));
 		btnVentanaRegistrar.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
 
 		JButton btnLogin = new JButton("Login");
-		btnLogin.setBackground(UIManager.getColor("Button.darkShadow"));
+		btnLogin.setBackground(SystemColor.window);
 		btnLogin.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnLogin.setBounds(132, 212, 221, 37);
 		Login.add(btnLogin);
@@ -192,6 +193,7 @@ public class Inicio extends JFrame {
 		Registrar.add(lblContrasena);
 
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setBackground(SystemColor.window);
 		btnRegistrarse.setBounds(168, 313, 150, 30);
 		btnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 17));
 		Registrar.add(btnRegistrarse);
@@ -210,7 +212,9 @@ public class Inicio extends JFrame {
 		lblRegistrado.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		Registrar.add(lblRegistrado);
 
-		JButton btnIniciarSesion = new JButton("Inicia Sesion");
+		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
+		btnIniciarSesion.setForeground(SystemColor.window);
+		btnIniciarSesion.setBackground(new Color(135, 206, 235));
 		btnIniciarSesion.setBounds(169, 389, 147, 29);
 		btnIniciarSesion.setFont(new Font("Gadugi", Font.BOLD, 17));
 		Registrar.add(btnIniciarSesion);

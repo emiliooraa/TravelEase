@@ -1,10 +1,20 @@
 package ui;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class Main extends JFrame {
 
@@ -31,12 +41,42 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 522, 421);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		contentPane.setLayout(null);
+		
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setIcon(new ImageIcon(Main.class.getResource("/img/logoInicio.png")));
+		lblImagen.setBounds(128, 50, 250, 250);
+		contentPane.add(lblImagen);
+		
+		JLabel lblBienvenida = new JLabel("Bienvenido a TravelEase");
+		lblBienvenida.setFont(new Font("Gadugi", Font.BOLD, 19));
+		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenida.setBounds(53, 11, 400, 39);
+		contentPane.add(lblBienvenida);
+		
+		JButton btnNewButton = new JButton("Iniciar Sesión");
+		btnNewButton.setBackground(SystemColor.window);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Inicio login = new Inicio();
+				login.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton.setBounds(145, 311, 216, 39);
+		contentPane.add(btnNewButton);
+		
 	}
-
+	private void setImageLabel(JLabel label, String path) {
+	    ImageIcon original = new ImageIcon(Main.class.getResource(path));
+	    Image scaled = original.getImage().getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_SMOOTH);
+	    label.setIcon(new ImageIcon(scaled));
+	}
 }
