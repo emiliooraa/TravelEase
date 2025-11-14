@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import bll.Usuario;
 import dll.ControllerUsuario;
 import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class Inicio extends JFrame {
 
@@ -100,6 +101,7 @@ public class Inicio extends JFrame {
 		Login.add(lblError1);
 
 		JButton btnVentanaRegistrar = new JButton("Registrar");
+		btnVentanaRegistrar.setBackground(UIManager.getColor("Button.darkShadow"));
 		btnVentanaRegistrar.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
@@ -119,9 +121,10 @@ public class Inicio extends JFrame {
 				if (logueado == null) {
 				    lblError1.setText("Usuario o contraseña inválidos.");
 				} else {
+					//View de cada rol
 				    switch (logueado.getRol().toLowerCase()) {
 				     	case "admin":
-				     		new AdminInterfaz(logueado).setVisible(true);
+				     		new AdminView(logueado).setVisible(true);
 				    	 break;
 				     	case "usuario":
 				     		new UsuarioInterfaz(logueado).setVisible(true);
@@ -136,7 +139,7 @@ public class Inicio extends JFrame {
 				             JOptionPane.showMessageDialog(null, "Rol no reconocido: " + logueado.getRol());
 				             return;
 				    }
-				    dispose(); // cerrar ventana de login
+				    dispose(); 
 				}
 				}
 			

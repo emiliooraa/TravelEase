@@ -1,81 +1,42 @@
 package ui;
 
-import javax.swing.JOptionPane;
+import java.awt.EventQueue;
 
-import bll.Usuario;
-import dll.Conexion;
-import dll.ControllerUsuario;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main extends JFrame {
 
-        // Inicializar conexión
-        Conexion.getInstance();
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 
-        String[] opciones = { "Login", "Registrar", "Salir" };
-        int opcion;
-        String email = null;
-    	String password = null;
-        do {
-            opcion = JOptionPane.showOptionDialog(
-                    null,
-                    "Bienvenid@ a TravelEase ✈️\nSeleccione una opción:",
-                    "Menú Principal",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null,
-                    opciones,
-                    opciones[0]);
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Main frame = new Main();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-            switch (opcion) {
-                case 0: // LOGIN
-                	
-        
-                    Usuario encontrado = Usuario.login(email, password);
+	/**
+	 * Create the frame.
+	 */
+	public Main() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 
-                    if (encontrado != null) {
-                        JOptionPane.showMessageDialog(null,
-                                "✅ Bienvenido/a " + encontrado.getNombre() + " (" + encontrado.getRol() + ")");
+	}
 
-                        // Redirigir al menú correspondiente según el rol
-                        switch (encontrado.getRol().toLowerCase()) {
-                            case "admin":
-                                AdminMenu.mostrar(encontrado);
-                                break;
-                            case "manager":
-                                ManagerMenu.mostrar(encontrado);
-                                break;
-                            case "operario":
-                                OperarioMenu.mostrar(encontrado);
-                                break;
-                            case "cliente":
-                                ClienteMenu.mostrar(encontrado);
-                                break;
-                            default:
-                                JOptionPane.showMessageDialog(null,
-                                        "⚠️ Rol no reconocido. Contacte con el administrador.");
-                                break;
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "❌ Credenciales incorrectas o usuario no encontrado.");
-                    }
-                    break;
-
-                case 1: // REGISTRO
-                    Usuario nuevo = Usuario.registrarUsuario();
-                    if (nuevo != null) {
-                        JOptionPane.showMessageDialog(null, "✅ Usuario registrado correctamente.");
-                    }
-                    break;
-
-                case 2: // SALIR
-                    JOptionPane.showMessageDialog(null, "👋 Gracias por usar TravelEase.");
-                    break;
-
-                default:
-                    break;
-            }
-
-        } while (opcion != 2 && opcion != JOptionPane.CLOSED_OPTION);
-    }
 }

@@ -15,7 +15,7 @@ public class ControllerUsuario {
     //LOGIN
     public static Usuario login(String mail, String password) {
         if (mail == null || mail.trim().isEmpty() || password == null || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar email y contraseña.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Debe ingresar email y contraseña.");
             return null;
         }
 
@@ -35,10 +35,10 @@ public class ControllerUsuario {
                             rs.getString("rol")
                         );
                     } else {
-                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
+                    	System.err.println("Contraseña incorrecta.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta con ese email.", "Error", JOptionPane.ERROR_MESSAGE);
+                	System.err.println("No existe una cuenta con ese email.");
                 }
             }
         } catch (Exception e) {
