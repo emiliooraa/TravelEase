@@ -41,7 +41,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		
+		setTitle("Bienvenido a TravelEase");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 522, 421);
 		contentPane = new JPanel();

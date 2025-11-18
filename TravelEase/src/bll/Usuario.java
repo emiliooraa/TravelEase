@@ -132,24 +132,33 @@ public class Usuario {
         
     }
     public static Usuario registrarUsuario() {
+
+ 
         String nombre = Validaciones.validarString("Ingrese su nombre:");
         if (nombre == null) return null;
+
         String email = Validaciones.validarEmail("Ingrese su email:");
         if (email == null) return null;
+
         String dni = Validaciones.validarDni("Ingrese su DNI:");
         if (dni == null) return null;
+
         String password = Validaciones.validarPassword("Ingrese su contraseña:");
         if (password == null) return null;
-        
-        boolean registrado = ControllerUsuario.registrarUsuario(nombre, dni, email, password);
+
+        boolean registrado = ControllerUsuario.registrarUsuario(
+            nombre, dni, email, password, "USUARIO"
+        );
+
         if (registrado) {
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente.");
-            return new Usuario(nombre, dni, email, password);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
-            return null;
+            return new Usuario(nombre, dni, email, password, "USUARIO");
         }
+
+        JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
+        return null;
     }
+
 
     	 public static void eliminarUsuario() {
     		 String idStr = JOptionPane.showInputDialog(null, "Ingrese el ID del usuario a eliminar:");

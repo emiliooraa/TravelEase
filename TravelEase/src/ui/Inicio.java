@@ -236,7 +236,7 @@ public class Inicio extends JFrame {
 					lblError.setText("Complete todos los campos.");
 					return;
 				}
-				boolean ok = ControllerUsuario.registrarUsuario(nombre, dni, email, password);
+				boolean ok = ControllerUsuario.registrarUsuario(nombre, dni, email, password, "USUARIO");
 				if (ok) {
 					JOptionPane.showMessageDialog(Registrar, "Usuario registrado correctamente.");
 					inpNombreRegistro.setText("");

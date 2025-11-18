@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -130,7 +131,9 @@ public class GestionarUsuariosView extends JFrame {
         
         // Agregar
         
-        btnAgregar.addActionListener(null);
+        btnAgregar.addActionListener(e -> {
+        	new AgregarUsuarioView(this).setVisible(true);
+        });
         
         //Editar
         
@@ -163,7 +166,7 @@ public class GestionarUsuariosView extends JFrame {
 	}
 	
 	 //Cargar todos los usuarios
-    private void cargarTabla() {
+    public void cargarTabla() {
         model.setRowCount(0);
         LinkedList<Usuario> usuarios = ControllerUsuario.listarUsuarios();
         for (Usuario u : usuarios) {

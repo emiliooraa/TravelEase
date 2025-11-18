@@ -50,60 +50,75 @@ public class ControllerUsuario {
     //REGISTRAR
     public static void registrar() {
         String nombre = Validaciones.validarString("Ingrese nombre:");
-        if (nombre == null) return;
+        if (nombre == null) 
+        	return;
 
-        String dni = Validaciones.validarDni("Ingrese DNI (8 dígitos):");
-        if (dni == null) return;
+        String dni = Validaciones.validarDni("Ingrese DNI:");
+        if (dni == null) 
+        	return;
 
         String email = Validaciones.validarEmail("Ingrese email:");
-        if (email == null) return;
+        if (email == null) 
+        	return;
 
         String password = Validaciones.validarPassword("Ingrese contraseña:");
-        if (password == null) return;
+        if (password == null) 
+        	return;
 
-        boolean ok = registrarUsuario(nombre.trim(), dni.trim(), email.trim(), password);
-        JOptionPane.showMessageDialog(null, ok ? "✅ Usuario registrado correctamente." : "❌ No se pudo registrar el usuario.");
+        boolean ok = registrarUsuario(nombre, dni, email, password, "USUARIO");
+
+        JOptionPane.showMessageDialog(null,
+                ok ? "Usuario registrado correctamente." : "Error al registrar el usuario.");
     }
+    
 
-    public static boolean registrarUsuario(String nombre, String dni, String email, String password) {
+    public static boolean registrarUsuario(String nombre, String dni, String email, String password, String rol) {
+
         // Validaciones básicas
         if (nombre.isEmpty() || dni.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
             return false;
         }
 
         if (!dni.matches("\\d{8}")) {
-            JOptionPane.showMessageDialog(null, "El DNI debe tener 8 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El DNI debe tener 8 dígitos.");
             return false;
         }
 
         if (!Validaciones.esEmailValido(email)) {
-            JOptionPane.showMessageDialog(null, "El formato del email no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Formato de email inválido.");
             return false;
         }
 
         try {
             if (existeEmail(email)) {
-                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese email.", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            if (existeDni(dni)) {
-                JOptionPane.showMessageDialog(null, "Ya existe una cuenta registrada con ese DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ya existe una cuenta con ese email.");
                 return false;
             }
 
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO usuario (nombre, dni, email, password, rol) VALUES (?, ?, ?, ?, 'usuario')");
+            if (existeDni(dni)) {
+                JOptionPane.showMessageDialog(null, "Ya existe una cuenta con ese DNI.");
+                return false;
+            }
+
+            String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+
+            PreparedStatement stmt = con.prepareStatement(
+                    "INSERT INTO usuario (nombre, dni, email, password, rol) VALUES (?, ?, ?, ?, ?)");
+
             stmt.setString(1, nombre);
             stmt.setString(2, dni);
             stmt.setString(3, email);
-            stmt.setString(4, hashedPassword);
+            stmt.setString(4, hashed);
+            stmt.setString(5, rol);
 
             int rows = stmt.executeUpdate();
             stmt.close();
+
             return rows > 0;
+
         } catch (Exception e) {
-            System.err.println("Error en registro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
             return false;
         }
     }
