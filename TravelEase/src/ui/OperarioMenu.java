@@ -1,38 +1,56 @@
 package ui;
 
-import javax.swing.JOptionPane;
-import bll.Usuario;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-public class OperarioMenu {
-    public static void mostrar(Usuario usuario) {
-        String[] opciones = { "Ver tareas asignadas", "Actualizar estado de tarea", "Ver perfil", "Salir" };
-        int opcion;
+public class OperarioMenu extends JFrame {
 
-        do {
-            opcion = JOptionPane.showOptionDialog(
-                    null,
-                    "🔧 Operario: " + usuario.getNombre() + "\nSeleccione una acción:",
-                    "Menú de Operario",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null,
-                    opciones,
-                    opciones[0]);
+    public OperarioMenu() {
+        setTitle("Travelease - Menú Operario");
+        setSize(500, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
 
-            switch (opcion) {
-                case 0:
-                    JOptionPane.showMessageDialog(null, "📋 Listado de tareas pendientes (en desarrollo)");
-                    break;
-                case 1:
-                    JOptionPane.showMessageDialog(null, "✅ Actualizar estado de tarea (en desarrollo)");
-                    break;
-                case 2:
-                    JOptionPane.showMessageDialog(null, "👤 Perfil de usuario (en desarrollo)");
-                    break;
-                case 3:
-                    JOptionPane.showMessageDialog(null, "👋 Cerrando sesión de Operario...");
-                    break;
-            }
-        } while (opcion != 3 && opcion != JOptionPane.CLOSED_OPTION);
+        JLabel titulo = new JLabel("Menú Operario", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        add(titulo, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 1, 10, 10));
+
+        JButton btnVentaVuelo = new JButton("Registrar venta de vuelo");
+        JButton btnVentaHotel = new JButton("Registrar venta de hotel");
+        JButton btnReservarPaquete = new JButton("Reservar paquete para cliente");
+        JButton btnAsignarAsiento = new JButton("Asignar asiento");
+        JButton btnBuscarReservas = new JButton("Buscar reservas");
+        JButton btnSalir = new JButton("Salir");
+
+        panel.add(btnVentaVuelo);
+        panel.add(btnVentaHotel);
+        panel.add(btnReservarPaquete);
+        panel.add(btnAsignarAsiento);
+        panel.add(btnBuscarReservas);
+        panel.add(btnSalir);
+
+        add(panel, BorderLayout.CENTER);
+
+        // EVENTOS
+        btnVentaVuelo.addActionListener(e -> mostrarMensaje("Registrar venta de vuelo (no implementado)") );
+        btnVentaHotel.addActionListener(e -> mostrarMensaje("Registrar venta de hotel (no implementado)") );
+        btnReservarPaquete.addActionListener(e -> mostrarMensaje("Reservar paquete para cliente (no implementado)") );
+        btnAsignarAsiento.addActionListener(e -> mostrarMensaje("Asignar asiento (no implementado)") );
+        btnBuscarReservas.addActionListener(e -> mostrarMensaje("Buscar reservas (no implementado)") );
+
+        btnSalir.addActionListener(e -> dispose());
+    }
+
+    private void mostrarMensaje(String texto) {
+        JOptionPane.showMessageDialog(this, texto, "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new OperarioMenu().setVisible(true));
     }
 }
