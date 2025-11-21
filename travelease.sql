@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-10-2025 a las 23:12:55
+-- Tiempo de generación: 21-11-2025 a las 02:33:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,16 +33,19 @@ CREATE TABLE `usuario` (
   `dni` varchar(8) NOT NULL,
   `email` varchar(255) NOT NULL,
   `rol` varchar(255) NOT NULL DEFAULT 'Usuario',
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `fotoPerfil` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `dni`, `email`, `rol`, `password`) VALUES
-(1, 'Admin', '12345678', 'admin@travelease.com', 'ADMIN', '$2a$12$hBvi1MWRNDgHI5Os7eqaXelK8rLUsc8LpSSFK1Kq4PDa2o3ajp82i'),
-(16, 'Pepe', '11223344', 'pepe@gmail.com', 'Usuario', '$2a$10$kQrcsSI3VC.j20pE.j2Ldu7UfBDECV6Pb.2xr.wTHN8OUS6Ai6T4G');
+INSERT INTO `usuario` (`id`, `nombre`, `dni`, `email`, `rol`, `password`, `fotoPerfil`) VALUES
+(1, 'Admin', '12345678', 'admin@travelease.com', 'ADMIN', '$2a$12$hBvi1MWRNDgHI5Os7eqaXelK8rLUsc8LpSSFK1Kq4PDa2o3ajp82i', NULL),       --Admin1234@
+(2, 'Pepe', '11223344', 'pepe@gmail.com', 'CLIENTE', '$2a$10$zrgSZTk4EPAJuX8YATiR7ulHA8C5ATq6R43KV90e9JzXzTXIXYd7a', NULL),            --Pepe1234@
+(21, 'Emilio', '87654321', 'emilio@gmail.com', 'MANAGER', '$2a$10$28XwMPGcE2Wstn.syAbz0uGqFNSDZNZYzwufgCROh4/WzDcGuA0Iy', NULL),       --Emilio1234@
+(22, 'Gianella', '44332211', 'gianella@gmail.com', 'OPERARIO', '$2a$10$XN2LIQ09t4IZUOlvzRZLw.DjWwW5GOw4ZhPPoxFxSFkYmQrbIGwrq', NULL);  --Giane1234@
 
 --
 -- Índices para tablas volcadas
@@ -62,7 +65,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
