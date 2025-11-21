@@ -1,12 +1,18 @@
 package ui;
 
 import javax.swing.*;
+
+import bll.Usuario;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class OperarioMenu extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 
-    public OperarioMenu() {
+    public OperarioMenu(Usuario logueado) {
         setTitle("Travelease - Menú Operario");
         setSize(500, 400);
         setLocationRelativeTo(null);
@@ -50,7 +56,7 @@ public class OperarioMenu extends JFrame {
         JOptionPane.showMessageDialog(this, texto, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new OperarioMenu().setVisible(true));
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new OperarioMenu().setVisible(true));
+//    }
 }

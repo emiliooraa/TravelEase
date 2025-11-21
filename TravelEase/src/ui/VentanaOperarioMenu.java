@@ -38,7 +38,7 @@ public class VentanaOperarioMenu extends JFrame {
         btnCerrar.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Cerrando sesión...");
             dispose();
-            new VentanaLogin().setVisible(true);
+            new Inicio().setVisible(true);
         });
     }
 }

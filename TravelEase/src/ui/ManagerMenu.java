@@ -8,8 +8,8 @@ public class ManagerMenu extends JFrame {
 
     private Usuario usuario;
 
-    public ManagerMenu(Usuario usuario) {
-        this.usuario = usuario;
+    public ManagerMenu(Usuario logueado) {
+        
 
         setTitle("Menú Manager");
         setSize(400, 350);
@@ -17,7 +17,7 @@ public class ManagerMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(6, 1, 10, 10));
 
-        JLabel lblTitulo = new JLabel("Manager: " + usuario.getNombre(), SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Manager: " + logueado.getNombre());
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 
         JButton btnVerTareas = new JButton("Ver todas las tareas");
@@ -53,7 +53,7 @@ public class ManagerMenu extends JFrame {
         btnCerrar.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, " Cerrando sesión...");
             dispose();
-            new VentanaLogin().setVisible(true);
+            new Inicio().setVisible(true);
         });
     }
 }

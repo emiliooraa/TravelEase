@@ -123,18 +123,19 @@ public class Inicio extends JFrame {
 				    lblError1.setText("Usuario o contraseña inválidos.");
 				} else {
 					//View de cada rol
+					
 				    switch (logueado.getRol().toLowerCase()) {
 				     	case "admin":
-				     		new AdminView(logueado).setVisible(true);
+				     		new AdminMenu(logueado).setVisible(true);
 				    	 break;
 				     	case "usuario":
 				     		new UsuarioInterfaz(logueado).setVisible(true);
 				     	break;
 				     	case "operario":
-				     		new OperarioInterfaz(logueado).setVisible(true);
+				     		new OperarioMenu(logueado).setVisible(true);
 				     	break;
-				     	case "gerente":
-				     		new GerenteInterfaz(logueado).setVisible(true);
+				     	case "manager":
+				     		new ManagerMenu(logueado).setVisible(true);
 				     	break;
 				     	default:
 				             JOptionPane.showMessageDialog(null, "Rol no reconocido: " + logueado.getRol());
