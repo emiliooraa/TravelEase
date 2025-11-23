@@ -1,29 +1,49 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import bll.Usuario;
 import dll.ControllerUsuario;
 import repository.Validaciones;
-import java.awt.Color;
 
-public class AgregarUsuarioView extends JFrame {
+public class EditarUsuarioView extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	public Usuario usuario;
+	
+	
+	/**
+	 * Launch the application.
+	 */
 
-    public AgregarUsuarioView(GestionarUsuariosView nuevo) {
 
-        setTitle("Agregar Usuario");
+	/**
+	 * Create the frame.
+	 */
+	public EditarUsuarioView(Usuario usuario) {
+	  
+		setTitle("Editar Usuario");
         setSize(350, 421);
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
 
-        JLabel lblTitulo = new JLabel("Nuevo Usuario");
+        JLabel lblTitulo = new JLabel("Editar Usuario:" + usuario.getNombre());
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblTitulo.setBounds(100, 10, 200, 30);
         getContentPane().add(lblTitulo);
-        
 
         JLabel lblNombre = new JLabel("Nombre:");
         lblNombre.setBounds(20, 60, 100, 25);
@@ -31,6 +51,7 @@ public class AgregarUsuarioView extends JFrame {
         JTextField inpNombre = new JTextField();
         inpNombre.setBounds(120, 60, 180, 25);
         getContentPane().add(inpNombre);
+        inpNombre.setText(usuario.getNombre());
         
 
         JLabel lblErrorNombre = new JLabel("");
@@ -44,6 +65,7 @@ public class AgregarUsuarioView extends JFrame {
         JTextField inpDni = new JTextField();
         inpDni.setBounds(120, 107, 180, 25);
         getContentPane().add(inpDni);
+        inpDni.setText(usuario.getDni());
 
         JLabel lblErrorDni = new JLabel("");
         lblErrorDni.setForeground(Color.RED);
@@ -56,6 +78,8 @@ public class AgregarUsuarioView extends JFrame {
         JTextField inpEmail = new JTextField();
         inpEmail.setBounds(120, 154, 180, 25);
         getContentPane().add(inpEmail);
+        inpEmail.setText(usuario.getEmail());
+
 
         JLabel lblErrorEmail = new JLabel("");
         lblErrorEmail.setForeground(Color.RED);
@@ -68,6 +92,7 @@ public class AgregarUsuarioView extends JFrame {
         JPasswordField inpPass = new JPasswordField();
         inpPass.setBounds(120, 215, 180, 25);
         getContentPane().add(inpPass);
+        inpPass.setText(usuario.getPassword());
 
         JLabel lblErrorPassword = new JLabel("");
         lblErrorPassword.setForeground(Color.RED);
@@ -133,21 +158,24 @@ public class AgregarUsuarioView extends JFrame {
             if (!valido) return;
             if (!valido) return;
 
-            boolean ok = ControllerUsuario.registrarUsuario(
-                inpNombre.getText(),
-                inpDni.getText(),
-                inpEmail.getText(),
-                pass,
-                comboRol.getSelectedItem().toString()
-            );
+            boolean ok = ControllerUsuario.editarAUsuario(
+            	    usuario.getId(),
+            	    inpNombre.getText(),
+            	    inpDni.getText(),
+            	    inpEmail.getText(),
+            	    pass,
+            	    comboRol.getSelectedItem().toString()
+            	);
+
 
             if (ok) {
-                JOptionPane.showMessageDialog(null, "Usuario agregado correctamente.");
-                nuevo.cargarTabla();
+                JOptionPane.showMessageDialog(null, "Usuario editado correctamente.");
+                
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar el usuario.");
+                JOptionPane.showMessageDialog(null, "Error al editar el usuario.");
             }
         });
     }
+
 }

@@ -132,15 +132,51 @@ public class GestionarUsuariosView extends JFrame {
         // Agregar
         
         btnAgregar.addActionListener(e -> {
-        	new AgregarUsuarioView(this).setVisible(true);
+            AgregarUsuarioView ventana = new AgregarUsuarioView(this);
+            ventana.setVisible(true);
+            dispose();
         });
         
         //Editar
         
-        btnEditar.addActionListener(null);
+        btnEditar.addActionListener(e-> {
+        	if (usuarioSeleccionado != null) {
+				
+        		EditarUsuarioView select = new EditarUsuarioView(usuarioSeleccionado);
+        		select.setVisible(true);
+        		dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+			}
+        });
         
         // Eliminar
-        btnEliminar.addActionListener(null);
+        btnEliminar.addActionListener(e -> {
+           
+            if (usuarioSeleccionado == null) {
+                JOptionPane.showMessageDialog(null, "Seleccioná un usuario primero.");
+                return;
+            }
+
+            int conf = JOptionPane.showConfirmDialog(
+                null,
+                "¿Estás seguro de eliminar este usuario?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION
+            );
+
+            if (conf != JOptionPane.YES_OPTION) return;
+
+            boolean eliminado = ControllerUsuario.eliminarUsuario(usuario.getId());
+
+            if (eliminado) {
+                JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
+                cargarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar el usuario.");
+            }
+        });
+
         
         // Evento al seleccionar fila
         table.getSelectionModel().addListSelectionListener(e -> {

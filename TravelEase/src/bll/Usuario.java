@@ -147,12 +147,12 @@ public class Usuario {
         if (password == null) return null;
 
         boolean registrado = ControllerUsuario.registrarUsuario(
-            nombre, dni, email, password, "USUARIO"
+            nombre, dni, email, password, "CLIENTE"
         );
 
         if (registrado) {
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente.");
-            return new Usuario(nombre, dni, email, password, "USUARIO");
+            return new Usuario(nombre, dni, email, password, "CLIENTE");
         }
 
         JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
@@ -199,66 +199,6 @@ public class Usuario {
     	  return;
     	 }
 
-    	 public static void editarUsuario() {
-    	     String idStr = JOptionPane.showInputDialog(null, "Ingrese el ID del usuario a editar:");
-    	     if (idStr == null || idStr.trim().isEmpty()) return;
-
-    	     int id;
-    	     try {
-    	         id = Integer.parseInt(idStr.trim());
-    	     } catch (NumberFormatException e) {
-    	         JOptionPane.showMessageDialog(null, "Error: El ID debe ser un número entero válido.", 
-    	                                       "Error de Input", JOptionPane.ERROR_MESSAGE);
-    	         return;
-    	     }
-    	     Usuario usuarioAEditar = ControllerUsuario.buscarUsuarioPorId(id); 
-
-    	     if (usuarioAEditar == null) {
-    	         JOptionPane.showMessageDialog(null, "Usuario no encontrado con ID: " + id, 
-    	                                       "Error de Búsqueda", JOptionPane.ERROR_MESSAGE);
-    	         return;
-    	     }
-    	     String nuevoNombre = Validaciones.validarString("Nuevo Nombre (Actual: " + usuarioAEditar.getNombre() + "):");
-    	     if (nuevoNombre == null) return; 
-
-    	     String nuevoDni = Validaciones.validarDni("Nuevo DNI (Actual: " + usuarioAEditar.getDni() + "):");
-    	     if (nuevoDni == null) return; 
-
-    	     String nuevoEmail = Validaciones.validarEmail("Nuevo Email (Actual: " + usuarioAEditar.getEmail() + "):");
-    	     if (nuevoEmail == null) return; 
- 
-    	     String[] roles = {"cliente", "operario", "manager", "admin"};
-    	     int rolOpcion = JOptionPane.showOptionDialog(
-    	         null, 
-    	         "Nuevo Rol (Actual: " + usuarioAEditar.getRol() + "):", 
-    	         "Editar Rol", 
-    	         JOptionPane.DEFAULT_OPTION, 
-    	         JOptionPane.QUESTION_MESSAGE, 
-    	         null, 
-    	         roles, 
-    	         usuarioAEditar.getRol()
-    	     );
-    	     String nuevoRol = (rolOpcion >= 0) ? roles[rolOpcion] : usuarioAEditar.getRol();
-
-    	     String nuevoPassword = JOptionPane.showInputDialog(null, "Nueva Contraseña (Dejar vacío para NO cambiar):", 
-    	                                                       "Editar Usuario", JOptionPane.QUESTION_MESSAGE);
-
-    	     usuarioAEditar.setNombre(nuevoNombre.trim());
-    	     usuarioAEditar.setDni(nuevoDni.trim());
-    	     usuarioAEditar.setEmail(nuevoEmail.trim());
-    	     usuarioAEditar.setRol(nuevoRol);
-
-    	     if (nuevoPassword == null || nuevoPassword.trim().isEmpty()) {
-    	         usuarioAEditar.setPassword(null); 
-    	     } else {
-    	         usuarioAEditar.setPassword(nuevoPassword.trim()); 
-    	     }
-
-    	     ControllerUsuario.editarAUsuario(usuarioAEditar);
-    	     
-    	     JOptionPane.showMessageDialog(null, "La solicitud de edición se ha enviado a la base de datos.", 
-    	                                   "Edición Completada", JOptionPane.INFORMATION_MESSAGE);
-    	 }
 
     	 public static void verListaUsuarios() {
 

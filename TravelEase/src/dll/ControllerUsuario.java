@@ -124,66 +124,39 @@ public class ControllerUsuario {
     }
 
     // EDITAR
-    public static void editarAUsuario(Usuario usuario) {
-        if (usuario == null) {
-            JOptionPane.showMessageDialog(null, "El usuario no puede ser nulo.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (usuario.getNombre().trim().isEmpty() || usuario.getEmail().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El nombre y el email no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!Validaciones.esEmailValido(usuario.getEmail())) {
-            JOptionPane.showMessageDialog(null, "El formato del email no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Verificar que no exista otro usuario con el mismo email o dni
+    public static boolean editarAUsuario(int id, String nombre, String dni, String email, String password, String rol) {
         try {
-            PreparedStatement check = con.prepareStatement("SELECT id FROM usuario WHERE (email = ? OR dni = ?) AND id != ?");
-            check.setString(1, usuario.getEmail());
-            check.setString(2, usuario.getDni());
-            check.setInt(3, usuario.getId());
-            ResultSet rs = check.executeQuery();
-
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Ya existe otro usuario con el mismo email o DNI.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            check.close();
-
             PreparedStatement stmt;
-            String sql;
-            String finalPassword = usuario.getPassword();
 
-            if (finalPassword != null && !finalPassword.isEmpty()) {
-                finalPassword = BCrypt.hashpw(finalPassword, BCrypt.gensalt());
-                sql = "UPDATE usuario SET nombre=?, dni=?, email=?, password=?, rol=? WHERE id=?";
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1, usuario.getNombre());
-                stmt.setString(2, usuario.getDni());
-                stmt.setString(3, usuario.getEmail());
-                stmt.setString(4, finalPassword);
-                stmt.setString(5, usuario.getRol());
-                stmt.setInt(6, usuario.getId());
+            if (password != null && !password.trim().isEmpty()) {
+                String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                stmt = con.prepareStatement(
+                    "UPDATE usuario SET nombre=?, dni=?, email=?, password=?, rol=? WHERE id=?"
+                );
+                stmt.setString(1, nombre);
+                stmt.setString(2, dni);
+                stmt.setString(3, email);
+                stmt.setString(4, hashed);
+                stmt.setString(5, rol);
+                stmt.setInt(6, id);
             } else {
-                sql = "UPDATE usuario SET nombre=?, dni=?, email=?, rol=? WHERE id=?";
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1, usuario.getNombre());
-                stmt.setString(2, usuario.getDni());
-                stmt.setString(3, usuario.getEmail());
-                stmt.setString(4, usuario.getRol());
-                stmt.setInt(5, usuario.getId());
+                stmt = con.prepareStatement(
+                    "UPDATE usuario SET nombre=?, dni=?, email=?, rol=? WHERE id=?"
+                );
+                stmt.setString(1, nombre);
+                stmt.setString(2, dni);
+                stmt.setString(3, email);
+                stmt.setString(4, rol);
+                stmt.setInt(5, id);
             }
 
             int filas = stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, filas > 0 ? "✅ Usuario editado correctamente." : "⚠️ No se pudo editar el usuario.");
+            return filas > 0;
+
         } catch (Exception e) {
-            System.err.println("❌ Error al editar usuario: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Error al editar usuario: " + e.getMessage());
+            return false;
         }
     }
 
