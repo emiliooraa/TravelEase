@@ -118,27 +118,27 @@ public class Inicio extends JFrame {
 				lblError1.setText("");
 				String email = inpEmailLogin.getText() != null ? inpEmailLogin.getText().trim() : "";
 				String password = new String(inpContraseniaLogin.getPassword());
-				Usuario logueado = ControllerUsuario.login(email, password);
-				if (logueado == null) {
+				Usuario usuario = ControllerUsuario.login(email, password);
+				if (usuario == null) {
 				    lblError1.setText("Usuario o contraseña inválidos.");
 				} else {
 					//View de cada rol
 					
-				    switch (logueado.getRol().toLowerCase()) {
+				    switch (usuario.getRol().toLowerCase()) {
 				     	case "admin":
-				     		new AdminMenu(logueado).setVisible(true);
+				     		new AdminMenu(usuario).setVisible(true);
 				    	 break;
 				     	case "usuario":
-				     		new UsuarioInterfaz(logueado).setVisible(true);
+				     		new UsuarioInterfaz(usuario).setVisible(true);
 				     	break;
 				     	case "operario":
-				     		new OperarioMenu(logueado).setVisible(true);
+				     		new OperarioMenu(usuario).setVisible(true);
 				     	break;
 				     	case "manager":
-				     		new ManagerMenu(logueado).setVisible(true);
+				     		new ManagerMenu(usuario).setVisible(true);
 				     	break;
 				     	default:
-				             JOptionPane.showMessageDialog(null, "Rol no reconocido: " + logueado.getRol());
+				             JOptionPane.showMessageDialog(null, "Rol no reconocido: " + usuario.getRol());
 				             return;
 				    }
 				    dispose(); 

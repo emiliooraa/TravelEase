@@ -22,7 +22,7 @@ public class UsuarioInterfaz extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UsuarioInterfaz(Usuario logueado) {
+	public UsuarioInterfaz(Usuario usuario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 622, 429);
 		contentPane = new JPanel();
@@ -30,7 +30,7 @@ public class UsuarioInterfaz extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Hola " + logueado.getNombre() + " " + logueado.getRol() );
+		JLabel lblNewLabel = new JLabel("Hola " + usuario.getNombre() + " " + usuario.getRol() );
 		lblNewLabel.setBounds(142, 55, 235, 71);
 		contentPane.add(lblNewLabel);
 

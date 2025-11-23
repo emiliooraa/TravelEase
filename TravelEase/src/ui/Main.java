@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import java.awt.Color;
 
 public class Main extends JFrame {
 
@@ -43,22 +44,24 @@ public class Main extends JFrame {
 	public Main() {
 		setTitle("Bienvenido a TravelEase");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 522, 421);
+		setBounds(100, 100, 394, 428);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(197, 221, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblImagen = new JLabel("");
 		lblImagen.setIcon(new ImageIcon(Main.class.getResource("/img/logoInicio.png")));
-		lblImagen.setBounds(128, 50, 250, 250);
+		lblImagen.setBounds(64, 50, 250, 250);
 		contentPane.add(lblImagen);
 		
-		JLabel lblBienvenida = new JLabel("Bienvenido a TravelEase");
-		lblBienvenida.setFont(new Font("Gadugi", Font.BOLD, 19));
-		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBienvenida.setBounds(53, 11, 400, 39);
-		contentPane.add(lblBienvenida);
+//		JLabel lblBienvenida = new JLabel("Bienvenido a TravelEase");
+//		lblBienvenida.setForeground(new Color(0, 0, 102));
+//		lblBienvenida.setFont(new Font("Gadugi", Font.BOLD, 19));
+//		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblBienvenida.setBounds(-11, 11, 400, 39);
+//		contentPane.add(lblBienvenida);
 		
 		JButton btnNewButton = new JButton("Iniciar Sesión");
 		btnNewButton.setBackground(SystemColor.window);
@@ -70,7 +73,7 @@ public class Main extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnNewButton.setBounds(145, 311, 216, 39);
+		btnNewButton.setBounds(81, 311, 216, 39);
 		contentPane.add(btnNewButton);
 		
 	}

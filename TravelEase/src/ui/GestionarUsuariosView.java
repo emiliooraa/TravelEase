@@ -36,7 +36,7 @@ public class GestionarUsuariosView extends JFrame {
 	
 	
 	
-	public GestionarUsuariosView(Usuario logueado) {
+	public GestionarUsuariosView(Usuario usuario) {
 		setTitle("Panel de Gestionar Usuarios");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 812, 582);

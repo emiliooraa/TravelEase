@@ -12,7 +12,7 @@ public class OperarioMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-    public OperarioMenu(Usuario logueado) {
+    public OperarioMenu(Usuario usuario) {
         setTitle("Travelease - Menú Operario");
         setSize(500, 400);
         setLocationRelativeTo(null);

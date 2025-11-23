@@ -8,7 +8,7 @@ public class ManagerMenu extends JFrame {
 
     private Usuario usuario;
 
-    public ManagerMenu(Usuario logueado) {
+    public ManagerMenu(Usuario usuario) {
         
 
         setTitle("Menú Manager");
@@ -17,7 +17,7 @@ public class ManagerMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(6, 1, 10, 10));
 
-        JLabel lblTitulo = new JLabel("Manager: " + logueado.getNombre());
+        JLabel lblTitulo = new JLabel("Manager: " + usuario.getNombre());
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 
         JButton btnVerTareas = new JButton("Ver todas las tareas");

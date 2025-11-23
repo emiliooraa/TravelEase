@@ -22,7 +22,7 @@ public class AdminMenu extends JFrame {
 	private JPanel contentPane;
 	
 
-	public AdminMenu(Usuario logueado) {
+	public AdminMenu(Usuario usuario) {
 		setTitle("Panel de Admin");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 544, 398);
@@ -32,7 +32,7 @@ public class AdminMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido " + logueado.getNombre());
+		JLabel lblNewLabel = new JLabel("Bienvenido " + usuario.getNombre());
 		lblNewLabel.setBackground(new Color(255, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Gadugi", Font.BOLD, 17));
@@ -43,7 +43,7 @@ public class AdminMenu extends JFrame {
 		btnGestionar.setBackground(new Color(240, 255, 255));
 		btnGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GestionarUsuariosView(logueado).setVisible(true);
+				new GestionarUsuariosView(usuario).setVisible(true);
 				dispose();
 			}
 		});
