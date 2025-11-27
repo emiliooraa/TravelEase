@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -11,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -19,40 +17,37 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-
 import bll.Usuario;
 import dll.ControllerUsuario;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GestionarUsuariosView extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private DefaultTableModel model;
-	private JTextField txtFiltro;
-	private Usuario usuarioSeleccionado;
-	
-	
-	
-	public GestionarUsuariosView(Usuario usuario) {
-		setTitle("Panel de Gestionar Usuarios");
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTable table;
+    private DefaultTableModel model;
+    private JTextField txtFiltro;
+    private Usuario usuarioSeleccionado;
+
+    public GestionarUsuariosView(Usuario usuario) {
+
+        setTitle("Panel de Gestionar Usuarios");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 812, 582);
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        // Bienvenida
-        JLabel lblTitulo = new JLabel("Panel de Gestionar Usuarios ");
+        // Título
+        JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios");
         lblTitulo.setForeground(Color.BLACK);
         lblTitulo.setBounds(10, 1, 400, 56);
         lblTitulo.setFont(new Font("Gadugi", Font.PLAIN, 15));
         contentPane.add(lblTitulo);
 
-        // Botón cerrar sesión
+        // Cerrar sesión
         JButton btnCerrarSesion = new JButton("Cerrar sesión");
         btnCerrarSesion.setBackground(new Color(255, 0, 0));
         btnCerrarSesion.setForeground(Color.WHITE);
@@ -74,7 +69,7 @@ public class GestionarUsuariosView extends JFrame {
         panelUsuarios.setLayout(null);
         tabbedPane.addTab("Gestionar Usuarios", null, panelUsuarios, null);
 
-		// Tabla
+        // Tabla
         model = new DefaultTableModel(new String[]{"ID", "Nombre", "Email", "Rol"}, 0);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -99,8 +94,7 @@ public class GestionarUsuariosView extends JFrame {
         });
         panelUsuarios.add(btnReiniciarFiltro);
 
-        //CRUD
-        // Boton Agregar
+        // Botones CRUD
         JButton btnAgregar = new JButton("Agregar");
         btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnAgregar.setBackground(new Color(152, 251, 152));
@@ -124,50 +118,45 @@ public class GestionarUsuariosView extends JFrame {
         lblSeleccionado.setBounds(10, 390, 600, 20);
         panelUsuarios.add(lblSeleccionado);
 
-        
-        // Cargar tabla 
+        // Cargar tabla inicial
         cargarTabla();
-        
-        
-        // Agregar
-        
+
+        // AGREGAR
         btnAgregar.addActionListener(e -> {
             AgregarUsuarioView ventana = new AgregarUsuarioView(this);
             ventana.setVisible(true);
             dispose();
         });
-        
-        //Editar
-        
-        btnEditar.addActionListener(e-> {
-        	if (usuarioSeleccionado != null) {
-				
-        		EditarUsuarioView select = new EditarUsuarioView(usuarioSeleccionado);
-        		select.setVisible(true);
-        		dispose();
-			} else {
-				JOptionPane.showMessageDialog(null, "Seleccione un usuario");
-			}
+
+        // EDITAR
+        btnEditar.addActionListener(e -> {
+            if (usuarioSeleccionado != null) {
+                EditarUsuarioView ventana = new EditarUsuarioView(usuarioSeleccionado);
+                ventana.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione un usuario.");
+            }
         });
-        
-        // Eliminar
+
+        // ELIMINAR
         btnEliminar.addActionListener(e -> {
-           
+
             if (usuarioSeleccionado == null) {
-                JOptionPane.showMessageDialog(null, "Seleccioná un usuario primero.");
+                JOptionPane.showMessageDialog(null, "Seleccione un usuario primero.");
                 return;
             }
 
             int conf = JOptionPane.showConfirmDialog(
-                null,
-                "¿Estás seguro de eliminar este usuario?",
-                "Confirmar",
-                JOptionPane.YES_NO_OPTION
+                    null,
+                    "¿Estás seguro de eliminar este usuario?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION
             );
 
             if (conf != JOptionPane.YES_OPTION) return;
 
-            boolean eliminado = ControllerUsuario.eliminarUsuario(usuario.getId());
+            boolean eliminado = ControllerUsuario.eliminarUsuario(usuarioSeleccionado.getId());
 
             if (eliminado) {
                 JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
@@ -177,20 +166,14 @@ public class GestionarUsuariosView extends JFrame {
             }
         });
 
-        
-        // Evento al seleccionar fila
+        // SELECCIÓN DE FILA → CARGAR USUARIO COMPLETO DESDE BD
         table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int row = table.getSelectedRow();
                 if (row != -1) {
-                    usuarioSeleccionado = new Usuario(
-                        (int) model.getValueAt(row, 0),
-                        (String) model.getValueAt(row, 1),
-                        null, 
-                        (String) model.getValueAt(row, 2),
-                        null,
-                        (String) model.getValueAt(row, 3)
-                    );
+                    int id = (int) model.getValueAt(row, 0);
+                    usuarioSeleccionado = ControllerUsuario.buscarUsuarioPorId(id); // ← FIX PRINCIPAL
+
                     lblSeleccionado.setText("Seleccionado: ID=" + usuarioSeleccionado.getId() +
                             ", Nombre=" + usuarioSeleccionado.getNombre() +
                             ", Email=" + usuarioSeleccionado.getEmail() +
@@ -198,10 +181,9 @@ public class GestionarUsuariosView extends JFrame {
                 }
             }
         });
-    
-	}
-	
-	 //Cargar todos los usuarios
+    }
+
+    // Cargar todos
     public void cargarTabla() {
         model.setRowCount(0);
         LinkedList<Usuario> usuarios = ControllerUsuario.listarUsuarios();
@@ -210,7 +192,7 @@ public class GestionarUsuariosView extends JFrame {
         }
     }
 
-    //Filtro simple por nombre
+    // Filtro simple por nombre
     private void cargarTablaFiltrada(String filtro) {
         model.setRowCount(0);
         LinkedList<Usuario> filtrados = ControllerUsuario.listarUsuarios().stream()
@@ -220,8 +202,5 @@ public class GestionarUsuariosView extends JFrame {
         for (Usuario u : filtrados) {
             model.addRow(new Object[]{u.getId(), u.getNombre(), u.getEmail(), u.getRol()});
         }
-    
     }
-   
 }
-

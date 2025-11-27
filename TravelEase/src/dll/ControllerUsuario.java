@@ -167,14 +167,14 @@ public class ControllerUsuario {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                encontrado = new Usuario(
-                    rs.getInt("id"),
-                    rs.getString("nombre"),
-                    rs.getString("dni"),
-                    rs.getString("email"),
-                    null,
-                    rs.getString("rol")
-                );
+            	encontrado = new Usuario(
+            			  rs.getInt("id"),
+            			    rs.getString("nombre"),
+            			    rs.getString("dni"),
+            			    rs.getString("email"),
+            			    "",             
+            			    rs.getString("rol")
+            			);
             }
         } catch (Exception e) {
             System.err.println("❌ Error al buscar usuario por ID: " + e.getMessage());

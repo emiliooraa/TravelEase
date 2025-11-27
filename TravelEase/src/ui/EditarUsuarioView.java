@@ -40,9 +40,9 @@ public class EditarUsuarioView extends JFrame {
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
 
-        JLabel lblTitulo = new JLabel("Editar Usuario:" + usuario.getNombre());
+        JLabel lblTitulo = new JLabel("Editar Usuario: " + usuario.getNombre());
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblTitulo.setBounds(100, 10, 200, 30);
+        lblTitulo.setBounds(30, 11, 273, 30);
         getContentPane().add(lblTitulo);
 
         JLabel lblNombre = new JLabel("Nombre:");
@@ -149,14 +149,18 @@ public class EditarUsuarioView extends JFrame {
             }
 
             // Contraseña inválida
+         
             String pass = new String(inpPass.getPassword());
-            if (!Validaciones.esPasswordValida(pass)) {
-                lblErrorPassword.setText("Contraseña inválida.");
-                valido = false;
+
+            if (pass.trim().isEmpty()) {
+                pass = null;  
+            } else {
+                if (!Validaciones.esPasswordValida(pass)) {
+                    lblErrorPassword.setText("Contraseña inválida.");
+                    valido = false;
+                }
             }
 
-            if (!valido) return;
-            if (!valido) return;
 
             boolean ok = ControllerUsuario.editarAUsuario(
             	    usuario.getId(),
@@ -172,6 +176,7 @@ public class EditarUsuarioView extends JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario editado correctamente.");
                 
                 dispose();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Error al editar el usuario.");
             }

@@ -57,7 +57,7 @@ public class Usuario {
     	this.dni = dni;
     	this.email= email;
     	this.password = password;
-    	this.rol = "USUARIO"; //Valor default 
+    	this.rol = "CLIENTE"; //Valor default 
     }
     //Contructor para el login
     public Usuario(int id, String nombre, String email, String rol) {
