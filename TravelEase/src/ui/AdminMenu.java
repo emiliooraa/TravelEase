@@ -42,7 +42,7 @@ public class AdminMenu extends JFrame {
 		
 		//Gestionar Usuarios
 		JButton btnGestionar = new JButton("Gestionar Usuarios");
-		btnGestionar.setIcon(new ImageIcon("/img/gestionarUsuario.png"));
+		btnGestionar.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarUsuario.png")));
 		btnGestionar.setBackground(new Color(240, 255, 255));
 		btnGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,22 +55,24 @@ public class AdminMenu extends JFrame {
 		contentPane.add(btnGestionar);
 		
 		//Gestionar Paquetes de viajes
-		JButton btnGestionarPaquetes = new JButton("Gestionar Paquetes");
-		btnGestionarPaquetes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarPaquete.png")));
-		btnGestionarPaquetes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		JButton btnGestionarVuelos = new JButton("Gestionar Vuelos");
+		btnGestionarVuelos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/vuelo.png")));
+		btnGestionarVuelos.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        new GestionarVuelosView().setVisible(true);
+		        dispose();
+		    }
 		});
-		btnGestionarPaquetes.setBackground(new Color(240, 255, 255));
-		btnGestionarPaquetes.setFont(new Font("Gadugi", Font.PLAIN, 14));
-		btnGestionarPaquetes.setBounds(369, 110, 202, 52);
-		contentPane.add(btnGestionarPaquetes);
+		btnGestionarVuelos.setBackground(new Color(240, 255, 255));
+		btnGestionarVuelos.setFont(new Font("Gadugi", Font.PLAIN, 14));
+		btnGestionarVuelos.setBounds(369, 110, 202, 52);
+		contentPane.add(btnGestionarVuelos);
 		
 		
 		
 		//Gestionar Reservas
 		JButton btnGestionarReservas = new JButton("Gestionar Reservas");
-		btnGestionarReservas.setIcon(new ImageIcon("/img/gestionarReserva.png"));
+		btnGestionarReservas.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarReserva.png")));
 		btnGestionarReservas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
