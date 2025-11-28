@@ -102,7 +102,7 @@ public class Inicio extends JFrame {
 
 		JButton btnVentanaRegistrar = new JButton("Registrar");
 		btnVentanaRegistrar.setForeground(new Color(255, 255, 255));
-		btnVentanaRegistrar.setBackground(new Color(135, 206, 235));
+		btnVentanaRegistrar.setBackground(new Color(197, 221, 255));
 		btnVentanaRegistrar.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
@@ -215,7 +215,7 @@ public class Inicio extends JFrame {
 
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setForeground(SystemColor.window);
-		btnIniciarSesion.setBackground(new Color(135, 206, 235));
+		btnIniciarSesion.setBackground(new Color(197, 221, 255));
 		btnIniciarSesion.setBounds(169, 389, 147, 29);
 		btnIniciarSesion.setFont(new Font("Gadugi", Font.BOLD, 17));
 		Registrar.add(btnIniciarSesion);

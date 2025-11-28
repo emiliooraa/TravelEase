@@ -41,7 +41,7 @@ public class GestionarUsuariosView extends JFrame {
         contentPane.setLayout(null);
 
         // Título
-        JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios");
+        JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios - " + usuario.getNombre());
         lblTitulo.setForeground(Color.BLACK);
         lblTitulo.setBounds(10, 1, 400, 56);
         lblTitulo.setFont(new Font("Gadugi", Font.PLAIN, 15));
@@ -49,7 +49,7 @@ public class GestionarUsuariosView extends JFrame {
 
         // Cerrar sesión
         JButton btnCerrarSesion = new JButton("Cerrar sesión");
-        btnCerrarSesion.setBackground(new Color(255, 0, 0));
+        btnCerrarSesion.setBackground(new Color(220, 20, 60));
         btnCerrarSesion.setForeground(Color.WHITE);
         btnCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
         btnCerrarSesion.setBounds(655, 18, 131, 25);
@@ -59,21 +59,20 @@ public class GestionarUsuariosView extends JFrame {
         });
         contentPane.add(btnCerrarSesion);
 
-        // Tabs
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.setBounds(10, 68, 776, 464);
-        contentPane.add(tabbedPane);
+     
 
         // Panel usuarios
         JPanel panelUsuarios = new JPanel();
         panelUsuarios.setLayout(null);
-        tabbedPane.addTab("Gestionar Usuarios", null, panelUsuarios, null);
+        panelUsuarios.setBounds(10, 68, 776, 464);
+        contentPane.add(panelUsuarios);
+
 
         // Tabla
         model = new DefaultTableModel(new String[]{"ID", "Nombre", "Email", "Rol"}, 0);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 11, 751, 250);
+        scrollPane.setBounds(10, 11, 766, 258);
         panelUsuarios.add(scrollPane);
 
         // Campo filtro
@@ -125,7 +124,7 @@ public class GestionarUsuariosView extends JFrame {
         btnAgregar.addActionListener(e -> {
             AgregarUsuarioView ventana = new AgregarUsuarioView(this);
             ventana.setVisible(true);
-            dispose();
+            
         });
 
         // EDITAR
@@ -133,7 +132,7 @@ public class GestionarUsuariosView extends JFrame {
             if (usuarioSeleccionado != null) {
                 EditarUsuarioView ventana = new EditarUsuarioView(this, usuarioSeleccionado);
                 ventana.setVisible(true);
-                dispose();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione un usuario.");
             }

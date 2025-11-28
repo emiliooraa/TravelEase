@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class AdminMenu extends JFrame {
 
@@ -24,9 +25,9 @@ public class AdminMenu extends JFrame {
 	public AdminMenu(Usuario usuario) {
 		setTitle("Panel de Admin");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 544, 398);
+		setBounds(100, 100, 661, 488);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(197, 221, 255));
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -36,11 +37,12 @@ public class AdminMenu extends JFrame {
 		lblNewLabel.setBackground(new Color(255, 0, 0));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Gadugi", Font.BOLD, 17));
-		lblNewLabel.setBounds(47, 24, 434, 52);
+		lblNewLabel.setBounds(105, 24, 434, 52);
 		contentPane.add(lblNewLabel);
 		
 		//Gestionar Usuarios
 		JButton btnGestionar = new JButton("Gestionar Usuarios");
+		btnGestionar.setIcon(new ImageIcon("D:\\GitHub\\TravelEase\\TravelEase\\src\\img\\gestionarUsuario.png"));
 		btnGestionar.setBackground(new Color(240, 255, 255));
 		btnGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -49,38 +51,41 @@ public class AdminMenu extends JFrame {
 			}
 		});
 		btnGestionar.setFont(new Font("Gadugi", Font.PLAIN, 14));
-		btnGestionar.setBounds(47, 110, 202, 52);
+		btnGestionar.setBounds(57, 110, 202, 52);
 		contentPane.add(btnGestionar);
 		
 		//Gestionar Paquetes de viajes
 		JButton btnGestionarPaquetes = new JButton("Gestionar Paquetes");
+		btnGestionarPaquetes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarPaquete.png")));
 		btnGestionarPaquetes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnGestionarPaquetes.setBackground(new Color(240, 255, 255));
 		btnGestionarPaquetes.setFont(new Font("Gadugi", Font.PLAIN, 14));
-		btnGestionarPaquetes.setBounds(279, 110, 202, 52);
+		btnGestionarPaquetes.setBounds(369, 110, 202, 52);
 		contentPane.add(btnGestionarPaquetes);
 		
 		
 		
 		//Gestionar Reservas
 		JButton btnGestionarReservas = new JButton("Gestionar Reservas");
+		btnGestionarReservas.setIcon(new ImageIcon("D:\\GitHub\\TravelEase\\TravelEase\\src\\img\\gestionarReserva.png"));
 		btnGestionarReservas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnGestionarReservas.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarReservas.setBackground(new Color(240, 255, 255));
-		btnGestionarReservas.setBounds(47, 183, 202, 52);
+		btnGestionarReservas.setBounds(57, 197, 202, 52);
 		contentPane.add(btnGestionarReservas);
 		
 		//Ver Reportes
 		JButton btnVerReportes = new JButton("Ver Reportes");
+		btnVerReportes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/reporte.png")));
 		btnVerReportes.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnVerReportes.setBackground(new Color(240, 255, 255));
-		btnVerReportes.setBounds(279, 183, 202, 52);
+		btnVerReportes.setBounds(369, 197, 202, 52);
 		contentPane.add(btnVerReportes);
 		
 		//Boton para cerrar sesion
@@ -94,7 +99,7 @@ public class AdminMenu extends JFrame {
 			}
 		});
 		btnCerrarSesion.setFont(new Font("Gadugi", Font.PLAIN, 15));
-		btnCerrarSesion.setBounds(163, 280, 202, 37);
+		btnCerrarSesion.setBounds(221, 314, 202, 37);
 		contentPane.add(btnCerrarSesion);
 	}
 }

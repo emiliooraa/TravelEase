@@ -1,7 +1,8 @@
-package bll;
+package dll;
 
-import model.Reserva;
 import java.util.List;
+
+import bll.Reserva;
 
 public class ControllerManager {
 
