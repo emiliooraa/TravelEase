@@ -131,7 +131,7 @@ public class GestionarUsuariosView extends JFrame {
         // EDITAR
         btnEditar.addActionListener(e -> {
             if (usuarioSeleccionado != null) {
-                EditarUsuarioView ventana = new EditarUsuarioView(usuarioSeleccionado);
+                EditarUsuarioView ventana = new EditarUsuarioView(this, usuarioSeleccionado);
                 ventana.setVisible(true);
                 dispose();
             } else {

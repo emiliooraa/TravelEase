@@ -143,11 +143,14 @@ public class AgregarUsuarioView extends JFrame {
 
             if (ok) {
                 JOptionPane.showMessageDialog(null, "Usuario agregado correctamente.");
-                nuevo.cargarTabla();
-                dispose();
+
+                nuevo.cargarTabla();  
+                nuevo.setVisible(true); 
+                dispose();             
             } else {
                 JOptionPane.showMessageDialog(null, "Error al registrar el usuario.");
             }
+
         });
     }
 }

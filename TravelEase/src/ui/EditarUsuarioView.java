@@ -22,7 +22,8 @@ public class EditarUsuarioView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	public Usuario usuario;
+	private GestionarUsuariosView padre;
+	
 	
 	
 	/**
@@ -33,7 +34,8 @@ public class EditarUsuarioView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditarUsuarioView(Usuario usuario) {
+	public EditarUsuarioView(GestionarUsuariosView padre, Usuario usuario) {
+        this.padre = padre; 
 	  
 		setTitle("Editar Usuario");
         setSize(350, 421);
@@ -92,7 +94,7 @@ public class EditarUsuarioView extends JFrame {
         JPasswordField inpPass = new JPasswordField();
         inpPass.setBounds(120, 215, 180, 25);
         getContentPane().add(inpPass);
-        inpPass.setText(usuario.getPassword());
+        
 
         JLabel lblErrorPassword = new JLabel("");
         lblErrorPassword.setForeground(Color.RED);
@@ -109,6 +111,7 @@ public class EditarUsuarioView extends JFrame {
         comboRol.addItem("MANAGER");
         comboRol.addItem("OPERARIO");
         comboRol.setBounds(120, 262, 180, 25);
+        comboRol.setSelectedItem(usuario.getRol());  
         getContentPane().add(comboRol);
 
         JButton btnGuardar = new JButton("Guardar");
@@ -163,23 +166,24 @@ public class EditarUsuarioView extends JFrame {
 
 
             boolean ok = ControllerUsuario.editarAUsuario(
-            	    usuario.getId(),
-            	    inpNombre.getText(),
-            	    inpDni.getText(),
-            	    inpEmail.getText(),
-            	    pass,
-            	    comboRol.getSelectedItem().toString()
-            	);
+                    usuario.getId(),
+                    inpNombre.getText(),
+                    inpDni.getText(),
+                    inpEmail.getText(),
+                    pass,
+                    comboRol.getSelectedItem().toString()
+                );
 
+                if (ok) {
+                    JOptionPane.showMessageDialog(null, "Usuario editado correctamente.");
 
-            if (ok) {
-                JOptionPane.showMessageDialog(null, "Usuario editado correctamente.");
-                
-                dispose();
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al editar el usuario.");
-            }
+                    padre.cargarTabla();  
+                    padre.setVisible(true);
+                    dispose();              
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al editar el usuario.");
+                }
         });
     }
 

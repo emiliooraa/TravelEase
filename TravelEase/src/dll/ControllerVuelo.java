@@ -35,7 +35,7 @@ public class ControllerVuelo {
             return filas > 0;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al crear vuelo: " + e.getMessage());
+        	System.err.println("Error al crear vuelo: " + e.getMessage());
             return false;
         }
     }
@@ -64,7 +64,7 @@ public class ControllerVuelo {
             return filas > 0;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo editar el vuelo: " + e.getMessage());
+        	System.err.println("No se pudo editar el vuelo: " + e.getMessage());
             return false;
         }
     }
