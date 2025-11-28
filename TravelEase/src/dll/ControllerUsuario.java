@@ -65,7 +65,7 @@ public class ControllerUsuario {
         if (password == null) 
         	return;
 
-        boolean ok = registrarUsuario(nombre, dni, email, password, "CLIENTE");
+        boolean ok = registrarUsuario(nombre, dni, email, password, "USUARIO");
 
         JOptionPane.showMessageDialog(null,
                 ok ? "Usuario registrado correctamente." : "Error al registrar el usuario.");
@@ -118,7 +118,7 @@ public class ControllerUsuario {
             return rows > 0;
 
         } catch (Exception e) {
-        	System.err.println("Error al registrar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
             return false;
         }
     }
@@ -187,13 +187,13 @@ public class ControllerUsuario {
             stmt.setInt(1, id);
             int filas = stmt.executeUpdate();
             if (filas > 0) {
-            	System.out.println("Usuario eliminado correctamente.");
+                JOptionPane.showMessageDialog(null, "✅ Usuario eliminado correctamente.");
                 return true;
             } else {
-            	System.out.println("No se encontró un usuario con ese ID.");
+                JOptionPane.showMessageDialog(null, "⚠️ No se encontró un usuario con ese ID.");
             }
         } catch (Exception e) {
-        	System.err.println("Error al eliminar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "❌ Error al eliminar usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
