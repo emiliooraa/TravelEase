@@ -42,7 +42,7 @@ public class AdminMenu extends JFrame {
 		
 		//Gestionar Usuarios
 		JButton btnGestionar = new JButton("Gestionar Usuarios");
-		btnGestionar.setIcon(new ImageIcon("D:\\GitHub\\TravelEase\\TravelEase\\src\\img\\gestionarUsuario.png"));
+		btnGestionar.setIcon(new ImageIcon("/img/gestionarUsuario.png"));
 		btnGestionar.setBackground(new Color(240, 255, 255));
 		btnGestionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +70,7 @@ public class AdminMenu extends JFrame {
 		
 		//Gestionar Reservas
 		JButton btnGestionarReservas = new JButton("Gestionar Reservas");
-		btnGestionarReservas.setIcon(new ImageIcon("D:\\GitHub\\TravelEase\\TravelEase\\src\\img\\gestionarReserva.png"));
+		btnGestionarReservas.setIcon(new ImageIcon("/img/gestionarReserva.png"));
 		btnGestionarReservas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
