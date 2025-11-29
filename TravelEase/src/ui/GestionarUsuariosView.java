@@ -43,7 +43,7 @@ public class GestionarUsuariosView extends JFrame {
         // Título
         JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios - " + usuario.getNombre());
         lblTitulo.setForeground(Color.BLACK);
-        lblTitulo.setBounds(10, 1, 400, 56);
+        lblTitulo.setBounds(20, 1, 400, 56);
         lblTitulo.setFont(new Font("Gadugi", Font.PLAIN, 15));
         contentPane.add(lblTitulo);
 
@@ -64,7 +64,7 @@ public class GestionarUsuariosView extends JFrame {
         // Panel usuarios
         JPanel panelUsuarios = new JPanel();
         panelUsuarios.setLayout(null);
-        panelUsuarios.setBounds(10, 68, 776, 464);
+        panelUsuarios.setBounds(10, 79, 776, 453);
         contentPane.add(panelUsuarios);
 
 
@@ -177,6 +177,10 @@ public class GestionarUsuariosView extends JFrame {
                             ", Nombre=" + usuarioSeleccionado.getNombre() +
                             ", Email=" + usuarioSeleccionado.getEmail() +
                             ", Rol=" + usuarioSeleccionado.getRol());
+                    
+                    JButton btnVolver = new JButton("Volver");
+                    btnVolver.setBounds(20, 45, 89, 23);
+                    contentPane.add(btnVolver);
                 }
             }
         });

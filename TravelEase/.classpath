@@ -8,5 +8,6 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="src/lib/mysql-connector-j-9.5.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/lib/jbcrypt-0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/emila/Downloads/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
