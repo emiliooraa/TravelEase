@@ -7,24 +7,26 @@ public class GestorReservas {
 
     private static List<Reserva> reservas = new ArrayList<>();
 
+  
     public static void agregarReserva(Reserva reserva) {
         reservas.add(reserva);
     }
 
+ 
     public static List<Reserva> obtenerReservasDe(Usuario usuario) {
         List<Reserva> resultado = new ArrayList<>();
         for (Reserva r : reservas) {
-      
-            if (r.getUsuario() == usuario) {
+            if (r.getCliente() == usuario) { 
                 resultado.add(r);
             }
         }
         return resultado;
     }
 
-    public static Reserva buscarPorIdYUsuario(int id, Usuario usuario) {
+ 
+    public static Reserva buscarPorIdYCliente(int id, Usuario usuario) {
         for (Reserva r : reservas) {
-            if (r.getId() == id && r.getUsuario() == usuario) {
+            if (r.getId() == id && r.getCliente() == usuario) {   
                 return r;
             }
         }
@@ -32,11 +34,13 @@ public class GestorReservas {
     }
 
     public static boolean cancelarReserva(int id, Usuario usuario) {
-        Reserva r = buscarPorIdYUsuario(id, usuario);
-        if (r != null && "Activa".equalsIgnoreCase(r.getEstado())) {
-            r.setEstado("Cancelada");
+        Reserva r = buscarPorIdYCliente(id, usuario);
+
+        if (r != null && !r.isCancelada()) {  
+            r.setCancelada(true);            
             return true;
         }
+
         return false;
     }
 }
