@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 21-11-2025 a las 02:33:21
+-- Tiempo de generación: 29-11-2025 a las 21:45:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,10 +42,27 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `dni`, `email`, `rol`, `password`, `fotoPerfil`) VALUES
-(1, 'Admin', '12345678', 'admin@travelease.com', 'ADMIN', '$2a$12$hBvi1MWRNDgHI5Os7eqaXelK8rLUsc8LpSSFK1Kq4PDa2o3ajp82i', NULL),       --Admin1234@
-(2, 'Pepe', '11223344', 'pepe@gmail.com', 'CLIENTE', '$2a$10$zrgSZTk4EPAJuX8YATiR7ulHA8C5ATq6R43KV90e9JzXzTXIXYd7a', NULL),            --Pepe1234@
-(21, 'Emilio', '87654321', 'emilio@gmail.com', 'MANAGER', '$2a$10$28XwMPGcE2Wstn.syAbz0uGqFNSDZNZYzwufgCROh4/WzDcGuA0Iy', NULL),       --Emilio1234@
-(22, 'Gianella', '44332211', 'gianella@gmail.com', 'OPERARIO', '$2a$10$XN2LIQ09t4IZUOlvzRZLw.DjWwW5GOw4ZhPPoxFxSFkYmQrbIGwrq', NULL);  --Giane1234@
+(1, 'Admin', '12345678', 'admin@travelease.com', 'ADMIN', '$2a$12$hBvi1MWRNDgHI5Os7eqaXelK8rLUsc8LpSSFK1Kq4PDa2o3ajp82i', NULL),      --Admin1234@
+(2, 'Pepe', '11223344', 'pepe@gmail.com', 'CLIENTE', '$2a$10$zrgSZTk4EPAJuX8YATiR7ulHA8C5ATq6R43KV90e9JzXzTXIXYd7a', NULL),           --Pepe1234@
+(3, 'Emilio', '11334422', 'emilio@gmail.com', 'CLIENTE', '$2a$10$28XwMPGcE2Wstn.syAbz0uGqFNSDZNZYzwufgCROh4/WzDcGuA0Iy', NULL),       --Emilio1234@
+(4, 'Gianella', '44332211', 'gianella@gmail.com', 'OPERARIO', '$2a$10$XN2LIQ09t4IZUOlvzRZLw.DjWwW5GOw4ZhPPoxFxSFkYmQrbIGwrq', NULL),  --Giane1234@
+(5, 'Ignacio', '12343212', 'ignacio@gmail.com', 'CLIENTE', '$2a$10$3alrPL9lJ2yCHsUuOj8LJ.mT5y.WEQ8p.I8uqSzFujuQj9Cwnh1Oy', NULL);     --Ignacio1234@
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vuelo`
+--
+
+CREATE TABLE `vuelo` (
+  `id` int(11) NOT NULL,
+  `origen` varchar(100) NOT NULL,
+  `destino` varchar(100) NOT NULL,
+  `fecha` date NOT NULL,
+  `horario` time NOT NULL,
+  `capacidad` int(11) NOT NULL,
+  `asientos_disponibles` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -58,6 +75,12 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `vuelo`
+--
+ALTER TABLE `vuelo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -65,7 +88,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `vuelo`
+--
+ALTER TABLE `vuelo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
