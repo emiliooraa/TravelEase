@@ -53,14 +53,14 @@ public class ClienteMenu {
                     JOptionPane.showMessageDialog(null, "Cerrando sesión de cliente...");
                     break;
                 default:
-                    // Cierre de ventana o cancelar
+                    
                     opcion = 5;
                     break;
             }
         } while (opcion != 5);
     }
 
-    // 🔍 Buscar destinos (por ahora algo simple)
+   
     private static void buscarDestinos(Usuario usuario) {
         String mensaje = "Destinos disponibles:\n"
                 + "- Madrid (Vuelo + Hotel)\n"
@@ -71,7 +71,7 @@ public class ClienteMenu {
         JOptionPane.showMessageDialog(null, mensaje, "Buscar destinos", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // ✈ Hacer nueva reserva
+  
     private static void hacerNuevaReserva(Usuario usuario) {
         String[] tipos = {"Vuelo", "Hotel", "Paquete", "Cancelar"};
         int tipoSeleccionado = JOptionPane.showOptionDialog(
@@ -86,7 +86,7 @@ public class ClienteMenu {
         );
 
         if (tipoSeleccionado == -1 || tipoSeleccionado == 3) {
-            return; // Canceló
+            return; 
         }
 
         String tipo = tipos[tipoSeleccionado];
@@ -112,7 +112,7 @@ public class ClienteMenu {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // ❌ Cancelar reserva
+    
     private static void cancelarReserva(Usuario usuario) {
         List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
@@ -147,7 +147,7 @@ public class ClienteMenu {
         }
     }
 
-    // ✏ Modificar reserva (cambiar destino y fecha)
+    
     private static void modificarReserva(Usuario usuario) {
         List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
@@ -210,7 +210,6 @@ public class ClienteMenu {
         }
     }
 
-    // 📜 Ver historial de reservas
     private static void verHistorial(Usuario usuario) {
         List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
