@@ -1,22 +1,26 @@
 package ui;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
-import bll.Usuario;
-import bll.Reserva;
 import bll.GestorReservas;
-
-import java.util.List;
+import bll.Hotel;
+import bll.Paquete;
+import bll.Reserva;
+import bll.Usuario;
+import bll.Vuelo;
 
 public class ClienteMenu {
 
     public static void mostrar(Usuario usuario) {
+
         String[] opciones = {
-                "Buscar destinos",
-                "Hacer nueva reserva",
-                "Cancelar reserva",
-                "Modificar reserva",
-                "Ver historial de reservas",
+                "Buscar destinos / vuelos / hoteles / paquetes",  
+                "Realizar reserva",                               
+                "Cancelar reserva",                            
+                "Modificar reserva",                            
+                "Ver historial de reservas",                   
                 "Salir"
         };
 
@@ -25,8 +29,8 @@ public class ClienteMenu {
         do {
             opcion = JOptionPane.showOptionDialog(
                     null,
-                    "Cliente: " + usuario.getNombre() + "\nSeleccione una opción:",
-                    "Menú de Cliente - TravelEase",
+                    "Cliente: " + usuario.getNombre() + "\nSeleccione una opcion:",
+                    "Menu de Cliente - TravelEase",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
                     null,
@@ -35,10 +39,10 @@ public class ClienteMenu {
 
             switch (opcion) {
                 case 0:
-                    buscarDestinos(usuario);
+                    buscarDestinos();
                     break;
                 case 1:
-                    hacerNuevaReserva(usuario);
+                    realizarReserva(usuario);
                     break;
                 case 2:
                     cancelarReserva(usuario);
@@ -50,33 +54,34 @@ public class ClienteMenu {
                     verHistorial(usuario);
                     break;
                 case 5:
-                    JOptionPane.showMessageDialog(null, "Cerrando sesión de cliente...");
+                    JOptionPane.showMessageDialog(null, "Cerrando sesion de cliente...");
                     break;
                 default:
-                    
-                    opcion = 5;
+                    opcion = 5; 
                     break;
             }
         } while (opcion != 5);
     }
 
-   
-    private static void buscarDestinos(Usuario usuario) {
-        String mensaje = "Destinos disponibles:\n"
-                + "- Madrid (Vuelo + Hotel)\n"
-                + "- Roma (Vuelo)\n"
-                + "- París (Vuelo + Hotel + Paquete completo)\n"
-                + "- Río de Janeiro (Paquete completo)\n\n"
-                + "Funcionalidad ampliable más adelante (filtros, precios, etc.).";
+
+    private static void buscarDestinos() {
+        String mensaje = "Destinos disponibles (ejemplo):\n"
+                + "- Madrid (vuelo + hotel)\n"
+                + "- Roma (solo vuelo)\n"
+                + "- Paris (vuelo + hotel + paquete)\n"
+                + "- Rio de Janeiro (paquete completo)\n\n"
+                + "Mas adelante podes reemplazar esto por tus ventanas\n"
+                + "reales de busqueda de vuelos, hoteles y paquetes.";
         JOptionPane.showMessageDialog(null, mensaje, "Buscar destinos", JOptionPane.INFORMATION_MESSAGE);
     }
 
-  
-    private static void hacerNuevaReserva(Usuario usuario) {
+   
+    private static void realizarReserva(Usuario usuario) {
+
         String[] tipos = {"Vuelo", "Hotel", "Paquete", "Cancelar"};
-        int tipoSeleccionado = JOptionPane.showOptionDialog(
+        int opcion = JOptionPane.showOptionDialog(
                 null,
-                "Seleccione el tipo de reserva:",
+                "Que tipo de reserva queres hacer?",
                 "Nueva reserva",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -85,51 +90,64 @@ public class ClienteMenu {
                 tipos[0]
         );
 
-        if (tipoSeleccionado == -1 || tipoSeleccionado == 3) {
+        if (opcion == -1 || opcion == 3) {
             return; 
         }
 
-        String tipo = tipos[tipoSeleccionado];
+        Vuelo vuelo = null;
+        Hotel hotel = null;
+        Paquete paquete = null;
 
-        String destino = JOptionPane.showInputDialog(null, "Ingrese el destino:");
-        if (destino == null || destino.isBlank()) {
-            JOptionPane.showMessageDialog(null, "Destino inválido. Operación cancelada.");
-            return;
+       
+        switch (opcion) {
+            case 0:
+                JOptionPane.showMessageDialog(null,
+                        "Acá iria la logica para seleccionar un VUELO.\n" +
+                        "Por ahora la reserva se crea sin vuelo asociado.");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null,
+                        "Acá iria la logica para seleccionar un HOTEL.\n" +
+                        "Por ahora la reserva se crea sin hotel asociado.");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null,
+                        "Acá iria la logica para seleccionar un PAQUETE.\n" +
+                        "Por ahora la reserva se crea sin paquete asociado.");
+                break;
         }
 
-        String fecha = JOptionPane.showInputDialog(null, "Ingrese la fecha (ej: 10/12/2025):");
-        if (fecha == null || fecha.isBlank()) {
-            JOptionPane.showMessageDialog(null, "Fecha inválida. Operación cancelada.");
-            return;
-        }
-
-        Reserva reserva = new Reserva(usuario, tipo, destino, fecha);
+        Reserva reserva = new Reserva(usuario, vuelo, hotel, paquete, false);
         GestorReservas.agregarReserva(reserva);
 
-        JOptionPane.showMessageDialog(null,
-                "Reserva creada con éxito.\n" + reserva.toString(),
+        JOptionPane.showMessageDialog(
+                null,
+                "Reserva creada con exito.\nID: " + reserva.getId(),
                 "Reserva creada",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
-    
+   
     private static void cancelarReserva(Usuario usuario) {
-        List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
-        if (reservasUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No tenés reservas para cancelar.");
+        List<Reserva> reservasCliente = GestorReservas.obtenerReservasDe(usuario);
+
+        if (reservasCliente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No tenes reservas para cancelar.");
             return;
         }
 
         StringBuilder sb = new StringBuilder("Tus reservas:\n");
-        for (Reserva r : reservasUsuario) {
-            sb.append(r.getId()).append(" - ").append(r.getTipo())
-              .append(" - ").append(r.getDestino())
-              .append(" (").append(r.getEstado()).append(")\n");
+        for (Reserva r : reservasCliente) {
+            sb.append("ID: ").append(r.getId())
+              .append(" | Cancelada: ").append(r.isCancelada())
+              .append("\n");
         }
 
         String input = JOptionPane.showInputDialog(null,
                 sb.toString() + "\nIngrese el ID de la reserva a cancelar:");
+
         if (input == null) {
             return;
         }
@@ -140,93 +158,95 @@ public class ClienteMenu {
             if (ok) {
                 JOptionPane.showMessageDialog(null, "Reserva cancelada correctamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró una reserva activa con ese ID.");
+                JOptionPane.showMessageDialog(null, "No se encontro una reserva activa con ese ID.");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ID inválido.");
+            JOptionPane.showMessageDialog(null, "ID invalido.");
         }
     }
 
-    
     private static void modificarReserva(Usuario usuario) {
-        List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
-        if (reservasUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No tenés reservas para modificar.");
+        List<Reserva> reservasCliente = GestorReservas.obtenerReservasDe(usuario);
+
+        if (reservasCliente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No tenes reservas para modificar.");
             return;
         }
 
         StringBuilder sb = new StringBuilder("Tus reservas:\n");
-        for (Reserva r : reservasUsuario) {
-            sb.append(r.getId()).append(" - ").append(r.getTipo())
-              .append(" - ").append(r.getDestino())
-              .append(" - ").append(r.getFecha())
-              .append(" (").append(r.getEstado()).append(")\n");
+        for (Reserva r : reservasCliente) {
+            sb.append("ID: ").append(r.getId())
+              .append(" | Cancelada: ").append(r.isCancelada())
+              .append("\n");
         }
 
         String input = JOptionPane.showInputDialog(null,
                 sb.toString() + "\nIngrese el ID de la reserva a modificar:");
+
         if (input == null) {
             return;
         }
 
         try {
             int id = Integer.parseInt(input);
-            Reserva r = GestorReservas.buscarPorIdYUsuario(id, usuario);
+            Reserva r = GestorReservas.buscarPorIdYCliente(id, usuario);
+
             if (r == null) {
-                JOptionPane.showMessageDialog(null, "No se encontró una reserva con ese ID.");
+                JOptionPane.showMessageDialog(null, "No se encontro una reserva con ese ID.");
                 return;
             }
 
-            if (!"Activa".equalsIgnoreCase(r.getEstado())) {
-                JOptionPane.showMessageDialog(null, "Solo se pueden modificar reservas ACTIVAS.");
-                return;
-            }
+            String[] opciones = {"Marcar como cancelada", "Marcar como activa", "Salir"};
+            int op = JOptionPane.showOptionDialog(
+                    null,
+                    "Estado actual: " + (r.isCancelada() ? "Cancelada" : "Activa"),
+                    "Modificar reserva",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opciones,
+                    opciones[0]
+            );
 
-            String nuevoDestino = JOptionPane.showInputDialog(null,
-                    "Destino actual: " + r.getDestino() + "\nNuevo destino:");
-            if (nuevoDestino == null || nuevoDestino.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Destino inválido. No se modificó.");
-                return;
+            if (op == 0) {
+                r.setCancelada(true);
+            } else if (op == 1) {
+                r.setCancelada(false);
             }
-
-            String nuevaFecha = JOptionPane.showInputDialog(null,
-                    "Fecha actual: " + r.getFecha() + "\nNueva fecha:");
-            if (nuevaFecha == null || nuevaFecha.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Fecha inválida. No se modificó.");
-                return;
-            }
-
-            r.setDestino(nuevoDestino);
-            r.setFecha(nuevaFecha);
 
             JOptionPane.showMessageDialog(null,
-                    "Reserva modificada:\n" + r.toString(),
-                    "Reserva modificada",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    "Reserva modificada.\nEstado ahora: " +
+                    (r.isCancelada() ? "Cancelada" : "Activa"));
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ID inválido.");
+            JOptionPane.showMessageDialog(null, "ID invalido.");
         }
     }
 
+  
     private static void verHistorial(Usuario usuario) {
-        List<Reserva> reservasUsuario = GestorReservas.obtenerReservasDe(usuario);
 
-        if (reservasUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No tenés reservas registradas.");
+        List<Reserva> reservasCliente = GestorReservas.obtenerReservasDe(usuario);
+
+        if (reservasCliente.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No tenes reservas registradas.");
             return;
         }
 
         StringBuilder sb = new StringBuilder("Historial de reservas:\n\n");
-        for (Reserva r : reservasUsuario) {
-            sb.append(r.toString()).append("\n");
+        for (Reserva r : reservasCliente) {
+            sb.append("ID: ").append(r.getId())
+              .append(" | Cliente: ").append(r.getCliente().getNombre())
+              .append(" | Cancelada: ").append(r.isCancelada())
+              .append("\n");
         }
 
-        JOptionPane.showMessageDialog(null,
+        JOptionPane.showMessageDialog(
+                null,
                 sb.toString(),
                 "Historial de reservas",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
-
