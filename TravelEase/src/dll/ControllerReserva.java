@@ -1,4 +1,4 @@
-package dll;
+package bll;
 
 import dao.ReservaDAO;
 import model.Reserva;
@@ -51,4 +51,13 @@ public class ControllerReserva {
                 "Aprobadas: " + aprobadas + "\n" +
                 "Rechazadas: " + rechazadas + "\n";
     }
+
+    public boolean eliminarReserva(int id) {
+    Reserva r = reservaDAO.findById(id);
+    if (r == null) return false;
+
+    reservaDAO.delete(id);
+    return true;
+}
+
 }
