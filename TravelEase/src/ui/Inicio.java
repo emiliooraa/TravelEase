@@ -128,7 +128,7 @@ public class Inicio extends JFrame {
 				     	case "admin":
 				     		new AdminMenu(usuario).setVisible(true);
 				    	 break;
-				     	case "usuario":
+				     	case "cliente":
 				     		new ClienteMenu(usuario).setVisible(true);
 				     	break;
 				     	case "operario":
