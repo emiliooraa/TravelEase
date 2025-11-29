@@ -1,12 +1,18 @@
 package bll;
 
 public class Reserva {
+
+
+    private static int contador = 1;
+
     private int id;
     private Usuario cliente;
     private Vuelo vuelo;
     private Hotel hotel;
     private Paquete paquete;
     private boolean cancelada;
+
+
     public Reserva(int id, Usuario cliente, Vuelo vuelo, Hotel hotel, Paquete paquete, boolean cancelada) {
         this.id = id;
         this.cliente = cliente;
@@ -15,16 +21,24 @@ public class Reserva {
         this.paquete = paquete;
         this.cancelada = cancelada;
     }
+
+
     public Reserva(Usuario cliente, Vuelo vuelo, Hotel hotel, Paquete paquete, boolean cancelada) {
-        this.id = id;
+        this.id = contador++;        
         this.cliente = cliente;
         this.vuelo = vuelo;
         this.hotel = hotel;
         this.paquete = paquete;
         this.cancelada = cancelada;
     }
+
+
     public Reserva() {
+        this.id = contador++;           
+        this.cancelada = false;          
     }
+
+    
     public int getId() {
         return id;
     }
@@ -61,10 +75,23 @@ public class Reserva {
     public void setCancelada(boolean cancelada) {
         this.cancelada = cancelada;
     }
+
+
+    public boolean isActiva() {
+        return !cancelada;
+    }
+
+    public void cancelar() {
+        this.cancelada = true;
+    }
+
     @Override
     public String toString() {
-        return "Reserva [id=" + id + ", cliente=" + cliente + ", vuelo=" + vuelo + ", hotel=" + hotel + ", paquete="
-                + paquete + ", cancelada=" + cancelada + "]";
+        return "Reserva [id=" + id 
+                + ", cliente=" + cliente 
+                + ", vuelo=" + vuelo 
+                + ", hotel=" + hotel 
+                + ", paquete=" + paquete 
+                + ", cancelada=" + cancelada + "]";
     }
-    
 }
