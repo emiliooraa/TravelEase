@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -30,7 +32,8 @@ public class GestionarUsuariosView extends JFrame {
     private Usuario usuarioSeleccionado;
 
     public GestionarUsuariosView(Usuario usuario) {
-
+    	
+    	this.usuarioSeleccionado = usuario;
         setTitle("Panel de Gestionar Usuarios");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 812, 582);
@@ -39,6 +42,7 @@ public class GestionarUsuariosView extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        setLocationRelativeTo(null);
 
         // Título
         JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios - " + usuario.getNombre());
@@ -64,7 +68,7 @@ public class GestionarUsuariosView extends JFrame {
         // Panel usuarios
         JPanel panelUsuarios = new JPanel();
         panelUsuarios.setLayout(null);
-        panelUsuarios.setBounds(10, 79, 776, 453);
+        panelUsuarios.setBounds(10, 54, 776, 430);
         contentPane.add(panelUsuarios);
 
 
@@ -116,6 +120,17 @@ public class GestionarUsuariosView extends JFrame {
         JLabel lblSeleccionado = new JLabel("Seleccionado: Ninguno");
         lblSeleccionado.setBounds(10, 390, 600, 20);
         panelUsuarios.add(lblSeleccionado);
+        
+        //Boton volver
+        JButton btnVolverAGU = new JButton("<-- Volver");
+        btnVolverAGU.setBounds(20, 509, 89, 23);
+        contentPane.add(btnVolverAGU);
+        btnVolverAGU.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AdminMenu(usuario).setVisible(true);
+				dispose();
+			}
+		});
 
         // Cargar tabla inicial
         cargarTabla();
@@ -178,9 +193,6 @@ public class GestionarUsuariosView extends JFrame {
                             ", Email=" + usuarioSeleccionado.getEmail() +
                             ", Rol=" + usuarioSeleccionado.getRol());
                     
-                    JButton btnVolver = new JButton("Volver");
-                    btnVolver.setBounds(20, 45, 89, 23);
-                    contentPane.add(btnVolver);
                 }
             }
         });

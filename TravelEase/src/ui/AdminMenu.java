@@ -31,6 +31,7 @@ public class AdminMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido " + usuario.getNombre());
 		lblNewLabel.setForeground(new Color(25, 25, 112));

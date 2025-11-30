@@ -9,5 +9,7 @@
 	<classpathentry exported="true" kind="lib" path="src/lib/mysql-connector-j-9.5.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/lib/jbcrypt-0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/emila/Downloads/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/emila/AppData/Local/Packages/531927~1.WHA/LOCALS~1/sessions/952E1F~1/TRANSF~1/2025-48/TRAVEL~1/TRAVEL~1/TRAVEL~1/TRAVEL~1/COMJGO~1.JAR"/>
+	<classpathentry kind="lib" path="C:/Users/emila/AppData/Local/Packages/531927~1.WHA/LOCALS~1/sessions/952E1F~1/TRANSF~1/2025-48/TRAVEL~1/TRAVEL~1/TRAVEL~1/TRAVEL~1/COMJGO~2.JAR"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

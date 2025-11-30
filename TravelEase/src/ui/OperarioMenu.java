@@ -19,6 +19,7 @@ public class OperarioMenu extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
+        
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 26, 665, 386);
@@ -28,19 +29,26 @@ public class OperarioMenu extends JFrame {
         btnVenta.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		new GestionarVentaView(usuario).setVisible(true);
+        		dispose();
         	}
         });
         btnVenta.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/iconVenta.png")));
         btnVenta.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnVenta.setBounds(94, 69, 183, 65);
+        
+        
         JButton btnAplicarDescuento = new JButton("Aplicar Descuento");
         btnAplicarDescuento.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/cupon-de-descuento.png")));
         btnAplicarDescuento.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnAplicarDescuento.setBounds(405, 183, 183, 65);
+        
+        
         JButton btnAsignarAsiento = new JButton("Asignar asiento");
         btnAsignarAsiento.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/asiento.png")));
         btnAsignarAsiento.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnAsignarAsiento.setBounds(94, 183, 183, 65);
+        
+        
         JButton btnGestionarReserva = new JButton("Gestionar reservas");
         btnGestionarReserva.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/calendario.png")));
         btnGestionarReserva.setFont(new Font("Gadugi", Font.PLAIN, 13));

@@ -23,6 +23,7 @@ public class AgregarVueloView extends JFrame {
         setSize(400, 450);
         setLocationRelativeTo(null);
         setLayout(null);
+        
 
         JLabel lblOrigen = new JLabel("Origen:");
         lblOrigen.setBounds(30, 40, 120, 25);

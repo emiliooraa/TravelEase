@@ -46,6 +46,7 @@ public class GestionarVentaView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panelNav = new JPanel();
 		panelNav.setBackground(new Color(197, 221, 255));

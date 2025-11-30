@@ -50,6 +50,7 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblImagen = new JLabel("");
 		lblImagen.setIcon(new ImageIcon(Main.class.getResource("/img/logoInicio.png")));
