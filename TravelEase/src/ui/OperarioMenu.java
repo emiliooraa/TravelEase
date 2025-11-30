@@ -38,7 +38,9 @@ public class OperarioMenu extends JFrame {
         btnGestionarReserva.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/calendario.png")));
         btnGestionarReserva.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnGestionarReserva.setBounds(405, 67, 183, 68);
-        JButton btnSalir = new JButton("Salir");
+        
+        //Cerrar sesion
+        JButton btnSalir = new JButton("Cerrar sesión");
         btnSalir.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnSalir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -65,7 +67,6 @@ public class OperarioMenu extends JFrame {
         btnAsignarAsiento.addActionListener(e -> mostrarMensaje("Asignar asiento (no implementado)") );
         btnGestionarReserva.addActionListener(e -> mostrarMensaje("Buscar reservas (no implementado)") );
         
-        //Cerrar sesion
         
     }
 

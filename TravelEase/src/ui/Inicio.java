@@ -54,6 +54,7 @@ public class Inicio extends JFrame {
 		contentPane.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(null);
 		tabbedPane.setBounds(10, 11, 491, 470);
 		tabbedPane.setFont(new Font("Gadugi", Font.PLAIN, 20));
 		tabbedPane.setToolTipText("Login");
