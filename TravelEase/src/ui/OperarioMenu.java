@@ -22,7 +22,14 @@ public class OperarioMenu extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 26, 665, 386);
+        
+        //Registrar venta
         JButton btnVenta = new JButton("Registrar venta");
+        btnVenta.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new GestionarVentaView(usuario).setVisible(true);
+        	}
+        });
         btnVenta.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/iconVenta.png")));
         btnVenta.setFont(new Font("Gadugi", Font.PLAIN, 13));
         btnVenta.setBounds(94, 69, 183, 65);
@@ -61,8 +68,9 @@ public class OperarioMenu extends JFrame {
                 JLabel titulo = new JLabel("Menú Operario " + usuario.getNombre());
                 titulo.setBounds(182, 0, 483, 26);
                 panel.add(titulo);
-                titulo.setFont(new Font("Arial", Font.BOLD, 22));
-        btnVenta.addActionListener(e -> mostrarMensaje("Registrar venta de hotel (no implementado)") );
+                titulo.setFont(new Font("Gadugi", Font.BOLD, 22));
+                
+    
         btnAplicarDescuento.addActionListener(e -> mostrarMensaje("Reservar paquete para cliente (no implementado)") );
         btnAsignarAsiento.addActionListener(e -> mostrarMensaje("Asignar asiento (no implementado)") );
         btnGestionarReserva.addActionListener(e -> mostrarMensaje("Buscar reservas (no implementado)") );
