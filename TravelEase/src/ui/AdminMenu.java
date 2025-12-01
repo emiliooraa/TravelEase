@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 public class AdminMenu extends JFrame {
 
@@ -28,7 +30,7 @@ public class AdminMenu extends JFrame {
 		setBounds(100, 100, 661, 488);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
@@ -57,6 +59,7 @@ public class AdminMenu extends JFrame {
 		
 		//Gestionar Paquetes de viajes
 		JButton btnGestionarVuelos = new JButton("Gestionar Vuelos");
+		btnGestionarVuelos.setToolTipText("Hi, estoy probando");
 		btnGestionarVuelos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/vuelo.png")));
 		btnGestionarVuelos.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
@@ -94,7 +97,7 @@ public class AdminMenu extends JFrame {
 		//Boton para cerrar sesion
 		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
-		btnCerrarSesion.setBackground(new Color(255, 0, 0));
+		btnCerrarSesion.setBackground(new Color(220, 20, 60));
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -104,5 +107,11 @@ public class AdminMenu extends JFrame {
 		btnCerrarSesion.setFont(new Font("Gadugi", Font.PLAIN, 15));
 		btnCerrarSesion.setBounds(221, 314, 202, 37);
 		contentPane.add(btnCerrarSesion);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBackground(SystemColor.menu);
+		panel.setBounds(10, 76, 625, 216);
+		contentPane.add(panel);
 	}
 }

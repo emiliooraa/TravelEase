@@ -94,7 +94,7 @@ public class Inicio extends JFrame {
 
 		JLabel lblNuevaCuenta = new JLabel("¿No estás registrado? ¡Podés registrarte acá abajo!");
 		lblNuevaCuenta.setFont(new Font("Gadugi", Font.PLAIN, 13));
-		lblNuevaCuenta.setBounds(83, 319, 319, 14);
+		lblNuevaCuenta.setBounds(83, 319, 319, 17);
 		lblNuevaCuenta.setHorizontalAlignment(SwingConstants.CENTER);
 		Login.add(lblNuevaCuenta);
 
@@ -242,7 +242,7 @@ public class Inicio extends JFrame {
 					lblError.setText("Complete todos los campos.");
 					return;
 				}
-				boolean ok = ControllerUsuario.registrarUsuario(nombre, dni, email, password, "USUARIO");
+				boolean ok = ControllerUsuario.registrarUsuario(nombre, dni, email, password, "CLIENTE");
 				if (ok) {
 					JOptionPane.showMessageDialog(Registrar, "Usuario registrado correctamente.");
 					inpNombreRegistro.setText("");

@@ -103,7 +103,7 @@ public class GestionarVuelosView extends JFrame {
 
         int conf = JOptionPane.showConfirmDialog(
                 null,
-                "¿Eliminar vuelo seleccionado?",
+                "¿Eliminar vuelo seleccionado: " + vueloSeleccionado.getCodigo() + " de Aerolinea: "+ vueloSeleccionado.getAerolinea() +"?" ,
                 "Confirmar",
                 JOptionPane.YES_NO_OPTION
         );
