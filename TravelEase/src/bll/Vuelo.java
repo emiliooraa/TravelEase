@@ -1,86 +1,93 @@
 package bll;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Vuelo {
+
     private int id;
+    private String codigo;
     private String origen;
     private String destino;
-    private LocalDate fecha;
-    private LocalTime horario;
-    private int capacidad;
-    private int asientosDisponibles;
+    private LocalDateTime fechaSalida;
+    private LocalDateTime fechaLlegada;
+    private String aerolinea;
 
-    public Vuelo(int id, String origen, String destino, LocalDate fecha, LocalTime horario, int capacidad,
-            int asientosDisponibles) {
+    public Vuelo(int id, String codigo, String origen, String destino,
+                 LocalDateTime fechaSalida, LocalDateTime fechaLlegada,
+                 String aerolinea) {
+
         this.id = id;
+        this.codigo = codigo;
         this.origen = origen;
         this.destino = destino;
-        this.fecha = fecha;
-        this.horario = horario;
-        this.capacidad = capacidad;
-        this.asientosDisponibles = asientosDisponibles;
-        }
-    public Vuelo(String origen, String destino, LocalDate fecha, LocalTime horario, int capacidad,
-            int asientosDisponibles) {
-        this.id = id;
-        this.origen = origen;
-        this.destino = destino;
-        this.fecha = fecha;
-        this.horario = horario;
-        this.capacidad = capacidad;
-        this.asientosDisponibles = asientosDisponibles;
+        this.fechaSalida = fechaSalida;
+        this.fechaLlegada = fechaLlegada;
+        this.aerolinea = aerolinea;
     }
-    public Vuelo() {
-    }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getOrigen() {
-        return origen;
-    }
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-    public String getDestino() {
-        return destino;
-    }
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-    public LocalDate getFecha() {
-        return fecha;
-    }
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-    public LocalTime getHorario() {
-        return horario;
-    }
-    public void setHorario(LocalTime horario) {
-        this.horario = horario;
-    }
-    public int getCapacidad() {
-        return capacidad;
-    }
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-    public int getAsientosDisponibles() {
-        return asientosDisponibles;
-    }
-    public void setAsientosDisponibles(int asientosDisponibles) {
-        this.asientosDisponibles = asientosDisponibles;
-    }
-    @Override
-    public String toString() {
-        return "Vuelo [id=" + id + ", origen=" + origen + ", destino=" + destino + ", fecha=" + fecha + ", horario="
-                + horario + ", capacidad=" + capacidad + ", asientosDisponibles=" + asientosDisponibles + "]";
-    }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public LocalDateTime getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public void setFechaSalida(LocalDateTime fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
+
+	public LocalDateTime getFechaLlegada() {
+		return fechaLlegada;
+	}
+
+	public void setFechaLlegada(LocalDateTime fechaLlegada) {
+		this.fechaLlegada = fechaLlegada;
+	}
+
+	public String getAerolinea() {
+		return aerolinea;
+	}
+
+	public void setAerolinea(String aerolinea) {
+		this.aerolinea = aerolinea;
+	}
+
+	@Override
+	public String toString() {
+		return "Vuelo [id=" + id + ", codigo=" + codigo + ", origen=" + origen + ", destino=" + destino
+				+ ", fechaSalida=" + fechaSalida + ", fechaLlegada=" + fechaLlegada + ", aerolinea=" + aerolinea + "]";
+	}
+
+    
+
     
 }
-

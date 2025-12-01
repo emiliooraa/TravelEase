@@ -60,7 +60,7 @@ public class AdminMenu extends JFrame {
 		btnGestionarVuelos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/vuelo.png")));
 		btnGestionarVuelos.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        new GestionarVuelosView().setVisible(true);
+		        new GestionarVuelosView(usuario).setVisible(true);
 		        dispose();
 		    }
 		});
