@@ -8,6 +8,8 @@ import bll.Vuelo;
 import dll.ControllerVuelo;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GestionarVuelosView extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -22,10 +24,9 @@ public class GestionarVuelosView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        model = new DefaultTableModel(new String[]{
-                "ID", "Código", "Origen", "Destino",
-                "Fecha Salida", "Fecha Llegada", "Aerolínea"
-        }, 0);
+        model = new DefaultTableModel(
+        	    new String[]{"ID", "Código", "Origen", "Destino", "Salida", "Llegada", "Aerolínea"}, 0
+        	);
         getContentPane().setLayout(null);
 
         table = new JTable(model);
@@ -36,13 +37,17 @@ public class GestionarVuelosView extends JFrame {
         cargarTabla();
 
         JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.setFont(new Font("Gadugi", Font.PLAIN, 11));
+        btnAgregar.setIcon(new ImageIcon(GestionarVuelosView.class.getResource("/img/agregar.png")));
+        btnAgregar.setBackground(new Color(152, 251, 152));
+        btnAgregar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnAgregar.setBounds(20, 400, 120, 40);
         btnAgregar.addActionListener(e -> new AgregarVueloView(this).setVisible(true));
         getContentPane().add(btnAgregar);
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setFont(new Font("Gadugi", Font.PLAIN, 11));
+        btnEditar.setIcon(new ImageIcon(GestionarVuelosView.class.getResource("/img/boton-editar.png")));
+        btnEditar.setBackground(new Color(30, 144, 255));
+        btnEditar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnEditar.setBounds(150, 400, 120, 40);
         btnEditar.addActionListener(e -> {
             if (vueloSeleccionado == null) {
@@ -54,7 +59,9 @@ public class GestionarVuelosView extends JFrame {
         getContentPane().add(btnEditar);
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setFont(new Font("Gadugi", Font.PLAIN, 11));
+        btnEliminar.setIcon(new ImageIcon(GestionarVuelosView.class.getResource("/img/eliminar.png")));
+        btnEliminar.setBackground(new Color(220, 20, 60));
+        btnEliminar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnEliminar.setBounds(280, 400, 120, 40);
         btnEliminar.addActionListener(e -> eliminarVuelo());
         getContentPane().add(btnEliminar);
@@ -63,8 +70,14 @@ public class GestionarVuelosView extends JFrame {
         titulo.setBounds(20, 20, 300, 30);
         titulo.setFont(new java.awt.Font("Gadugi", java.awt.Font.BOLD, 20));
         getContentPane().add(titulo);
-        
+        //Volver al menu
         JButton btnMenu = new JButton("");
+        btnMenu.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new AdminMenu(usuario).setVisible(true);
+        		dispose();
+        	}
+        });
         btnMenu.setBackground(new Color(240, 255, 255));
         btnMenu.setIcon(new ImageIcon(GestionarVuelosView.class.getResource("/img/home.png")));
         btnMenu.setBounds(771, 25, 89, 30);

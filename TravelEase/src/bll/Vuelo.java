@@ -8,26 +8,34 @@ public class Vuelo {
     private String codigo;
     private String origen;
     private String destino;
-    private String aerolinea;
     private LocalDateTime fechaSalida;
     private LocalDateTime fechaLlegada;
+    private String aerolinea;
 
     public Vuelo(int id, String codigo, String origen, String destino,
-                 String aerolinea, LocalDateTime salida, LocalDateTime llegada) {
+                 LocalDateTime fechaSalida, LocalDateTime fechaLlegada, String aerolinea) {
         this.id = id;
         this.codigo = codigo;
         this.origen = origen;
         this.destino = destino;
+        this.fechaSalida = fechaSalida;
+        this.fechaLlegada = fechaLlegada;
         this.aerolinea = aerolinea;
-        this.fechaSalida = salida;
-        this.fechaLlegada = llegada;
+    }
+
+    public Vuelo(String codigo, String origen, String destino,
+                 LocalDateTime fechaSalida, LocalDateTime fechaLlegada, String aerolinea) {
+        this.codigo = codigo;
+        this.origen = origen;
+        this.destino = destino;
+        this.fechaSalida = fechaSalida;
+        this.fechaLlegada = fechaLlegada;
+        this.aerolinea = aerolinea;
     }
 
     public Vuelo() {}
 
-    public int getId() {
-    	return id; 
-    	}
+    public int getId() { return id; }
     public String getCodigo() { 
     	return codigo; 
     	}
@@ -37,14 +45,14 @@ public class Vuelo {
     public String getDestino() { 
     	return destino; 
     	}
-    public String getAerolinea() { 
-    	return aerolinea; 
-    	}
     public LocalDateTime getFechaSalida() { 
     	return fechaSalida; 
     	}
     public LocalDateTime getFechaLlegada() { 
     	return fechaLlegada; 
+    	}
+    public String getAerolinea() { 
+    	return aerolinea; 
     	}
 
     public void setId(int id) { 
@@ -59,13 +67,13 @@ public class Vuelo {
     public void setDestino(String destino) { 
     	this.destino = destino; 
     	}
-    public void setAerolinea(String aerolinea) { 
-    	this.aerolinea = aerolinea; 
-    	}
     public void setFechaSalida(LocalDateTime fechaSalida) { 
     	this.fechaSalida = fechaSalida; 
     	}
     public void setFechaLlegada(LocalDateTime fechaLlegada) { 
     	this.fechaLlegada = fechaLlegada; 
+    	}
+    public void setAerolinea(String aerolinea) { 
+    	this.aerolinea = aerolinea; 
     	}
 }

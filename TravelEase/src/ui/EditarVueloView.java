@@ -1,99 +1,125 @@
 package ui;
 
 import javax.swing.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.awt.*;
+import java.time.LocalDateTime;
 
 import bll.Vuelo;
 import dll.ControllerVuelo;
+import components.DateTimePicker;
 
 public class EditarVueloView extends JFrame {
-    private static final long serialVersionUID = 1L;
+
     private GestionarVuelosView padre;
+    private Vuelo vuelo;
 
-    public EditarVueloView(GestionarVuelosView padre, Vuelo vuelo) {
-
+    public EditarVueloView(GestionarVuelosView padre, Vuelo vueloSeleccionado) {
         this.padre = padre;
+        this.vuelo = vueloSeleccionado;
 
         setTitle("Editar Vuelo");
-        setSize(380, 420);
+        setSize(450, 600);
         setLocationRelativeTo(null);
-        setLayout(null);
+        getContentPane().setLayout(null);
 
+        // ------- CÓDIGO -------
+        JLabel lblCodigo = new JLabel("Código:");
+        lblCodigo.setBounds(30, 30, 150, 25);
+        add(lblCodigo);
+
+        JTextField txtCodigo = new JTextField(vuelo.getCodigo());
+        txtCodigo.setBounds(180, 30, 200, 25);
+        add(txtCodigo);
+
+        // ------- ORIGEN -------
         JLabel lblOrigen = new JLabel("Origen:");
-        lblOrigen.setBounds(20, 30, 120, 25);
+        lblOrigen.setBounds(30, 70, 150, 25);
         add(lblOrigen);
+
         JTextField txtOrigen = new JTextField(vuelo.getOrigen());
-        txtOrigen.setBounds(140, 30, 200, 25);
+        txtOrigen.setBounds(180, 70, 200, 25);
         add(txtOrigen);
 
+        // ------- DESTINO -------
         JLabel lblDestino = new JLabel("Destino:");
-        lblDestino.setBounds(20, 70, 120, 25);
+        lblDestino.setBounds(30, 110, 150, 25);
         add(lblDestino);
+
         JTextField txtDestino = new JTextField(vuelo.getDestino());
-        txtDestino.setBounds(140, 70, 200, 25);
+        txtDestino.setBounds(180, 110, 200, 25);
         add(txtDestino);
 
-        JLabel lblFecha = new JLabel("Fecha:");
-        lblFecha.setBounds(20, 110, 150, 25);
-        add(lblFecha);
-        JTextField txtFecha = new JTextField(vuelo.getFecha().toString());
-        txtFecha.setBounds(180, 110, 160, 25);
-        add(txtFecha);
+        // ------- Aerolínea -------
+        JLabel lblAero = new JLabel("Aerolínea:");
+        lblAero.setBounds(30, 150, 150, 25);
+        add(lblAero);
 
-        JLabel lblHora = new JLabel("Hora:");
-        lblHora.setBounds(20, 150, 150, 25);
-        add(lblHora);
-        JTextField txtHora = new JTextField(vuelo.getHorario().toString());
-        txtHora.setBounds(180, 150, 160, 25);
-        add(txtHora);
+        JTextField txtAero = new JTextField(vuelo.getAerolinea());
+        txtAero.setBounds(180, 150, 200, 25);
+        add(txtAero);
 
-        JLabel lblCapacidad = new JLabel("Capacidad:");
-        lblCapacidad.setBounds(20, 190, 150, 25);
-        add(lblCapacidad);
-        JTextField txtCapacidad = new JTextField(String.valueOf(vuelo.getCapacidad()));
-        txtCapacidad.setBounds(180, 190, 160, 25);
-        add(txtCapacidad);
+        // ------- Fecha Salida -------
+        JLabel lblSalida = new JLabel("Fecha de salida:");
+        lblSalida.setBounds(30, 200, 200, 25);
+        add(lblSalida);
 
-        JLabel lblDisp = new JLabel("Disponibles:");
-        lblDisp.setBounds(20, 230, 150, 25);
-        add(lblDisp);
-        JTextField txtDisp = new JTextField(String.valueOf(vuelo.getAsientosDisponibles()));
-        txtDisp.setBounds(180, 230, 160, 25);
-        add(txtDisp);
+        DateTimePicker salidaPicker = new DateTimePicker();
+        salidaPicker.setBounds(40, 230, 300, 60);
+        salidaPicker.setDateTime(vuelo.getFechaSalida()); 
+        add(salidaPicker);
 
-        JButton btnGuardar = new JButton("Guardar Cambios");
-        btnGuardar.setBounds(100, 300, 160, 35);
+        // ------- Fecha Llegada -------
+        JLabel lblLlegada = new JLabel("Fecha de llegada:");
+        lblLlegada.setBounds(30, 305, 200, 25);
+        add(lblLlegada);
+
+        DateTimePicker llegadaPicker = new DateTimePicker();
+        llegadaPicker.setBounds(40, 335, 300, 60);
+        llegadaPicker.setDateTime(vuelo.getFechaLlegada()); 
+        add(llegadaPicker);
+
+        // ------- BOTÓN GUARDAR -------
+        JButton btnGuardar = new JButton("Guardar cambios");
+        btnGuardar.setBounds(120, 450, 180, 35);
         add(btnGuardar);
 
         btnGuardar.addActionListener(e -> {
 
             try {
+                LocalDateTime salida = salidaPicker.getDateTime();
+                LocalDateTime llegada = llegadaPicker.getDateTime();
+
+                if (salida == null || llegada == null) {
+                    JOptionPane.showMessageDialog(null, "Complete ambas fechas.");
+                    return;
+                }
+
+                if (llegada.isBefore(salida)) {
+                    JOptionPane.showMessageDialog(null, "La fecha de llegada no puede ser anterior a la salida.");
+                    return;
+                }
+
                 boolean ok = ControllerVuelo.editarVuelo(
-                    vuelo.getId(),
-                    txtOrigen.getText(),
-                    txtDestino.getText(),
-                    LocalDate.parse(txtFecha.getText()),
-                    LocalTime.parse(txtHora.getText()),
-                    Integer.parseInt(txtCapacidad.getText()),
-                    Integer.parseInt(txtDisp.getText())
+                        vuelo.getId(),
+                        txtCodigo.getText().trim(),
+                        txtOrigen.getText().trim(),
+                        txtDestino.getText().trim(),
+                        salida,
+                        llegada,
+                        txtAero.getText().trim()
                 );
 
                 if (ok) {
-                    JOptionPane.showMessageDialog(null, "Vuelo actualizado.");
-
+                    JOptionPane.showMessageDialog(null, "Vuelo modificado correctamente.");
                     padre.cargarTabla();
-                    padre.setVisible(true);
                     dispose();
-
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el vuelo.");
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar el vuelo.");
                 }
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
-
         });
     }
 }

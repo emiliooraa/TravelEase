@@ -104,21 +104,21 @@ public class GestionarUsuariosView extends JFrame {
         // Botones CRUD
         JButton btnAgregar = new JButton("Agregar");
         btnAgregar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/agregar.png")));
-        btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        btnAgregar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnAgregar.setBackground(new Color(152, 251, 152));
         btnAgregar.setBounds(10, 330, 120, 40);
         panelUsuarios.add(btnAgregar);
 
         JButton btnEditar = new JButton("Editar");
         btnEditar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/boton-editar.png")));
-        btnEditar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnEditar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnEditar.setBackground(new Color(30, 144, 255));
         btnEditar.setBounds(140, 330, 120, 40);
         panelUsuarios.add(btnEditar);
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/eliminar.png")));
-        btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnEliminar.setFont(new Font("Gadugi", Font.BOLD, 12));
         btnEliminar.setForeground(new Color(0, 0, 0));
         btnEliminar.setBackground(new Color(220, 20, 60));
         btnEliminar.setBounds(270, 330, 120, 40);
