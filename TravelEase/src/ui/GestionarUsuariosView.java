@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import bll.Usuario;
 import dll.ControllerUsuario;
+import javax.swing.ImageIcon;
 
 public class GestionarUsuariosView extends JFrame {
 
@@ -52,6 +53,7 @@ public class GestionarUsuariosView extends JFrame {
         contentPane.add(lblTitulo);
 
         // Cerrar sesión
+        /*
         JButton btnCerrarSesion = new JButton("Cerrar sesión");
         btnCerrarSesion.setBackground(new Color(220, 20, 60));
         btnCerrarSesion.setForeground(Color.WHITE);
@@ -62,7 +64,7 @@ public class GestionarUsuariosView extends JFrame {
             Inicio.main(new String[]{});
         });
         contentPane.add(btnCerrarSesion);
-
+		*/
      
 
         // Panel usuarios
@@ -85,11 +87,13 @@ public class GestionarUsuariosView extends JFrame {
         panelUsuarios.add(txtFiltro);
 
         JButton btnFiltrar = new JButton("Filtrar nombre");
+        btnFiltrar.setBackground(new Color(240, 255, 255));
         btnFiltrar.setBounds(170, 280, 130, 30);
         btnFiltrar.addActionListener(e -> cargarTablaFiltrada(txtFiltro.getText()));
         panelUsuarios.add(btnFiltrar);
 
         JButton btnReiniciarFiltro = new JButton("Reiniciar");
+        btnReiniciarFiltro.setBackground(new Color(240, 255, 255));
         btnReiniciarFiltro.setBounds(310, 280, 100, 30);
         btnReiniciarFiltro.addActionListener(e -> {
             txtFiltro.setText("");
@@ -122,8 +126,10 @@ public class GestionarUsuariosView extends JFrame {
         panelUsuarios.add(lblSeleccionado);
         
         //Boton volver
-        JButton btnVolverAGU = new JButton("<-- Volver");
-        btnVolverAGU.setBounds(20, 509, 89, 23);
+        JButton btnVolverAGU = new JButton("");
+        btnVolverAGU.setBackground(new Color(240, 255, 255));
+        btnVolverAGU.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/home.png")));
+        btnVolverAGU.setBounds(695, 11, 91, 33);
         contentPane.add(btnVolverAGU);
         btnVolverAGU.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

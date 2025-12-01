@@ -17,7 +17,7 @@ public class GestionarVuelosView extends JFrame {
         setTitle("Gestionar Vuelos");
         setSize(850, 600);
         setLocationRelativeTo(null);
-        setLayout(null);
+        getContentPane().setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         model = new DefaultTableModel(new String[]{
@@ -27,22 +27,22 @@ public class GestionarVuelosView extends JFrame {
 
         table = new JTable(model);
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBounds(20, 20, 800, 300);
-        add(scroll);
+        scroll.setBounds(20, 73, 800, 300);
+        getContentPane().add(scroll);
 
         cargarTabla();
 
         JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.setBounds(20, 350, 120, 40);
-        add(btnAgregar);
+        btnAgregar.setBounds(20, 384, 120, 40);
+        getContentPane().add(btnAgregar);
 
         btnAgregar.addActionListener(e -> {
             new AgregarVueloView(this).setVisible(true);
         });
 
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(150, 350, 120, 40);
-        add(btnEditar);
+        btnEditar.setBounds(150, 384, 120, 40);
+        getContentPane().add(btnEditar);
 
         btnEditar.addActionListener(e -> {
             if (vueloSeleccionado == null) {
@@ -55,8 +55,12 @@ public class GestionarVuelosView extends JFrame {
         });
 
         JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(280, 350, 120, 40);
-        add(btnEliminar);
+        btnEliminar.setBounds(280, 384, 120, 40);
+        getContentPane().add(btnEliminar);
+        
+        JLabel lblTituloGestion = new JLabel("Gestion Reserva de Vuelos -");
+        lblTituloGestion.setBounds(20, 11, 272, 45);
+        getContentPane().add(lblTituloGestion);
 
         btnEliminar.addActionListener(e -> {
             if (vueloSeleccionado == null) {
