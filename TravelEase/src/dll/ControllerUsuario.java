@@ -65,7 +65,7 @@ public class ControllerUsuario {
         if (password == null) 
         	return;
 
-        boolean ok = registrarUsuario(nombre, dni, email, password, "USUARIO");
+        boolean ok = registrarUsuario(nombre, dni, email, password, "CLIENTE");
 
         JOptionPane.showMessageDialog(null,
                 ok ? "Usuario registrado correctamente." : "Error al registrar el usuario.");
