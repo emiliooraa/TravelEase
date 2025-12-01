@@ -1,18 +1,16 @@
 package ui;
 
 import javax.swing.*;
-import com.toedter.calendar.JDateChooser;
+
+import components.DateTimePicker;
+
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import dll.ControllerVuelo;
 
 public class AgregarVueloView extends JFrame {
 
-    private static final long serialVersionUID = 1L;
     private GestionarVuelosView padre;
 
     public AgregarVueloView(GestionarVuelosView padre) {
@@ -20,106 +18,94 @@ public class AgregarVueloView extends JFrame {
         this.padre = padre;
 
         setTitle("Agregar Vuelo");
-        setSize(400, 450);
+        setSize(450, 600);
         setLocationRelativeTo(null);
-        setLayout(null);
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
+        // ----- Código -----
+        JLabel lblCodigo = new JLabel("Código:");
+        lblCodigo.setBounds(30, 30, 150, 25);
+        getContentPane().add(lblCodigo);
+
+        JTextField txtCodigo = new JTextField();
+        txtCodigo.setBounds(180, 30, 200, 25);
+        getContentPane().add(txtCodigo);
+
+        // ----- Origen -----
         JLabel lblOrigen = new JLabel("Origen:");
-        lblOrigen.setBounds(30, 40, 120, 25);
-        add(lblOrigen);
+        lblOrigen.setBounds(30, 70, 150, 25);
+        getContentPane().add(lblOrigen);
 
         JTextField txtOrigen = new JTextField();
-        txtOrigen.setBounds(160, 40, 180, 25);
-        add(txtOrigen);
+        txtOrigen.setBounds(180, 70, 200, 25);
+        getContentPane().add(txtOrigen);
 
+        // ----- Destino -----
         JLabel lblDestino = new JLabel("Destino:");
-        lblDestino.setBounds(30, 80, 120, 25);
-        add(lblDestino);
+        lblDestino.setBounds(30, 110, 150, 25);
+        getContentPane().add(lblDestino);
 
         JTextField txtDestino = new JTextField();
-        txtDestino.setBounds(160, 80, 180, 25);
-        add(txtDestino);
+        txtDestino.setBounds(180, 110, 200, 25);
+        getContentPane().add(txtDestino);
 
-        JLabel lblFecha = new JLabel("Fecha:");
-        lblFecha.setBounds(30, 120, 120, 25);
-        add(lblFecha);
+        // ----- Aerolínea -----
+        JLabel lblAero = new JLabel("Aerolínea:");
+        lblAero.setBounds(30, 150, 150, 25);
+        getContentPane().add(lblAero);
 
-        JDateChooser dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("dd/MM/yyyy");
-        dateChooser.setBounds(160, 120, 180, 25);
-        add(dateChooser);
+        JTextField txtAero = new JTextField();
+        txtAero.setBounds(180, 150, 200, 25);
+        getContentPane().add(txtAero);
 
-        // NO permitir fechas pasadas
-        dateChooser.setMinSelectableDate(new Date());
+        // ----- Fecha salida -----
+        JLabel lblSalida = new JLabel("Fecha de salida:");
+        lblSalida.setBounds(30, 190, 200, 25);
+        getContentPane().add(lblSalida);
 
-        JLabel lblHora = new JLabel("Hora:");
-        lblHora.setBounds(30, 160, 120, 25);
-        add(lblHora);
+        DateTimePicker salidaPicker = new DateTimePicker();
+        salidaPicker.setBounds(40, 220, 350, 60);
+        getContentPane().add(salidaPicker);
 
-        // Spinner hora (0–23)
-        JSpinner hourSpinner = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
-        hourSpinner.setBounds(160, 160, 60, 25);
-        hourSpinner.setEditor(new JSpinner.NumberEditor(hourSpinner, "00"));
-        add(hourSpinner);
+        // ----- Fecha llegada -----
+        JLabel lblLlegada = new JLabel("Fecha de llegada:");
+        lblLlegada.setBounds(30, 290, 200, 25);
+        getContentPane().add(lblLlegada);
 
-        // Spinner minutos (0–59)
-        JSpinner minuteSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
-        minuteSpinner.setBounds(240, 160, 60, 25);
-        minuteSpinner.setEditor(new JSpinner.NumberEditor(minuteSpinner, "00"));
-        add(minuteSpinner);
+        DateTimePicker llegadaPicker = new DateTimePicker();
+        llegadaPicker.setBounds(40, 320, 350, 60);
+        getContentPane().add(llegadaPicker);
 
-        JLabel lblCap = new JLabel("Capacidad:");
-        lblCap.setBounds(30, 200, 120, 25);
-        add(lblCap);
-
-        JTextField txtCapacidad = new JTextField();
-        txtCapacidad.setBounds(160, 200, 180, 25);
-        add(txtCapacidad);
-
-        JLabel lblDisp = new JLabel("Asientos disponibles:");
-        lblDisp.setBounds(30, 240, 150, 25);
-        add(lblDisp);
-
-        JTextField txtDisponibles = new JTextField();
-        txtDisponibles.setBounds(180, 240, 160, 25);
-        add(txtDisponibles);
-
-        JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.setBounds(120, 320, 140, 35);
-        add(btnGuardar);
+        // ----- BOTÓN GUARDAR -----
+        JButton btnGuardar = new JButton("Guardar vuelo");
+        btnGuardar.setBounds(140, 430, 160, 35);
+        getContentPane().add(btnGuardar);
 
         btnGuardar.addActionListener(e -> {
 
             try {
-                // Validar fecha
-                Date fechaRaw = dateChooser.getDate();
-                if (fechaRaw == null) {
-                    JOptionPane.showMessageDialog(null, "Seleccione una fecha.");
+
+                LocalDateTime salida = salidaPicker.getDateTime();
+                LocalDateTime llegada = llegadaPicker.getDateTime();
+
+                if (salida == null || llegada == null) {
+                    JOptionPane.showMessageDialog(null, "Complete ambas fechas.");
                     return;
                 }
 
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(fechaRaw);
-
-                LocalDate fecha = LocalDate.of(
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH) + 1,
-                    cal.get(Calendar.DAY_OF_MONTH)
-                );
-
-                LocalTime hora = LocalTime.of(
-                    (int) hourSpinner.getValue(),
-                    (int) minuteSpinner.getValue()
-                );
+                if (llegada.isBefore(salida)) {
+                    JOptionPane.showMessageDialog(null, "La llegada no puede ser antes que la salida.");
+                    return;
+                }
 
                 boolean ok = ControllerVuelo.crearVuelo(
+                        txtCodigo.getText(),
                         txtOrigen.getText(),
                         txtDestino.getText(),
-                        fecha,
-                        hora,
-                        Integer.parseInt(txtCapacidad.getText()),
-                        Integer.parseInt(txtDisponibles.getText())
+                        salida,
+                        llegada,
+                        txtAero.getText()
                 );
 
                 if (ok) {
@@ -133,8 +119,6 @@ public class AgregarVueloView extends JFrame {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
-
         });
-
     }
 }

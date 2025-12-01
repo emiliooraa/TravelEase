@@ -1,10 +1,7 @@
 package dll;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import java.sql.Timestamp;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -17,22 +14,21 @@ public class ControllerVuelo {
 
     // Crear vuelo
     public static boolean crearVuelo(String codigo, String origen, String destino,
-                                     java.time.LocalDateTime fechaSalida,
-                                     java.time.LocalDateTime fechaLlegada,
+                                     LocalDateTime salida, LocalDateTime llegada,
                                      String aerolinea) {
 
         try {
             PreparedStatement stmt = con.prepareStatement(
-                "INSERT INTO vuelos (codigo, origen, destino, fecha_salida, fecha_llegada, aerolinea) " +
-                "VALUES (?, ?, ?, ?, ?, ?)"
+                "INSERT INTO vuelos (codigo, origen, destino, aerolinea, fecha_salida, fecha_llegada) "
+                + "VALUES (?, ?, ?, ?, ?, ?)"
             );
 
             stmt.setString(1, codigo);
             stmt.setString(2, origen);
             stmt.setString(3, destino);
-            stmt.setTimestamp(4, Timestamp.valueOf(fechaSalida));
-            stmt.setTimestamp(5, Timestamp.valueOf(fechaLlegada));
-            stmt.setString(6, aerolinea);
+            stmt.setString(4, aerolinea);
+            stmt.setTimestamp(5, Timestamp.valueOf(salida));
+            stmt.setTimestamp(6, Timestamp.valueOf(llegada));
 
             return stmt.executeUpdate() > 0;
 
@@ -44,37 +40,33 @@ public class ControllerVuelo {
 
     // Editar vuelo
     public static boolean editarVuelo(int id, String codigo, String origen, String destino,
-                                      java.time.LocalDateTime fechaSalida,
-                                      java.time.LocalDateTime fechaLlegada,
-                                      String aerolinea) {
+                                      String aerolinea, LocalDateTime salida, LocalDateTime llegada) {
 
         try {
             PreparedStatement stmt = con.prepareStatement(
-                "UPDATE vuelos SET codigo=?, origen=?, destino=?, fecha_salida=?, fecha_llegada=?, aerolinea=? WHERE id_vuelo=?"
+                "UPDATE vuelos SET codigo=?, origen=?, destino=?, aerolinea=?, fecha_salida=?, fecha_llegada=? WHERE id=?"
             );
 
             stmt.setString(1, codigo);
             stmt.setString(2, origen);
             stmt.setString(3, destino);
-            stmt.setTimestamp(4, Timestamp.valueOf(fechaSalida));
-            stmt.setTimestamp(5, Timestamp.valueOf(fechaLlegada));
-            stmt.setString(6, aerolinea);
+            stmt.setString(4, aerolinea);
+            stmt.setTimestamp(5, Timestamp.valueOf(salida));
+            stmt.setTimestamp(6, Timestamp.valueOf(llegada));
             stmt.setInt(7, id);
 
             return stmt.executeUpdate() > 0;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar vuelo: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo editar vuelo: " + e.getMessage());
             return false;
         }
     }
 
-    // Eliminar vuelo
+    // Eliminar
     public static boolean eliminarVuelo(int id) {
         try {
-            PreparedStatement stmt = con.prepareStatement(
-                "DELETE FROM vuelos WHERE id_vuelo=?"
-            );
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM vuelos WHERE id_vuelo=?");
             stmt.setInt(1, id);
 
             return stmt.executeUpdate() > 0;
@@ -85,13 +77,12 @@ public class ControllerVuelo {
         }
     }
 
-    // Buscar vuelo
+    // Buscar
     public static Vuelo buscarVueloPorId(int id) {
         Vuelo v = null;
+
         try {
-            PreparedStatement stmt = con.prepareStatement(
-                "SELECT * FROM vuelos WHERE id_vuelo=?"
-            );
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM vuelos WHERE id_vuelo=?");
             stmt.setInt(1, id);
 
             ResultSet rs = stmt.executeQuery();
@@ -102,25 +93,25 @@ public class ControllerVuelo {
                     rs.getString("codigo"),
                     rs.getString("origen"),
                     rs.getString("destino"),
+                    rs.getString("aerolinea"),
                     rs.getTimestamp("fecha_salida").toLocalDateTime(),
-                    rs.getTimestamp("fecha_llegada").toLocalDateTime(),
-                    rs.getString("aerolinea")
+                    rs.getTimestamp("fecha_llegada").toLocalDateTime()
                 );
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error buscar vuelo: " + e);
         }
 
         return v;
     }
 
-    // Listar vuelos
+    // Listar
     public static LinkedList<Vuelo> listarVuelos() {
         LinkedList<Vuelo> lista = new LinkedList<>();
 
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM vuelos");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM vuelos ORDER BY fecha_salida");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -129,9 +120,9 @@ public class ControllerVuelo {
                     rs.getString("codigo"),
                     rs.getString("origen"),
                     rs.getString("destino"),
+                    rs.getString("aerolinea"),
                     rs.getTimestamp("fecha_salida").toLocalDateTime(),
-                    rs.getTimestamp("fecha_llegada").toLocalDateTime(),
-                    rs.getString("aerolinea")
+                    rs.getTimestamp("fecha_llegada").toLocalDateTime()
                 ));
             }
 

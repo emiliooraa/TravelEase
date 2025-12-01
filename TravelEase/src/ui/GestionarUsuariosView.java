@@ -75,7 +75,7 @@ public class GestionarUsuariosView extends JFrame {
 
 
         // Tabla
-        model = new DefaultTableModel(new String[]{"ID", "Nombre", "Email", "Rol"}, 0);
+        model = new DefaultTableModel(new String[]{"ID", "Nombre","DNI", "Email", "Rol"}, 0);
         table = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(10, 11, 766, 258);
@@ -103,20 +103,23 @@ public class GestionarUsuariosView extends JFrame {
 
         // Botones CRUD
         JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnAgregar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/agregar.png")));
+        btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 12));
         btnAgregar.setBackground(new Color(152, 251, 152));
         btnAgregar.setBounds(10, 330, 120, 40);
         panelUsuarios.add(btnAgregar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/boton-editar.png")));
         btnEditar.setFont(new Font("Tahoma", Font.BOLD, 12));
         btnEditar.setBackground(new Color(30, 144, 255));
         btnEditar.setBounds(140, 330, 120, 40);
         panelUsuarios.add(btnEditar);
 
         JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.setIcon(new ImageIcon(GestionarUsuariosView.class.getResource("/img/eliminar.png")));
         btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setForeground(new Color(0, 0, 0));
         btnEliminar.setBackground(new Color(220, 20, 60));
         btnEliminar.setBounds(270, 330, 120, 40);
         panelUsuarios.add(btnEliminar);
@@ -169,7 +172,7 @@ public class GestionarUsuariosView extends JFrame {
 
             int conf = JOptionPane.showConfirmDialog(
                     null,
-                    "¿Estás seguro de eliminar este usuario?",
+                    "¿Estás seguro de eliminar este usuario: " + usuarioSeleccionado.getNombre() + "?",
                     "Confirmar",
                     JOptionPane.YES_NO_OPTION
             );
@@ -196,6 +199,7 @@ public class GestionarUsuariosView extends JFrame {
 
                     lblSeleccionado.setText("Seleccionado: ID=" + usuarioSeleccionado.getId() +
                             ", Nombre=" + usuarioSeleccionado.getNombre() +
+                            ",DNI=" + usuarioSeleccionado.getDni() +
                             ", Email=" + usuarioSeleccionado.getEmail() +
                             ", Rol=" + usuarioSeleccionado.getRol());
                     
@@ -209,8 +213,10 @@ public class GestionarUsuariosView extends JFrame {
         model.setRowCount(0);
         LinkedList<Usuario> usuarios = ControllerUsuario.listarUsuarios();
         for (Usuario u : usuarios) {
-            model.addRow(new Object[]{u.getId(), u.getNombre(), u.getEmail(), u.getRol()});
+            model.addRow(new Object[]{u.getId(), u.getNombre(),u.getDni(), u.getEmail(), u.getRol()});
         }
+        table.clearSelection();     
+        usuarioSeleccionado = null;
     }
 
     // Filtro simple por nombre
@@ -221,7 +227,7 @@ public class GestionarUsuariosView extends JFrame {
                 .collect(Collectors.toCollection(LinkedList::new));
 
         for (Usuario u : filtrados) {
-            model.addRow(new Object[]{u.getId(), u.getNombre(), u.getEmail(), u.getRol()});
+            model.addRow(new Object[]{u.getId(), u.getNombre(),u.getDni(), u.getEmail(), u.getRol()});
         }
     }
 }
