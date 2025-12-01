@@ -65,7 +65,8 @@ public class Main extends JFrame {
 //		contentPane.add(lblBienvenida);
 		
 		JButton btnNewButton = new JButton("Iniciar Sesión");
-		btnNewButton.setBackground(SystemColor.window);
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(new Color(12, 39, 78));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Inicio login = new Inicio();
@@ -73,7 +74,7 @@ public class Main extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnNewButton.setFont(new Font("Gadugi", Font.PLAIN, 15));
 		btnNewButton.setBounds(81, 311, 216, 39);
 		contentPane.add(btnNewButton);
 		

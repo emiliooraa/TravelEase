@@ -49,6 +49,7 @@ public class Inicio extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 527, 547);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(12, 39, 78));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -62,6 +63,7 @@ public class Inicio extends JFrame {
 		contentPane.add(tabbedPane);
 
 		JPanel Login = new JPanel();
+		Login.setBackground(SystemColor.window);
 		tabbedPane.addTab("Login", null, Login, null);
 		Login.setLayout(null);
 
@@ -104,7 +106,7 @@ public class Inicio extends JFrame {
 
 		JButton btnVentanaRegistrar = new JButton("Registrar");
 		btnVentanaRegistrar.setForeground(new Color(255, 255, 255));
-		btnVentanaRegistrar.setBackground(new Color(197, 221, 255));
+		btnVentanaRegistrar.setBackground(new Color(12, 39, 78));
 		btnVentanaRegistrar.setFont(new Font("Gadugi", Font.BOLD, 17));
 		btnVentanaRegistrar.setBounds(132, 344, 221, 37);
 		Login.add(btnVentanaRegistrar);
@@ -156,6 +158,7 @@ public class Inicio extends JFrame {
 		});
 
 		JPanel Registrar = new JPanel();
+		Registrar.setBackground(SystemColor.window);
 		tabbedPane.addTab("Registrar", null, Registrar, null);
 		Registrar.setLayout(null);
 
@@ -217,8 +220,8 @@ public class Inicio extends JFrame {
 
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setForeground(SystemColor.window);
-		btnIniciarSesion.setBackground(new Color(197, 221, 255));
-		btnIniciarSesion.setBounds(169, 389, 147, 29);
+		btnIniciarSesion.setBackground(new Color(12, 39, 78));
+		btnIniciarSesion.setBounds(148, 389, 190, 31);
 		btnIniciarSesion.setFont(new Font("Gadugi", Font.BOLD, 17));
 		Registrar.add(btnIniciarSesion);
 
