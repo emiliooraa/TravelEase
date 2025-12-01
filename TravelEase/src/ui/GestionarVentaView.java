@@ -32,7 +32,7 @@ public class GestionarVentaView extends JFrame {
 
         // NAV BAR
         JPanel nav = new JPanel();
-        nav.setBackground(new Color(197, 221, 255));
+        nav.setBackground(new Color(255, 255, 255));
         nav.setBounds(0, 0, 636, 60);
         nav.setLayout(null);
         contentPane.add(nav);
@@ -42,8 +42,10 @@ public class GestionarVentaView extends JFrame {
         lblTitulo.setBounds(240, 10, 200, 40);
         nav.add(lblTitulo);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setBounds(520, 10, 90, 35);
+        JButton btnVolver = new JButton("");
+        btnVolver.setBackground(new Color(240, 255, 255));
+        btnVolver.setIcon(new ImageIcon(GestionarVentaView.class.getResource("/img/home.png")));
+        btnVolver.setBounds(536, 10, 90, 35);
         btnVolver.addActionListener(e -> {
             new OperarioMenu(usuario).setVisible(true);
             dispose();
@@ -90,7 +92,7 @@ public class GestionarVentaView extends JFrame {
         JButton btnGuardarVuelo = new JButton("Registrar venta vuelo");
         btnGuardarVuelo.setBackground(new Color(0, 153, 255));
         btnGuardarVuelo.setForeground(Color.white);
-        btnGuardarVuelo.setBounds(180, 140, 220, 40);
+        btnGuardarVuelo.setBounds(203, 138, 220, 40);
         tabVuelo.add(btnGuardarVuelo);
 
         btnGuardarVuelo.addActionListener(e -> {
