@@ -1,272 +1,199 @@
 package ui;
 
-import java.awt.EventQueue;
-import bll.Vuelo;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import bll.Hotel;
-import bll.Usuario;
-import dll.ControllerHotel;
-import dll.ControllerVuelo;
-
-import java.awt.SystemColor;
-import javax.swing.JSplitPane;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import java.awt.Font;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.LinkedList;
-import java.awt.event.ActionEvent;
-import javax.swing.JDesktopPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import com.toedter.calendar.JDateChooser;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import bll.Usuario;
+import dll.ControllerVenta;
 
 public class GestionarVentaView extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
 
-	public GestionarVentaView(Usuario usuario) {
-		setTitle("Gestionar venta");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 652, 491);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setLocationRelativeTo(null);
-		
-		JPanel panelNav = new JPanel();
-		panelNav.setBackground(new Color(197, 221, 255));
-		panelNav.setBounds(0, 0, 636, 63);
-		contentPane.add(panelNav);
-		panelNav.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Menu de Gestionar Venta");
-		lblNewLabel.setFont(new Font("Gadugi", Font.PLAIN, 15));
-		lblNewLabel.setBounds(214, 11, 207, 41);
-		panelNav.add(lblNewLabel);
-		
-		JButton btnMenu = new JButton("Volver");
-		btnMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new OperarioMenu(usuario).setVisible(true);
-				dispose();
-			}
-		});
-		btnMenu.setFont(new Font("Gadugi", Font.PLAIN, 13));
-		btnMenu.setBounds(537, 11, 89, 41);
-		panelNav.add(btnMenu);
-		
-		JPanel panelMenu = new JPanel();
-		panelMenu.setBounds(0, 63, 636, 389);
-		contentPane.add(panelMenu);
-		panelMenu.setLayout(null);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		tabbedPane.setBounds(0, 0, 636, 389);
-		panelMenu.add(tabbedPane);
-		
-		JPanel panelRegVuelo = new JPanel();
-        panelRegVuelo.setLayout(null);
-        tabbedPane.addTab("Registrar Vuelo", null, panelRegVuelo, null);
+    public GestionarVentaView(Usuario usuario) {
 
-        JLabel lblDni = new JLabel("DNI del Cliente:");
-        lblDni.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblDni.setBounds(30, 20, 150, 25);
-        panelRegVuelo.add(lblDni);
+        setTitle("Registrar Venta");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(650, 500);
+        setLocationRelativeTo(null);
 
-        JTextField txtDni = new JTextField();
-        txtDni.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        txtDni.setBounds(150, 20, 150, 25);
-        panelRegVuelo.add(txtDni);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        JLabel lblVuelo = new JLabel("Seleccionar Vuelo:");
-        lblVuelo.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblVuelo.setBounds(30, 60, 150, 25);
-        panelRegVuelo.add(lblVuelo);
+        // NAV BAR
+        JPanel nav = new JPanel();
+        nav.setBackground(new Color(197, 221, 255));
+        nav.setBounds(0, 0, 636, 60);
+        nav.setLayout(null);
+        contentPane.add(nav);
 
-        JComboBox<String> comboVuelos = new JComboBox<>();
-        comboVuelos.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        comboVuelos.setBounds(150, 60, 300, 25);
-        panelRegVuelo.add(comboVuelos);
+        JLabel lblTitulo = new JLabel("Gestión de Ventas");
+        lblTitulo.setFont(new Font("Gadugi", Font.PLAIN, 16));
+        lblTitulo.setBounds(240, 10, 200, 40);
+        nav.add(lblTitulo);
 
-        // Cargar vuelos desde BD
-        LinkedList<Vuelo> listaVuelos = ControllerVuelo.listarVuelos();
-        for (Vuelo v : listaVuelos) {
-            comboVuelos.addItem(v.getId() + " - " + v.getOrigen() + " → " + v.getDestino());
-        }
-
-        JTextArea infoVuelo = new JTextArea();
-        infoVuelo.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        infoVuelo.setEditable(false);
-        infoVuelo.setBorder(new TitledBorder("Información del vuelo"));
-        infoVuelo.setBounds(30, 110, 551, 148);
-        panelRegVuelo.add(infoVuelo);
-
-        comboVuelos.addActionListener(e -> {
-            int idx = comboVuelos.getSelectedIndex();
-            if (idx >= 0) {
-                Vuelo v = listaVuelos.get(idx);
-                infoVuelo.setText(
-                    "ID: " + v.getId() +
-                    "\nOrigen: " + v.getOrigen() +
-                    "\nDestino: " + v.getDestino() +
-                    "\nFecha: " + v.getFecha() +
-                    "\nHorario: " + v.getHorario() +
-                    "\nCapacidad: " + v.getCapacidad() +
-                    "\nDisponibles: " + v.getAsientosDisponibles()
-                );
-            }
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setBounds(520, 10, 90, 35);
+        btnVolver.addActionListener(e -> {
+            new OperarioMenu(usuario).setVisible(true);
+            dispose();
         });
+        nav.add(btnVolver);
 
-        JButton btnRegistrarVuelo = new JButton("Registrar Venta");
-        btnRegistrarVuelo.setBounds(200, 280, 180, 40);
-        panelRegVuelo.add(btnRegistrarVuelo);
+        // PANEL GENERAL
+        JPanel panelCentro = new JPanel();
+        panelCentro.setLayout(null);
+        panelCentro.setBounds(0, 60, 636, 390);
+        contentPane.add(panelCentro);
 
-        btnRegistrarVuelo.addActionListener(e -> {
-            if (txtDni.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese DNI del cliente");
-                return;
-            }
-            if (comboVuelos.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione un vuelo");
-                return;
-            }
+        // -------------------------------
+        //      TABBED PANE
+        // -------------------------------
+        JTabbedPane tabs = new JTabbedPane();
+        tabs.setBounds(0, 0, 636, 390);
+        tabs.setBorder(new TitledBorder(""));
+        panelCentro.add(tabs);
 
-            JOptionPane.showMessageDialog(null, "Venta registrada (lógica pendiente).");
-        });
+        // ============================================================
+        //                TAB 1 — REGISTRAR VENTA VUELO
+        // ============================================================
+        JPanel tabVuelo = new JPanel(null);
 
-       
-        //Registrar Venta de Hotel
-   
-        JPanel panelRegHotel = new JPanel();
-        panelRegHotel.setLayout(null);
-        tabbedPane.addTab("Registrar Hotel", null, panelRegHotel, null);
+        JLabel lblIdVuelo = new JLabel("ID del vuelo:");
+        lblIdVuelo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblIdVuelo.setBounds(40, 30, 120, 25);
+        tabVuelo.add(lblIdVuelo);
 
-        // DNI Cliente
-        JLabel lblClienteH = new JLabel("DNI Cliente:");
-        lblClienteH.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblClienteH.setBounds(20, 20, 150, 25);
-        panelRegHotel.add(lblClienteH);
+        JTextField txtIdVuelo = new JTextField();
+        txtIdVuelo.setBounds(160, 30, 120, 25);
+        tabVuelo.add(txtIdVuelo);
 
-        JTextField txtDniHotel = new JTextField();
-        txtDniHotel.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        txtDniHotel.setBounds(140, 20, 150, 25);
-        panelRegHotel.add(txtDniHotel);
+        JLabel lblCantidad = new JLabel("Cantidad:");
+        lblCantidad.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblCantidad.setBounds(40, 70, 120, 25);
+        tabVuelo.add(lblCantidad);
 
-        // HOTEL
-        JLabel lblHotel = new JLabel("Hotel:");
-        lblHotel.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblHotel.setBounds(20, 60, 150, 25);
-        panelRegHotel.add(lblHotel);
+        JSpinner spnCantidad = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+        spnCantidad.setBounds(160, 70, 60, 25);
+        tabVuelo.add(spnCantidad);
 
-        JComboBox<String> comboHoteles = new JComboBox<>();
-        comboHoteles.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        comboHoteles.setBounds(140, 60, 300, 25);
-        panelRegHotel.add(comboHoteles);
+        JButton btnGuardarVuelo = new JButton("Registrar venta vuelo");
+        btnGuardarVuelo.setBackground(new Color(0, 153, 255));
+        btnGuardarVuelo.setForeground(Color.white);
+        btnGuardarVuelo.setBounds(180, 140, 220, 40);
+        tabVuelo.add(btnGuardarVuelo);
 
-        // Mostrar info del hotel
-        JTextArea txtInfoHotel = new JTextArea();
-        txtInfoHotel.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        txtInfoHotel.setEditable(false);
-        txtInfoHotel.setBorder(BorderFactory.createTitledBorder("Información del hotel"));
-        txtInfoHotel.setBounds(20, 100, 580, 110);
-        panelRegHotel.add(txtInfoHotel);
+        btnGuardarVuelo.addActionListener(e -> {
 
-        // Cargar hoteles desde la BD
-        LinkedList<Hotel> listaHoteles = ControllerHotel.listarHoteles();
-        for (Hotel h : listaHoteles) {
-            comboHoteles.addItem(h.getId() + " - " + h.getNombre());
-        }
-
-        // Mostrar datos al elegir un hotel
-        comboHoteles.addActionListener(e -> {
-            int idx = comboHoteles.getSelectedIndex();
-            if (idx >= 0) {
-                Hotel h = listaHoteles.get(idx);
-                txtInfoHotel.setText(
-                        "ID: " + h.getId() +
-                        "\nNombre: " + h.getNombre() +
-                        "\nDestino: " + h.getDestino() +
-                        "\nHabitaciones disponibles: " + h.getHabitacionesDisponibles()
-                );
-            }
-        });
-
-        // Fecha de entrada
-        JLabel lblEntrada = new JLabel("Entrada:");
-        lblEntrada.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblEntrada.setBounds(20, 230, 150, 25);
-        panelRegHotel.add(lblEntrada);
-
-        JDateChooser fechaEntrada = new JDateChooser();
-        fechaEntrada.setBounds(140, 230, 150, 25);
-        panelRegHotel.add(fechaEntrada);
-
-        // Fecha de salida
-        JLabel lblSalida = new JLabel("Salida:");
-        lblSalida.setFont(new Font("Gadugi", Font.PLAIN, 11));
-        lblSalida.setBounds(20, 270, 150, 25);
-        panelRegHotel.add(lblSalida);
-
-        JDateChooser fechaSalida = new JDateChooser();
-        fechaSalida.setBounds(140, 270, 150, 25);
-        panelRegHotel.add(fechaSalida);
-
-        // Calcular noches
-        JLabel lblNoches = new JLabel("Noches: 0");
-        lblNoches.setFont(new Font("Gadugi", Font.BOLD, 15));
-        lblNoches.setBounds(350, 250, 150, 30);
-        panelRegHotel.add(lblNoches);
-
-        // Cálculo automático de noches
-        fechaSalida.addPropertyChangeListener(evt -> {
             try {
-                Date in = fechaEntrada.getDate();
-                Date out = fechaSalida.getDate();
+                int idVuelo = Integer.parseInt(txtIdVuelo.getText());
+                int cantidad = (int) spnCantidad.getValue();
 
-                if (in != null && out != null) {
-                    long diff = out.getTime() - in.getTime();
-                    int noches = (int)(diff / (1000 * 60 * 60 * 24));
-                    lblNoches.setText("Noches: " + (noches > 0 ? noches : 0));
+                boolean ok = ControllerVenta.registrarVentaVuelo(usuario.getId(), idVuelo, cantidad);
+
+                if (ok) {
+                    JOptionPane.showMessageDialog(null, "Venta de vuelo registrada correctamente.");
+                    txtIdVuelo.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar la venta.");
                 }
-            } catch (Exception ex) {}
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "El ID del vuelo debe ser un número válido.");
+            }
         });
 
-        // Botón registrar
-        JButton btnRegistrarHotel = new JButton("Registrar Venta");
-        btnRegistrarHotel.setBounds(223, 306, 180, 40);
-        panelRegHotel.add(btnRegistrarHotel);
+        tabs.addTab("Registrar Vuelo", tabVuelo);
 
-        btnRegistrarHotel.addActionListener(e -> {
-            if (txtDniHotel.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese DNI del cliente");
-                return;
-            }
-            if (comboHoteles.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione un hotel");
-                return;
-            }
-            if (fechaEntrada.getDate() == null || fechaSalida.getDate() == null) {
-                JOptionPane.showMessageDialog(null, "Seleccione fechas válidas");
-                return;
-            }
+        // ============================================================
+        //                TAB 2 — REGISTRAR VENTA HOTEL
+        // ============================================================
+        JPanel tabHotel = new JPanel(null);
 
-            JOptionPane.showMessageDialog(null, "Venta de hotel registrada (falta guardar en BD)");
+        JLabel lblIdHotel = new JLabel("ID del hotel:");
+        lblIdHotel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblIdHotel.setBounds(40, 30, 120, 25);
+        tabHotel.add(lblIdHotel);
+
+        JTextField txtIdHotel = new JTextField();
+        txtIdHotel.setBounds(160, 30, 120, 25);
+        tabHotel.add(txtIdHotel);
+
+        JLabel lblEntrada = new JLabel("Fecha entrada:");
+        lblEntrada.setBounds(40, 80, 120, 25);
+        tabHotel.add(lblEntrada);
+
+        com.toedter.calendar.JDateChooser dateEntrada = new com.toedter.calendar.JDateChooser();
+        dateEntrada.setBounds(160, 80, 150, 25);
+        dateEntrada.setMinSelectableDate(new Date());
+        tabHotel.add(dateEntrada);
+
+        JLabel lblSalida = new JLabel("Fecha salida:");
+        lblSalida.setBounds(40, 130, 120, 25);
+        tabHotel.add(lblSalida);
+
+        com.toedter.calendar.JDateChooser dateSalida = new com.toedter.calendar.JDateChooser();
+        dateSalida.setBounds(160, 130, 150, 25);
+        dateSalida.setEnabled(true);
+        tabHotel.add(dateSalida);
+
+        JButton btnGuardarHotel = new JButton("Registrar venta hotel");
+        btnGuardarHotel.setBackground(new Color(0, 153, 102));
+        btnGuardarHotel.setForeground(Color.white);
+        btnGuardarHotel.setBounds(180, 200, 220, 40);
+        tabHotel.add(btnGuardarHotel);
+
+        btnGuardarHotel.addActionListener((ActionEvent e) -> {
+
+            try {
+                int idHotel = Integer.parseInt(txtIdHotel.getText());
+
+                Date d1 = dateEntrada.getDate();
+                Date d2 = dateSalida.getDate();
+
+                if (d1 == null || d2 == null) {
+                    JOptionPane.showMessageDialog(null, "Seleccione ambas fechas.");
+                    return;
+                }
+
+                LocalDate entrada = new java.sql.Date(d1.getTime()).toLocalDate();
+                LocalDate salida = new java.sql.Date(d2.getTime()).toLocalDate();
+
+                if (salida.isBefore(entrada)) {
+                    JOptionPane.showMessageDialog(null, "La salida no puede ser antes de la entrada.");
+                    return;
+                }
+
+                int noches = (int) java.time.temporal.ChronoUnit.DAYS.between(entrada, salida);
+
+                boolean ok = ControllerVenta.registrarVentaHotel(
+                        usuario.getId(),
+                        idHotel,
+                        entrada,
+                        salida,
+                        noches
+                );
+
+                if (ok) {
+                    JOptionPane.showMessageDialog(null, "Venta de hotel registrada correctamente.");
+                    txtIdHotel.setText("");
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            }
         });
-}
+
+        tabs.addTab("Registrar Hotel", tabHotel);
+    }
 }

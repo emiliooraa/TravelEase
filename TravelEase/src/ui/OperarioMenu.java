@@ -1,96 +1,120 @@
 package ui;
 
-import javax.swing.*;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import bll.Usuario;
-
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.SystemColor;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 public class OperarioMenu extends JFrame {
-	
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-    public OperarioMenu(Usuario usuario) {
-    	getContentPane().setBackground(new Color(240, 240, 240));
-        setTitle("Travelease - Menú Operario");
-        setSize(681, 451);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(null);
-        
-
-        JPanel panel = new JPanel();
-        panel.setBounds(0, 26, 665, 386);
-        
-        //Registrar venta
-        JButton btnVenta = new JButton("Registrar venta");
-        btnVenta.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		new GestionarVentaView(usuario).setVisible(true);
-        		dispose();
-        	}
-        });
-        btnVenta.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/iconVenta.png")));
-        btnVenta.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        btnVenta.setBounds(94, 69, 183, 65);
-        
-        
-        JButton btnAplicarDescuento = new JButton("Aplicar Descuento");
-        btnAplicarDescuento.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/cupon-de-descuento.png")));
-        btnAplicarDescuento.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        btnAplicarDescuento.setBounds(405, 183, 183, 65);
-        
-        
-        JButton btnAsignarAsiento = new JButton("Asignar asiento");
-        btnAsignarAsiento.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/asiento.png")));
-        btnAsignarAsiento.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        btnAsignarAsiento.setBounds(94, 183, 183, 65);
-        
-        
-        JButton btnGestionarReserva = new JButton("Gestionar reservas");
-        btnGestionarReserva.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/calendario.png")));
-        btnGestionarReserva.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        btnGestionarReserva.setBounds(405, 67, 183, 68);
-        
-        //Cerrar sesion
-        JButton btnSalir = new JButton("Cerrar sesión");
-        btnSalir.setFont(new Font("Gadugi", Font.PLAIN, 13));
-        btnSalir.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		dispose();
-        		Inicio.main(new String[]{});
-        	}
-        });
-        btnSalir.setBounds(248, 277, 175, 45);
-        panel.setLayout(null);
-        panel.add(btnVenta);
-        panel.add(btnAplicarDescuento);
-        panel.add(btnAsignarAsiento);
-        panel.add(btnGestionarReserva);
-        panel.add(btnSalir);
-
-        getContentPane().add(panel);
-        
-                JLabel titulo = new JLabel("Menú Operario " + usuario.getNombre());
-                titulo.setBounds(182, 0, 483, 26);
-                panel.add(titulo);
-                titulo.setFont(new Font("Gadugi", Font.BOLD, 22));
-                
-    
-        btnAplicarDescuento.addActionListener(e -> mostrarMensaje("Reservar paquete para cliente (no implementado)") );
-        btnAsignarAsiento.addActionListener(e -> mostrarMensaje("Asignar asiento (no implementado)") );
-        btnGestionarReserva.addActionListener(e -> mostrarMensaje("Buscar reservas (no implementado)") );
-        
-        
-    }
-
-    private void mostrarMensaje(String texto) {
-        JOptionPane.showMessageDialog(this, texto, "Info", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new OperarioMenu().setVisible(true));
-//    }
+	public OperarioMenu(Usuario usuario) {
+		setTitle("Panel de Operario");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 661, 488);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		
+		JLabel lblNewLabel = new JLabel("Bienvenido " + usuario.getNombre());
+		lblNewLabel.setForeground(new Color(25, 25, 112));
+		lblNewLabel.setBackground(new Color(255, 0, 0));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Gadugi", Font.BOLD, 17));
+		lblNewLabel.setBounds(105, 24, 434, 52);
+		contentPane.add(lblNewLabel);
+		
+		// Registrar Venta
+		JButton btnVenta = new JButton("Registrar Venta");
+		btnVenta.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/iconVenta.png")));
+		btnVenta.setBackground(new Color(240, 255, 255));
+		btnVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionarVentaView(usuario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVenta.setFont(new Font("Gadugi", Font.PLAIN, 14));
+		btnVenta.setBounds(57, 110, 202, 52);
+		contentPane.add(btnVenta);
+		
+		//Aplicar Descuento
+		JButton btnAplicarDescuento = new JButton("Aplicar Descuento");
+		btnAplicarDescuento.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/vuelo.png")));
+		btnAplicarDescuento.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        new AplicarDescuentoView(usuario).setVisible(true);
+		        dispose();
+		    }
+		});
+		btnAplicarDescuento.setBackground(new Color(240, 255, 255));
+		btnAplicarDescuento.setFont(new Font("Gadugi", Font.PLAIN, 14));
+		btnAplicarDescuento.setBounds(369, 110, 202, 52);
+		contentPane.add(btnAplicarDescuento);
+		
+		
+		
+		//Asignar asiento
+		JButton btnGestionarReservas = new JButton("Asignar asiento");
+		btnGestionarReservas.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/asiento.png")));
+		btnGestionarReservas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnGestionarReservas.setFont(new Font("Gadugi", Font.PLAIN, 14));
+		btnGestionarReservas.setBackground(new Color(240, 255, 255));
+		btnGestionarReservas.setBounds(57, 197, 202, 52);
+		contentPane.add(btnGestionarReservas);
+		
+		//Gestionar Reserva
+		JButton btnGestionarReserva = new JButton("Gestionar Reserva");
+		btnGestionarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnGestionarReserva.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/gestionarReserva.png")));
+		btnGestionarReserva.setFont(new Font("Gadugi", Font.PLAIN, 14));
+		btnGestionarReserva.setBackground(new Color(240, 255, 255));
+		btnGestionarReserva.setBounds(369, 197, 202, 52);
+		contentPane.add(btnGestionarReserva);
+		
+		//Boton para cerrar sesion
+		JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+		btnCerrarSesion.setForeground(new Color(255, 255, 255));
+		btnCerrarSesion.setBackground(new Color(220, 20, 60));
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Inicio.main(new String[]{});
+			}
+		});
+		btnCerrarSesion.setFont(new Font("Gadugi", Font.PLAIN, 15));
+		btnCerrarSesion.setBounds(221, 314, 202, 37);
+		contentPane.add(btnCerrarSesion);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBackground(SystemColor.menu);
+		panel.setBounds(10, 76, 625, 216);
+		contentPane.add(panel);
+	}
 }
