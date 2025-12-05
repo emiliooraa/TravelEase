@@ -64,7 +64,7 @@ public class Main extends JFrame {
 //		lblBienvenida.setBounds(-11, 11, 400, 39);
 //		contentPane.add(lblBienvenida);
 		
-		JButton btnNewButton = new JButton("Iniciar Sesión");
+		JButton btnNewButton = new JButton("INICIAR SESIÓN");
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(new Color(12, 39, 78));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -74,7 +74,7 @@ public class Main extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Gadugi", Font.PLAIN, 15));
+		btnNewButton.setFont(new Font("Gadugi", Font.BOLD, 15));
 		btnNewButton.setBounds(81, 311, 216, 39);
 		contentPane.add(btnNewButton);
 		

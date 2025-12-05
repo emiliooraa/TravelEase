@@ -18,6 +18,11 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
 public class AdminMenu extends JFrame {
 
@@ -27,7 +32,7 @@ public class AdminMenu extends JFrame {
 	public AdminMenu(Usuario usuario) {
 		setTitle("Panel de Admin");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 666, 515);
+		setBounds(100, 100, 666, 522);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -54,7 +59,7 @@ public class AdminMenu extends JFrame {
 			}
 		});
 		btnCerrarSesion.setFont(new Font("Gadugi", Font.PLAIN, 15));
-		btnCerrarSesion.setBounds(221, 428, 202, 37);
+		btnCerrarSesion.setBounds(222, 435, 202, 37);
 		contentPane.add(btnCerrarSesion);
 		
 		JPanel panel = new JPanel();
