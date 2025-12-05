@@ -64,21 +64,33 @@ public class AdminMenu extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		//Gestionar Hoteles
 		JButton btnGestionarHoteles = new JButton("Gestionar Hoteles");
+		btnGestionarHoteles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionarHotelesView(usuario).setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarHoteles.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/hotel.png")));
 		btnGestionarHoteles.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarHoteles.setBackground(new Color(240, 255, 255));
 		btnGestionarHoteles.setBounds(44, 197, 202, 52);
 		panel.add(btnGestionarHoteles);
 		
+		//Gestionar Destinos
 		JButton btnGestionarDestinos = new JButton("Gestionar Destinos");
+		btnGestionarDestinos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionarDestinosView(usuario).setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarDestinos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/destino.png")));
 		btnGestionarDestinos.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarDestinos.setBackground(new Color(240, 255, 255));
 		btnGestionarDestinos.setBounds(382, 197, 202, 52);
 		panel.add(btnGestionarDestinos);
-		
-		
 		
 		//Gestionar Reservas
 		JButton btnGestionarReservas = new JButton("Gestionar Reservas");
@@ -87,6 +99,8 @@ public class AdminMenu extends JFrame {
 		btnGestionarReservas.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarReserva.png")));
 		btnGestionarReservas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new GestionarReservaView(usuario).setVisible(true);
+				dispose();
 			}
 		});
 		btnGestionarReservas.setFont(new Font("Gadugi", Font.PLAIN, 14));
@@ -107,7 +121,7 @@ public class AdminMenu extends JFrame {
 		});
 		btnGestionar.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		
-		//Gestionar Paquetes de viajes
+		//Gestionar vuelos
 		JButton btnGestionarVuelos = new JButton("Gestionar Vuelos");
 		btnGestionarVuelos.setBounds(382, 34, 202, 52);
 		panel.add(btnGestionarVuelos);
@@ -124,6 +138,12 @@ public class AdminMenu extends JFrame {
 		
 		//Ver Reportes
 		JButton btnGestionarPaquetes = new JButton("Gestionar Paquetes");
+		btnGestionarPaquetes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestionarPaqueteView(usuario).setVisible(true);
+				dispose();
+			}
+		});
 		btnGestionarPaquetes.setBounds(382, 116, 202, 52);
 		panel.add(btnGestionarPaquetes);
 		btnGestionarPaquetes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarPaquete.png")));
