@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-12-2025 a las 07:43:38
+-- Tiempo de generación: 13-12-2025 a las 22:41:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `travelease`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `destino`
+--
+
+CREATE TABLE `destino` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `pais` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -148,6 +160,12 @@ INSERT INTO `vuelo` (`id_vuelo`, `codigo`, `origen`, `destino`, `fecha_salida`, 
 --
 
 --
+-- Indices de la tabla `destino`
+--
+ALTER TABLE `destino`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `hotel`
 --
 ALTER TABLE `hotel`
@@ -192,6 +210,12 @@ ALTER TABLE `vuelo`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `destino`
+--
+ALTER TABLE `destino`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel`
