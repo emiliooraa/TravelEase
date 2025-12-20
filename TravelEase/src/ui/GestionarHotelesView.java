@@ -20,6 +20,11 @@ public class GestionarHotelesView extends JFrame {
     private JTextField txtPais;
     private JTextField txtEstrellas;
     private JTable tblHoteles;
+    private JLabel lblErrorNombre;
+    private JLabel lblErrorCiudad;
+    private JLabel lblErrorPais;
+    private JLabel lblErrorEstrella;
+
 
     private int hotelSeleccionadoId = -1;
 
@@ -79,21 +84,21 @@ public class GestionarHotelesView extends JFrame {
         btnGuardar.setBackground(new Color(152, 251, 152));
         btnGuardar.setFont(new Font("Gadugi", Font.PLAIN, 11));
         btnGuardar.setIcon(new ImageIcon(GestionarHotelesView.class.getResource("/img/agregar.png")));
-        btnGuardar.setBounds(370, 80, 120, 30);
+        btnGuardar.setBounds(600, 80, 120, 30);
         panel.add(btnGuardar);
 
         JButton btnEditar = new JButton("Editar");
         btnEditar.setFont(new Font("Gadugi", Font.PLAIN, 11));
         btnEditar.setIcon(new ImageIcon(GestionarHotelesView.class.getResource("/img/boton-editar.png")));
         btnEditar.setBackground(new Color(30, 144, 255));
-        btnEditar.setBounds(370, 120, 120, 30);
+        btnEditar.setBounds(600, 120, 120, 30);
         panel.add(btnEditar);
 
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.setFont(new Font("Gadugi", Font.PLAIN, 11));
         btnEliminar.setBackground(new Color(220, 20, 60));
         btnEliminar.setIcon(new ImageIcon(GestionarHotelesView.class.getResource("/img/eliminar.png")));
-        btnEliminar.setBounds(370, 160, 120, 30);
+        btnEliminar.setBounds(600, 160, 120, 30);
         panel.add(btnEliminar);
 
         //TABLA
@@ -120,6 +125,26 @@ public class GestionarHotelesView extends JFrame {
         btnVolver.setBackground(Color.WHITE);
         btnVolver.setBounds(609, 25, 111, 30);
         panel.add(btnVolver);
+        
+        lblErrorNombre = new JLabel("");
+        lblErrorNombre.setForeground(Color.RED);
+        lblErrorNombre.setBounds(336, 80, 168, 25);
+        panel.add(lblErrorNombre);
+        
+        lblErrorCiudad = new JLabel("");
+        lblErrorCiudad.setForeground(Color.RED);
+        lblErrorCiudad.setBounds(336, 120, 168, 25);
+        panel.add(lblErrorCiudad);
+        
+        lblErrorPais = new JLabel("");
+        lblErrorPais.setForeground(Color.RED);
+        lblErrorPais.setBounds(336, 160, 168, 25);
+        panel.add(lblErrorPais);
+        
+        lblErrorEstrella = new JLabel("");
+        lblErrorEstrella.setForeground(Color.RED);
+        lblErrorEstrella.setBounds(336, 200, 168, 25);
+        panel.add(lblErrorEstrella);
 
         //ACCIONES
         btnGuardar.addActionListener(e -> guardarHotel());
@@ -139,6 +164,9 @@ public class GestionarHotelesView extends JFrame {
     //MÉTODOS
 
     private void guardarHotel() {
+
+        if (!validarFormulario()) return;
+
         String nombre = txtNombre.getText();
         String ciudad = txtCiudad.getText();
         String pais = txtPais.getText();
@@ -151,8 +179,11 @@ public class GestionarHotelesView extends JFrame {
         }
     }
 
+
     private void editarHotel() {
+
         if (hotelSeleccionadoId == -1) return;
+        if (!validarFormulario()) return;
 
         String nombre = txtNombre.getText();
         String ciudad = txtCiudad.getText();
@@ -166,6 +197,7 @@ public class GestionarHotelesView extends JFrame {
             hotelSeleccionadoId = -1;
         }
     }
+
 
     private void eliminarHotel() {
         if (hotelSeleccionadoId == -1) return;
@@ -210,4 +242,48 @@ public class GestionarHotelesView extends JFrame {
         txtPais.setText("");
         txtEstrellas.setText("");
     }
+    private boolean validarFormulario() {
+
+        boolean valido = true;
+
+        // Limpiar errores
+        lblErrorNombre.setText("");
+        lblErrorCiudad.setText("");
+        lblErrorPais.setText("");
+        lblErrorEstrella.setText("");
+
+        if (txtNombre.getText().trim().isEmpty()) {
+            lblErrorNombre.setText("Ingrese nombre");
+            valido = false;
+        }
+
+        if (txtCiudad.getText().trim().isEmpty()) {
+            lblErrorCiudad.setText("Ingrese ciudad");
+            valido = false;
+        }
+
+        if (txtPais.getText().trim().isEmpty()) {
+            lblErrorPais.setText("Ingrese país");
+            valido = false;
+        }
+
+        if (txtEstrellas.getText().trim().isEmpty()) {
+            lblErrorEstrella.setText("Ingrese estrellas");
+            valido = false;
+        } else {
+            try {
+                int estrellas = Integer.parseInt(txtEstrellas.getText());
+                if (estrellas < 1 || estrellas > 5) {
+                    lblErrorEstrella.setText("Debe ser 1 a 5");
+                    valido = false;
+                }
+            } catch (NumberFormatException e) {
+                lblErrorEstrella.setText("Solo números");
+                valido = false;
+            }
+        }
+
+        return valido;
+    }
+
 }
