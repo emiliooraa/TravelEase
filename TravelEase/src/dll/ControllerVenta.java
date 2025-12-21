@@ -111,4 +111,26 @@ public class ControllerVenta {
         }
     }
 
+
+    public static boolean aplicarCodigoDescuento(int idVenta, String codigo) {
+
+    String sql =
+        "UPDATE venta_vuelo v " +
+        "JOIN descuento d ON d.codigo = ? " +
+        "SET v.total = v.total - (v.total * d.porcentaje / 100) " +
+        "WHERE v.id = ? AND d.activo = 1";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, codigo);
+        ps.setInt(2, idVenta);
+
+        return ps.executeUpdate() > 0;
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return false;
+}
+
 }

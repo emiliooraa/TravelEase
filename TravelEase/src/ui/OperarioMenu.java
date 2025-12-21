@@ -88,9 +88,12 @@ public class OperarioMenu extends JFrame {
 		//Gestionar Reserva
 		JButton btnGestionarReserva = new JButton("Gestionar Reserva");
 		btnGestionarReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+    public void actionPerformed(ActionEvent e) {
+        new GestionarReservaOperarioView().setVisible(true);
+        dispose();
+    }
+});
+
 		btnGestionarReserva.setIcon(new ImageIcon(OperarioMenu.class.getResource("/img/gestionarReserva.png")));
 		btnGestionarReserva.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarReserva.setBackground(new Color(240, 255, 255));

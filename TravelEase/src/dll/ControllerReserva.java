@@ -93,4 +93,89 @@ public class ControllerReserva {
             e.printStackTrace();
         }
     }
+
+
+public static Object[] buscarReservaVueloPorId(int idReserva) {
+
+    String sql =
+        "SELECT vv.id, u.nombre, " +
+        "CONCAT(v.origen, ' → ', v.destino) " +
+        "FROM venta_vuelo vv " +
+        "JOIN usuario u ON u.id = vv.id_usuario " +
+        "JOIN vuelo v ON v.id_vuelo = vv.id_vuelo " +
+        "WHERE vv.id = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idReserva);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new Object[] {
+                rs.getInt(1),
+                rs.getString(2),
+                rs.getString(3)
+            };
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
+
+public static void asignarAsiento(int idReserva, String asiento) {
+
+    String sql = "UPDATE venta_vuelo SET asiento = ? WHERE id = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, asiento);
+        ps.setInt(2, idReserva);
+        ps.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+public static Object[] buscarReservaVueloPorId(int idReserva) {
+
+    String sql =
+        "SELECT vv.id, u.nombre, CONCAT(v.origen, ' → ', v.destino) " +
+        "FROM venta_vuelo vv " +
+        "JOIN usuario u ON u.id = vv.id_usuario " +
+        "JOIN vuelo v ON v.id_vuelo = vv.id_vuelo " +
+        "WHERE vv.id = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idReserva);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new Object[]{
+                rs.getInt(1),
+                rs.getString(2),
+                rs.getString(3)
+            };
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
+
+public static void asignarAsiento(int idReserva, String asiento) {
+
+    String sql = "UPDATE venta_vuelo SET asiento=? WHERE id=?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, asiento);
+        ps.setInt(2, idReserva);
+        ps.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+
 }
