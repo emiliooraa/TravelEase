@@ -23,122 +23,123 @@ public class EditarVueloView extends JFrame {
         // CÓDIGO
         JLabel lblCodigo = new JLabel("Código:");
         lblCodigo.setBounds(30, 20, 150, 25);
-        add(lblCodigo);
+        getContentPane().add(lblCodigo);
 
         JTextField txtCodigo = new JTextField(vuelo.getCodigo());
         txtCodigo.setBounds(180, 20, 220, 25);
-        add(txtCodigo);
+        getContentPane().add(txtCodigo);
 
         JLabel lblErrorCodigo = new JLabel("");
         lblErrorCodigo.setForeground(Color.RED);
         lblErrorCodigo.setBounds(180, 45, 250, 20);
-        add(lblErrorCodigo);
+        getContentPane().add(lblErrorCodigo);
 
         // ORIGEN
         JLabel lblOrigen = new JLabel("Origen:");
         lblOrigen.setBounds(30, 80, 150, 25);
-        add(lblOrigen);
+        getContentPane().add(lblOrigen);
 
         JTextField txtOrigen = new JTextField(vuelo.getOrigen());
         txtOrigen.setBounds(180, 80, 220, 25);
-        add(txtOrigen);
+        getContentPane().add(txtOrigen);
 
         JLabel lblErrorOrigen = new JLabel("");
         lblErrorOrigen.setForeground(Color.RED);
         lblErrorOrigen.setBounds(180, 105, 250, 20);
-        add(lblErrorOrigen);
+        getContentPane().add(lblErrorOrigen);
 
         // DESTINO
         JLabel lblDestino = new JLabel("Destino:");
         lblDestino.setBounds(30, 140, 150, 25);
-        add(lblDestino);
+        getContentPane().add(lblDestino);
 
         JTextField txtDestino = new JTextField(vuelo.getDestino());
         txtDestino.setBounds(180, 140, 220, 25);
-        add(txtDestino);
+        getContentPane().add(txtDestino);
 
         JLabel lblErrorDestino = new JLabel("");
         lblErrorDestino.setForeground(Color.RED);
         lblErrorDestino.setBounds(180, 165, 250, 20);
-        add(lblErrorDestino);
+        getContentPane().add(lblErrorDestino);
 
         // AEROLÍNEA
         JLabel lblAero = new JLabel("Aerolínea:");
         lblAero.setBounds(30, 200, 150, 25);
-        add(lblAero);
+        getContentPane().add(lblAero);
 
         JTextField txtAero = new JTextField(vuelo.getAerolinea());
         txtAero.setBounds(180, 200, 220, 25);
-        add(txtAero);
+        getContentPane().add(txtAero);
 
         JLabel lblErrorAero = new JLabel("");
         lblErrorAero.setForeground(Color.RED);
         lblErrorAero.setBounds(180, 225, 250, 20);
-        add(lblErrorAero);
+        getContentPane().add(lblErrorAero);
 
         // FECHA SALIDA
         JLabel lblSalida = new JLabel("Fecha salida:");
         lblSalida.setBounds(30, 260, 150, 25);
-        add(lblSalida);
+        getContentPane().add(lblSalida);
 
         DateTimePicker salidaPicker = new DateTimePicker();
         salidaPicker.setDateTime(vuelo.getFechaSalida());
         salidaPicker.setBounds(40, 290, 350, 60);
-        add(salidaPicker);
+        getContentPane().add(salidaPicker);
 
         JLabel lblErrorSalida = new JLabel("");
         lblErrorSalida.setForeground(Color.RED);
         lblErrorSalida.setBounds(40, 350, 350, 20);
-        add(lblErrorSalida);
+        getContentPane().add(lblErrorSalida);
 
         // FECHA LLEGADA
         JLabel lblLlegada = new JLabel("Fecha llegada:");
         lblLlegada.setBounds(30, 380, 150, 25);
-        add(lblLlegada);
+        getContentPane().add(lblLlegada);
 
         DateTimePicker llegadaPicker = new DateTimePicker();
         llegadaPicker.setDateTime(vuelo.getFechaLlegada());
         llegadaPicker.setBounds(40, 410, 350, 60);
-        add(llegadaPicker);
+        getContentPane().add(llegadaPicker);
 
         JLabel lblErrorLlegada = new JLabel("");
         lblErrorLlegada.setForeground(Color.RED);
         lblErrorLlegada.setBounds(40, 470, 350, 20);
-        add(lblErrorLlegada);
+        getContentPane().add(lblErrorLlegada);
 
         // CAPACIDAD
         JLabel lblCapacidad = new JLabel("Capacidad total:");
         lblCapacidad.setBounds(30, 500, 150, 25);
-        add(lblCapacidad);
+        getContentPane().add(lblCapacidad);
 
         JTextField txtCapacidad = new JTextField(String.valueOf(vuelo.getCapacidadTotal()));
         txtCapacidad.setBounds(180, 500, 220, 25);
-        add(txtCapacidad);
+        getContentPane().add(txtCapacidad);
 
         JLabel lblErrorCapacidad = new JLabel("");
         lblErrorCapacidad.setForeground(Color.RED);
         lblErrorCapacidad.setBounds(180, 525, 250, 20);
-        add(lblErrorCapacidad);
+        getContentPane().add(lblErrorCapacidad);
 
         // DISPONIBLES
         JLabel lblDisp = new JLabel("Asientos disp.:");
         lblDisp.setBounds(30, 560, 150, 25);
-        add(lblDisp);
+        getContentPane().add(lblDisp);
 
         JTextField txtDisponibles = new JTextField(String.valueOf(vuelo.getAsientosDisponibles()));
         txtDisponibles.setBounds(180, 560, 220, 25);
-        add(txtDisponibles);
+        getContentPane().add(txtDisponibles);
 
         JLabel lblErrorDisponibles = new JLabel("");
         lblErrorDisponibles.setForeground(Color.RED);
         lblErrorDisponibles.setBounds(180, 585, 250, 20);
-        add(lblErrorDisponibles);
+        getContentPane().add(lblErrorDisponibles);
 
         //BOTÓN GUARDAR
 
         JButton btnGuardar = new JButton("Guardar cambios");
+        btnGuardar.setBackground(Color.WHITE);
         btnGuardar.setBounds(150, 630, 180, 40);
-        add(btnGuardar);
+        getContentPane().add(btnGuardar);
 
         btnGuardar.addActionListener(e -> {
 
