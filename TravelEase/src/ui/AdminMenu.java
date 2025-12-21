@@ -80,7 +80,7 @@ public class AdminMenu extends JFrame {
 		btnGestionarHoteles.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/hotel.png")));
 		btnGestionarHoteles.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarHoteles.setBackground(new Color(240, 255, 255));
-		btnGestionarHoteles.setBounds(44, 197, 202, 52);
+		btnGestionarHoteles.setBounds(44, 214, 202, 52);
 		panel.add(btnGestionarHoteles);
 		
 		//Gestionar Destinos
@@ -94,12 +94,12 @@ public class AdminMenu extends JFrame {
 		btnGestionarDestinos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/destino.png")));
 		btnGestionarDestinos.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarDestinos.setBackground(new Color(240, 255, 255));
-		btnGestionarDestinos.setBounds(382, 197, 202, 52);
+		btnGestionarDestinos.setBounds(382, 214, 202, 52);
 		panel.add(btnGestionarDestinos);
 		
 		//Gestionar Reservas
 		JButton btnGestionarReservas = new JButton("Gestionar Reservas");
-		btnGestionarReservas.setBounds(44, 116, 202, 52);
+		btnGestionarReservas.setBounds(44, 133, 202, 52);
 		panel.add(btnGestionarReservas);
 		btnGestionarReservas.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarReserva.png")));
 		btnGestionarReservas.addActionListener(new ActionListener() {
@@ -114,7 +114,7 @@ public class AdminMenu extends JFrame {
 		//Gestionar Usuarios
 		JButton btnGestionar = new JButton("Gestionar Usuarios");
 		btnGestionar.setForeground(new Color(0, 0, 0));
-		btnGestionar.setBounds(44, 34, 202, 52);
+		btnGestionar.setBounds(44, 51, 202, 52);
 		panel.add(btnGestionar);
 		btnGestionar.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarUsuario.png")));
 		btnGestionar.setBackground(new Color(240, 255, 255));
@@ -128,7 +128,7 @@ public class AdminMenu extends JFrame {
 		
 		//Gestionar vuelos
 		JButton btnGestionarVuelos = new JButton("Gestionar Vuelos");
-		btnGestionarVuelos.setBounds(382, 34, 202, 52);
+		btnGestionarVuelos.setBounds(382, 51, 202, 52);
 		panel.add(btnGestionarVuelos);
 		btnGestionarVuelos.setToolTipText("Hi, estoy probando");
 		btnGestionarVuelos.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/vuelo.png")));
@@ -149,17 +149,10 @@ public class AdminMenu extends JFrame {
 				dispose();
 			}
 		});
-		btnGestionarPaquetes.setBounds(382, 116, 202, 52);
+		btnGestionarPaquetes.setBounds(382, 133, 202, 52);
 		panel.add(btnGestionarPaquetes);
 		btnGestionarPaquetes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/gestionarPaquete.png")));
 		btnGestionarPaquetes.setFont(new Font("Gadugi", Font.PLAIN, 14));
 		btnGestionarPaquetes.setBackground(new Color(240, 255, 255));
-		
-		JButton btnVerReportes = new JButton("Ver Reportes");
-		btnVerReportes.setIcon(new ImageIcon(AdminMenu.class.getResource("/img/reporte.png")));
-		btnVerReportes.setFont(new Font("Gadugi", Font.PLAIN, 14));
-		btnVerReportes.setBackground(new Color(240, 255, 255));
-		btnVerReportes.setBounds(208, 278, 202, 52);
-		panel.add(btnVerReportes);
 	}
 }
