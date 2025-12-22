@@ -1,97 +1,122 @@
 package bll;
 
+import java.sql.Timestamp;
+
 public class Reserva {
 
-
-    private static int contador = 1;
-
-    private int id;
+    private int idReserva;
     private Usuario cliente;
-    private Vuelo vuelo;
-    private Hotel hotel;
-    private Paquete paquete;
-    private boolean cancelada;
 
+    private String tipo; // Tipo de reserva: VUELO / HOTEL / PAQUETE
 
-    public Reserva(int id, Usuario cliente, Vuelo vuelo, Hotel hotel, Paquete paquete, boolean cancelada) {
-        this.id = id;
-        this.cliente = cliente;
-        this.vuelo = vuelo;
-        this.hotel = hotel;
-        this.paquete = paquete;
-        this.cancelada = cancelada;
-    }
+    private Integer idVuelo;
+    private Integer idHotel;
+    private Integer idPaquete;
 
-
-    public Reserva(Usuario cliente, Vuelo vuelo, Hotel hotel, Paquete paquete, boolean cancelada) {
-        this.id = contador++;        
-        this.cliente = cliente;
-        this.vuelo = vuelo;
-        this.hotel = hotel;
-        this.paquete = paquete;
-        this.cancelada = cancelada;
-    }
-
+    private Timestamp fechaReserva;
+    private String estado; // PENDIENTE / CANCELADA
 
     public Reserva() {
-        this.id = contador++;           
-        this.cancelada = false;          
     }
 
-    
-    public int getId() {
-        return id;
+    public Reserva(int idReserva, Usuario cliente, String tipo,
+                   Integer idVuelo, Integer idHotel, Integer idPaquete,
+                   Timestamp fechaReserva, String estado) {
+
+        this.idReserva = idReserva;
+        this.cliente = cliente;
+        this.tipo = tipo;
+        this.idVuelo = idVuelo;
+        this.idHotel = idHotel;
+        this.idPaquete = idPaquete;
+        this.fechaReserva = fechaReserva;
+        this.estado = estado;
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public int getIdReserva() {
+        return idReserva;
     }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+
     public Usuario getCliente() {
         return cliente;
     }
+
     public void setCliente(Usuario cliente) {
         this.cliente = cliente;
     }
-    public Vuelo getVuelo() {
-        return vuelo;
-    }
-    public void setVuelo(Vuelo vuelo) {
-        this.vuelo = vuelo;
-    }
-    public Hotel getHotel() {
-        return hotel;
-    }
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-    public Paquete getPaquete() {
-        return paquete;
-    }
-    public void setPaquete(Paquete paquete) {
-        this.paquete = paquete;
-    }
-    public boolean isCancelada() {
-        return cancelada;
-    }
-    public void setCancelada(boolean cancelada) {
-        this.cancelada = cancelada;
+
+    public String getTipo() {
+        return tipo;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Integer getIdVuelo() {
+        return idVuelo;
+    }
+
+    public void setIdVuelo(Integer idVuelo) {
+        this.idVuelo = idVuelo;
+    }
+
+    public Integer getIdHotel() {
+        return idHotel;
+    }
+
+    public void setIdHotel(Integer idHotel) {
+        this.idHotel = idHotel;
+    }
+
+    public Integer getIdPaquete() {
+        return idPaquete;
+    }
+
+    public void setIdPaquete(Integer idPaquete) {
+        this.idPaquete = idPaquete;
+    }
+
+    public Timestamp getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(Timestamp fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    //LÓGICA
+
+    public boolean isCancelada() {
+        return "CANCELADA".equalsIgnoreCase(estado);
+    }
 
     public boolean isActiva() {
-        return !cancelada;
+        return !isCancelada();
     }
 
     public void cancelar() {
-        this.cancelada = true;
+        this.estado = "CANCELADA";
     }
 
     @Override
     public String toString() {
-        return "Reserva [id=" + id 
-                + ", cliente=" + cliente 
-                + ", vuelo=" + vuelo 
-                + ", hotel=" + hotel 
-                + ", paquete=" + paquete 
-                + ", cancelada=" + cancelada + "]";
+        return "Reserva [id=" + idReserva +
+               ", cliente=" + cliente +
+               ", tipo=" + tipo +
+               ", estado=" + estado +
+               ", fecha=" + fechaReserva + "]";
     }
 }

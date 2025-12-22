@@ -2,6 +2,7 @@ package ui;
 
 import dll.ControllerReserva;
 import bll.Reserva;
+import bll.Usuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +15,7 @@ public class GestionarReservaOperarioView extends JFrame {
     private DefaultTableModel modeloTabla;
     private ControllerReserva controllerReserva;
 
-    public GestionarReservaOperarioView() {
+    public GestionarReservaOperarioView(Usuario usuario) {
         controllerReserva = new ControllerReserva();
         initComponents();
         cargarReservas();

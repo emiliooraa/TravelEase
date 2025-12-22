@@ -1,6 +1,6 @@
 package dll;
 
-import model.Reserva;
+import bll.Reserva;
 import java.util.List;
 
 public class ControllerCliente {

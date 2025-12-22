@@ -3,6 +3,7 @@ package dll;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -111,5 +112,18 @@ public class ControllerPaquete {
         }
 
         return lista;
+    }
+    public static void guardarPaquete(Paquete paquete) throws SQLException {
+        String sql = "INSERT INTO paquetes (id_vuelo, id_hotel) VALUES (?, ?)";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            Vuelo vuelo = paquete.getVuelo();
+            Hotel hotel = paquete.getHotel();
+
+            ps.setInt(1, vuelo.getId());
+            ps.setInt(2, hotel.getId());
+
+            ps.executeUpdate();
+        }
     }
 }

@@ -89,7 +89,7 @@ public class OperarioMenu extends JFrame {
 		JButton btnGestionarReserva = new JButton("Gestionar Reserva");
 		btnGestionarReserva.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
-        new GestionarReservaOperarioView().setVisible(true);
+        new GestionarReservaOperarioView(usuario).setVisible(true);
         dispose();
     }
 });

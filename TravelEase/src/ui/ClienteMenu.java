@@ -1,28 +1,20 @@
 package ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import bll.Usuario;
-import java.awt.SystemColor;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.Console;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 
 public class ClienteMenu extends JFrame {
 
-    private Usuario usuario;
+    private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private Usuario usuario;
 
     public ClienteMenu(Usuario usuario) {
         this.usuario = usuario;

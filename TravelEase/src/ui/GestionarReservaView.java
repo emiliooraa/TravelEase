@@ -8,6 +8,8 @@ import bll.Usuario;
 import java.awt.*;
 
 import dll.ControllerReserva;
+import dll.ControllerVenta;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -87,14 +89,14 @@ public class GestionarReservaView extends JFrame {
 
     private void cargarReservasVuelos() {
         modelVuelos.setRowCount(0);
-        for (Object[] fila : ControllerReserva.listarReservasVuelo()) {
+        for (Object[] fila : ControllerVenta.listarReservasVuelo()) {
             modelVuelos.addRow(fila);
         }
     }
 
     private void cargarReservasHoteles() {
         modelHoteles.setRowCount(0);
-        for (Object[] fila : ControllerReserva.listarReservasHotel()) {
+        for (Object[] fila : ControllerVenta.listarReservasHotel()) {
             modelHoteles.addRow(fila);
         }
     }
@@ -109,7 +111,7 @@ public class GestionarReservaView extends JFrame {
             }
 
             int id = (int) modelVuelos.getValueAt(row, 0);
-            ControllerReserva.eliminarReservaVuelo(id);
+            ControllerVenta.eliminarReservaVuelo(id);
             cargarReservasVuelos();
 
         } else { // HOTELES
@@ -120,7 +122,7 @@ public class GestionarReservaView extends JFrame {
             }
 
             int id = (int) modelHoteles.getValueAt(row, 0);
-            ControllerReserva.eliminarReservaHotel(id);
+            ControllerVenta.eliminarReservaHotel(id);
             cargarReservasHoteles();
         }
     }
