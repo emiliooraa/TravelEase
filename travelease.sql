@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 13-12-2025 a las 22:41:44
+-- Tiempo de generación: 22-12-2025 a las 01:19:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,6 +33,18 @@ CREATE TABLE `destino` (
   `pais` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `destino`
+--
+
+INSERT INTO `destino` (`id`, `nombre`, `pais`) VALUES
+(1, 'Rio de Janeiro', 'Brasil'),
+(2, 'Madrid', 'España'),
+(3, 'Lima', 'Peru'),
+(4, 'Roma', 'Italia'),
+(5, 'Dubái', 'Emiratos Árabes Unidos'),
+(6, 'Miami', 'Estados Unidos');
+
 -- --------------------------------------------------------
 
 --
@@ -56,15 +68,16 @@ INSERT INTO `hotel` (`id`, `nombre`, `ciudad`, `pais`, `estrellas`) VALUES
 (2, 'Gran Palace', 'Lima', 'Perú', 4),
 (3, 'Resort Playa', 'Cancún', 'México', 5),
 (4, 'City Business Hotel', 'Buenos Aires', 'Argentina', 4),
-(5, 'Roma Antica', 'Roma', 'Italia', 3);
+(5, 'Roma Antica', 'Roma', 'Italia', 3),
+(6, 'Hotel Hilton', 'Buenos Aires', 'Argentina', 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `paquetes`
+-- Estructura de tabla para la tabla `paquete`
 --
 
-CREATE TABLE `paquetes` (
+CREATE TABLE `paquete` (
   `id_paquete` int(11) NOT NULL,
   `id_vuelo` int(11) NOT NULL,
   `id_hotel` int(11) NOT NULL
@@ -150,10 +163,10 @@ CREATE TABLE `vuelo` (
 
 INSERT INTO `vuelo` (`id_vuelo`, `codigo`, `origen`, `destino`, `fecha_salida`, `fecha_llegada`, `aerolinea`, `asientos_disponibles`, `capacidad_total`) VALUES
 (1, 'AR123', 'Buenos Aires', 'Madrid', '2025-12-15 10:00:00', '2025-12-15 23:30:00', 'Aerolíneas Argentinas', 0, 180),
-(2, 'LA456', 'Santiago', 'Lima', '2025-12-20 08:30:00', '2025-12-20 11:00:00', 'LATAM', 0, 180),
+(2, 'LA456', 'Santiago', 'Lima', '2025-12-20 08:30:00', '2025-12-20 11:00:00', 'LATAM', 2, 180),
 (3, 'IB789', 'Madrid', 'Roma', '2025-12-22 14:00:00', '2025-12-22 16:30:00', 'Iberia', 0, 180),
 (4, 'AA010', 'Buenos Aires', 'Miami', '2025-12-25 22:00:00', '2025-12-26 06:00:00', 'American Airlines', 0, 180),
-(5, 'EK777', 'Buenos Aires', 'Dubái', '2026-01-05 21:00:00', '2026-01-06 22:00:00', 'Emirates', 0, 180);
+(5, 'EK777', 'Buenos Aires', 'Roma', '2026-01-05 21:00:00', '2026-01-06 22:00:00', 'Emirates', 0, 180);
 
 --
 -- Índices para tablas volcadas
@@ -172,9 +185,9 @@ ALTER TABLE `hotel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `paquetes`
+-- Indices de la tabla `paquete`
 --
-ALTER TABLE `paquetes`
+ALTER TABLE `paquete`
   ADD PRIMARY KEY (`id_paquete`),
   ADD KEY `idx_paquetes_vuelo` (`id_vuelo`),
   ADD KEY `idx_paquetes_hotel` (`id_hotel`);
@@ -215,19 +228,19 @@ ALTER TABLE `vuelo`
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `paquetes`
+-- AUTO_INCREMENT de la tabla `paquete`
 --
-ALTER TABLE `paquetes`
-  MODIFY `id_paquete` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `paquete`
+  MODIFY `id_paquete` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -258,9 +271,9 @@ ALTER TABLE `vuelo`
 --
 
 --
--- Filtros para la tabla `paquetes`
+-- Filtros para la tabla `paquete`
 --
-ALTER TABLE `paquetes`
+ALTER TABLE `paquete`
   ADD CONSTRAINT `fk_paquete_hotel` FOREIGN KEY (`id_hotel`) REFERENCES `hotel` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_paquete_vuelo` FOREIGN KEY (`id_vuelo`) REFERENCES `vuelo` (`id_vuelo`) ON UPDATE CASCADE;
 
