@@ -18,45 +18,46 @@ public class AgregarDestinoView extends JFrame {
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
 
-        JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setBounds(30, 40, 150, 20);
-        add(lblNombre);
+        JLabel lblCiudad = new JLabel("Ciudad:");
+        lblCiudad.setBounds(30, 40, 150, 20);
+        getContentPane().add(lblCiudad);
 
-        JTextField txtNombre = new JTextField();
-        txtNombre.setBounds(30, 65, 300, 25);
-        add(txtNombre);
+        JTextField txtCiudad = new JTextField();
+        txtCiudad.setBounds(30, 65, 300, 25);
+        getContentPane().add(txtCiudad);
 
-        JLabel errNombre = new JLabel("");
-        errNombre.setBounds(30, 90, 300, 15);
-        errNombre.setForeground(Color.RED);
-        add(errNombre);
+        JLabel errCiudad = new JLabel("");
+        errCiudad.setBounds(30, 90, 300, 15);
+        errCiudad.setForeground(Color.RED);
+        getContentPane().add(errCiudad);
 
         JLabel lblPais = new JLabel("País:");
         lblPais.setBounds(30, 120, 150, 20);
-        add(lblPais);
+        getContentPane().add(lblPais);
 
         JTextField txtPais = new JTextField();
         txtPais.setBounds(30, 145, 300, 25);
-        add(txtPais);
+        getContentPane().add(txtPais);
 
         JLabel errPais = new JLabel("");
         errPais.setBounds(30, 170, 300, 15);
         errPais.setForeground(Color.RED);
-        add(errPais);
+        getContentPane().add(errPais);
 
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.setBounds(120, 220, 150, 35);
-        add(btnGuardar);
+        btnGuardar.setBackground(Color.WHITE);
+        getContentPane().add(btnGuardar);
 
         btnGuardar.addActionListener(e -> {
 
-            errNombre.setText("");
+            errCiudad.setText("");
             errPais.setText("");
 
             boolean valido = true;
 
-            if (txtNombre.getText().trim().isEmpty()) {
-                errNombre.setText("Ingrese un nombre.");
+            if (txtCiudad.getText().trim().isEmpty()) {
+                errCiudad.setText("Ingrese una ciudad.");
                 valido = false;
             }
 
@@ -67,7 +68,7 @@ public class AgregarDestinoView extends JFrame {
 
             if (!valido) return;
 
-            boolean ok = ControllerDestino.crearDestino(txtNombre.getText(), txtPais.getText());
+            boolean ok = ControllerDestino.crearDestino(txtCiudad.getText(), txtPais.getText());
 
             if (ok) {
                 JOptionPane.showMessageDialog(null, "Destino agregado correctamente.");

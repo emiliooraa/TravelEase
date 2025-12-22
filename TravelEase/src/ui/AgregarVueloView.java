@@ -1,6 +1,8 @@
 package ui;
 
 import javax.swing.*;
+import bll.Destino;
+import dll.ControllerDestino;
 import components.DateTimePicker;
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -52,9 +54,13 @@ public class AgregarVueloView extends JFrame {
         lblDestino.setBounds(30, 140, 150, 25);
         getContentPane().add(lblDestino);
 
-        JTextField txtDestino = new JTextField();
-        txtDestino.setBounds(180, 140, 220, 25);
-        getContentPane().add(txtDestino);
+        JComboBox<Destino> cmbDestino = new JComboBox<>();
+        cmbDestino.setBounds(180, 140, 220, 25);
+        getContentPane().add(cmbDestino);
+        for (Destino d : ControllerDestino.listarDestinos()) {
+            cmbDestino.addItem(d);
+        }
+
 
         JLabel lblErrorDestino = new JLabel("");
         lblErrorDestino.setForeground(Color.RED);
@@ -165,8 +171,10 @@ public class AgregarVueloView extends JFrame {
             }
 
             // Validar destino
-            if (txtDestino.getText().trim().length() < 3) {
-                lblErrorDestino.setText("Ingrese un destino válido");
+            Destino destinoSeleccionado = (Destino) cmbDestino.getSelectedItem();
+
+            if (destinoSeleccionado == null) {
+                lblErrorDestino.setText("Seleccione un destino");
                 valido = false;
             }
 
@@ -227,13 +235,15 @@ public class AgregarVueloView extends JFrame {
             boolean ok = ControllerVuelo.crearVuelo(
                     txtCodigo.getText(),
                     txtOrigen.getText(),
-                    txtDestino.getText(),
+                    destinoSeleccionado.getNombre(),
                     salida,
                     llegada,
                     txtAero.getText(),
                     capacidad,
                     disponibles
             );
+
+
 
             if (ok) {
                 JOptionPane.showMessageDialog(null, "Vuelo creado correctamente.");

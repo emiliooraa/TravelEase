@@ -7,7 +7,7 @@ public class Destino {
     
     public Destino(int id, String nombre, String pais) {
     	this.id = id;
-    	this.nombre = nombre;
+    	this.nombre = nombre; //Seria Ciudad
     	this.pais = pais;
     }
     private String pais;
@@ -31,8 +31,9 @@ public class Destino {
 	}
 	@Override
 	public String toString() {
-		return "Destino [id=" + id + ", nombre=" + nombre + ", pais=" + pais + "]";
+	    return nombre + " - " + pais;
 	}
+
 	
     
 }

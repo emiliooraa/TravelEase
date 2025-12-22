@@ -28,8 +28,9 @@ public class GestionarVuelosView extends JFrame {
         getContentPane().setLayout(null);
 
         JLabel titulo = new JLabel("Gestión de Vuelos - " + usuario.getNombre());
+        titulo.setForeground(new Color(25, 25, 112));
         titulo.setBounds(20, 20, 400, 30);
-        titulo.setFont(new Font("Gadugi", Font.BOLD, 20));
+        titulo.setFont(new Font("Gadugi", Font.BOLD, 19));
         getContentPane().add(titulo);
 
         // BOTÓN VOLVER

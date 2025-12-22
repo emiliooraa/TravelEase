@@ -79,6 +79,7 @@ public class AgregarUsuarioView extends JFrame {
         getContentPane().add(lblRol);
 
         JComboBox<String> comboRol = new JComboBox<>();
+        comboRol.setBackground(Color.WHITE);
         comboRol.addItem("ADMIN");
         comboRol.addItem("CLIENTE");
         comboRol.addItem("MANAGER");
@@ -87,6 +88,7 @@ public class AgregarUsuarioView extends JFrame {
         getContentPane().add(comboRol);
 
         JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.setBackground(Color.WHITE);
         btnGuardar.setBounds(107, 310, 120, 30);
         getContentPane().add(btnGuardar);
 

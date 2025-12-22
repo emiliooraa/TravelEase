@@ -84,7 +84,7 @@ public class GestionarPaqueteView extends JFrame {
         });
         btnVolver.setBackground(Color.WHITE);
         btnVolver.setIcon(new ImageIcon(GestionarPaqueteView.class.getResource("/img/home.png")));
-        btnVolver.setBounds(680, 20, 50, 35);
+        btnVolver.setBounds(665, 20, 65, 35);
         panel.add(btnVolver);
         
         // 🔹 TABLA

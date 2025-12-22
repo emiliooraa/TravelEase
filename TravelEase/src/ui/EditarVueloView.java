@@ -4,8 +4,11 @@ import javax.swing.*;
 import components.DateTimePicker;
 import java.awt.*;
 import java.time.LocalDateTime;
+
 import bll.Vuelo;
+import bll.Destino;
 import dll.ControllerVuelo;
+import dll.ControllerDestino;
 
 public class EditarVueloView extends JFrame {
 
@@ -20,7 +23,7 @@ public class EditarVueloView extends JFrame {
         setLocationRelativeTo(null);
         getContentPane().setLayout(null);
 
-        // CÓDIGO
+        //CÓDIGO
         JLabel lblCodigo = new JLabel("Código:");
         lblCodigo.setBounds(30, 20, 150, 25);
         getContentPane().add(lblCodigo);
@@ -34,7 +37,7 @@ public class EditarVueloView extends JFrame {
         lblErrorCodigo.setBounds(180, 45, 250, 20);
         getContentPane().add(lblErrorCodigo);
 
-        // ORIGEN
+        //ORIGEN
         JLabel lblOrigen = new JLabel("Origen:");
         lblOrigen.setBounds(30, 80, 150, 25);
         getContentPane().add(lblOrigen);
@@ -48,21 +51,35 @@ public class EditarVueloView extends JFrame {
         lblErrorOrigen.setBounds(180, 105, 250, 20);
         getContentPane().add(lblErrorOrigen);
 
-        // DESTINO
+        //DESTINO
         JLabel lblDestino = new JLabel("Destino:");
         lblDestino.setBounds(30, 140, 150, 25);
         getContentPane().add(lblDestino);
 
-        JTextField txtDestino = new JTextField(vuelo.getDestino());
-        txtDestino.setBounds(180, 140, 220, 25);
-        getContentPane().add(txtDestino);
+        JComboBox<Destino> cmbDestino = new JComboBox<>();
+        cmbDestino.setBounds(180, 140, 220, 25);
+        getContentPane().add(cmbDestino);
 
         JLabel lblErrorDestino = new JLabel("");
         lblErrorDestino.setForeground(Color.RED);
         lblErrorDestino.setBounds(180, 165, 250, 20);
         getContentPane().add(lblErrorDestino);
 
-        // AEROLÍNEA
+        //cargar destinos desde la BDD
+        for (Destino d : ControllerDestino.listarDestinos()) {
+            cmbDestino.addItem(d);
+        }
+
+        //selecciona el destino actual del vuelo
+        for (int i = 0; i < cmbDestino.getItemCount(); i++) {
+            if (cmbDestino.getItemAt(i).getNombre().equals(vuelo.getDestino())) {
+                cmbDestino.setSelectedIndex(i);
+                break;
+            }
+        }
+
+
+        //AEROLÍNEA
         JLabel lblAero = new JLabel("Aerolínea:");
         lblAero.setBounds(30, 200, 150, 25);
         getContentPane().add(lblAero);
@@ -76,12 +93,13 @@ public class EditarVueloView extends JFrame {
         lblErrorAero.setBounds(180, 225, 250, 20);
         getContentPane().add(lblErrorAero);
 
-        // FECHA SALIDA
+        //FECHA SALIDA
         JLabel lblSalida = new JLabel("Fecha salida:");
         lblSalida.setBounds(30, 260, 150, 25);
         getContentPane().add(lblSalida);
 
         DateTimePicker salidaPicker = new DateTimePicker();
+        salidaPicker.setBackground(Color.WHITE);
         salidaPicker.setDateTime(vuelo.getFechaSalida());
         salidaPicker.setBounds(40, 290, 350, 60);
         getContentPane().add(salidaPicker);
@@ -91,12 +109,13 @@ public class EditarVueloView extends JFrame {
         lblErrorSalida.setBounds(40, 350, 350, 20);
         getContentPane().add(lblErrorSalida);
 
-        // FECHA LLEGADA
+        //FECHA LLEGADA
         JLabel lblLlegada = new JLabel("Fecha llegada:");
         lblLlegada.setBounds(30, 380, 150, 25);
         getContentPane().add(lblLlegada);
 
         DateTimePicker llegadaPicker = new DateTimePicker();
+        llegadaPicker.setBackground(Color.WHITE);
         llegadaPicker.setDateTime(vuelo.getFechaLlegada());
         llegadaPicker.setBounds(40, 410, 350, 60);
         getContentPane().add(llegadaPicker);
@@ -106,7 +125,7 @@ public class EditarVueloView extends JFrame {
         lblErrorLlegada.setBounds(40, 470, 350, 20);
         getContentPane().add(lblErrorLlegada);
 
-        // CAPACIDAD
+        //CAPACIDAD
         JLabel lblCapacidad = new JLabel("Capacidad total:");
         lblCapacidad.setBounds(30, 500, 150, 25);
         getContentPane().add(lblCapacidad);
@@ -120,7 +139,7 @@ public class EditarVueloView extends JFrame {
         lblErrorCapacidad.setBounds(180, 525, 250, 20);
         getContentPane().add(lblErrorCapacidad);
 
-        // DISPONIBLES
+        //DISPONIBLES
         JLabel lblDisp = new JLabel("Asientos disp.:");
         lblDisp.setBounds(30, 560, 150, 25);
         getContentPane().add(lblDisp);
@@ -135,7 +154,6 @@ public class EditarVueloView extends JFrame {
         getContentPane().add(lblErrorDisponibles);
 
         //BOTÓN GUARDAR
-
         JButton btnGuardar = new JButton("Guardar cambios");
         btnGuardar.setBackground(Color.WHITE);
         btnGuardar.setBounds(150, 630, 180, 40);
@@ -155,7 +173,6 @@ public class EditarVueloView extends JFrame {
 
             boolean valido = true;
 
-            // VALIDACIONES
             if (txtCodigo.getText().trim().length() < 3) {
                 lblErrorCodigo.setText("El código debe tener mínimo 3 caracteres");
                 valido = false;
@@ -166,8 +183,9 @@ public class EditarVueloView extends JFrame {
                 valido = false;
             }
 
-            if (txtDestino.getText().trim().length() < 3) {
-                lblErrorDestino.setText("Ingrese un destino válido");
+            Destino destinoSeleccionado = (Destino) cmbDestino.getSelectedItem();
+            if (destinoSeleccionado == null) {
+                lblErrorDestino.setText("Seleccione un destino");
                 valido = false;
             }
 
@@ -194,38 +212,37 @@ public class EditarVueloView extends JFrame {
                 valido = false;
             }
 
-            int capacidad = 0;
+            int capacidad;
             try {
                 capacidad = Integer.parseInt(txtCapacidad.getText());
                 if (capacidad <= 0) {
                     lblErrorCapacidad.setText("Capacidad debe ser > 0");
-                    valido = false;
+                    return;
                 }
             } catch (Exception ex) {
                 lblErrorCapacidad.setText("Ingrese un número válido");
-                valido = false;
+                return;
             }
 
-            int disponibles = 0;
+            int disponibles;
             try {
                 disponibles = Integer.parseInt(txtDisponibles.getText());
                 if (disponibles < 0 || disponibles > capacidad) {
                     lblErrorDisponibles.setText("Disponibles debe ser entre 0 y capacidad");
-                    valido = false;
+                    return;
                 }
             } catch (Exception ex) {
                 lblErrorDisponibles.setText("Ingrese un número válido");
-                valido = false;
+                return;
             }
 
             if (!valido) return;
 
-            // GUARDAR CAMBIOS
             boolean ok = ControllerVuelo.editarVuelo(
                     vuelo.getId(),
                     txtCodigo.getText(),
                     txtOrigen.getText(),
-                    txtDestino.getText(),
+                    destinoSeleccionado.getNombre(), 
                     salida,
                     llegada,
                     txtAero.getText(),

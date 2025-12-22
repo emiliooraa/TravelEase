@@ -42,7 +42,7 @@ public class GestionarDestinosView extends JFrame {
         getContentPane().add(btnVolver);
 
         // Tabla
-        model = new DefaultTableModel(new String[]{"ID", "Nombre", "País"}, 0);
+        model = new DefaultTableModel(new String[]{"ID", "Ciudad", "País"}, 0);
         table = new JTable(model);
         JScrollPane scroll = new JScrollPane(table);
         scroll.setBounds(20, 60, 740, 280);

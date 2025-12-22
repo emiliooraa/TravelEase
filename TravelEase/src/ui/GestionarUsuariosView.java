@@ -47,9 +47,9 @@ public class GestionarUsuariosView extends JFrame {
 
         // Título
         JLabel lblTitulo = new JLabel("Panel de Gestión de Usuarios - " + usuario.getNombre());
-        lblTitulo.setForeground(Color.BLACK);
+        lblTitulo.setForeground(new Color(25, 25, 112));
         lblTitulo.setBounds(20, 1, 400, 56);
-        lblTitulo.setFont(new Font("Gadugi", Font.PLAIN, 15));
+        lblTitulo.setFont(new Font("Gadugi", Font.BOLD, 18));
         contentPane.add(lblTitulo);
 
         // Cerrar sesión

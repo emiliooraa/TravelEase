@@ -44,7 +44,7 @@ public class EditarUsuarioView extends JFrame {
 
         JLabel lblTitulo = new JLabel("Editar Usuario: " + usuario.getNombre());
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblTitulo.setBounds(30, 11, 273, 30);
+        lblTitulo.setBounds(30, 11, 274, 30);
         getContentPane().add(lblTitulo);
 
         JLabel lblNombre = new JLabel("Nombre:");
@@ -115,6 +115,7 @@ public class EditarUsuarioView extends JFrame {
         getContentPane().add(comboRol);
 
         JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.setBackground(Color.WHITE);
         btnGuardar.setBounds(107, 310, 120, 30);
         getContentPane().add(btnGuardar);
 
